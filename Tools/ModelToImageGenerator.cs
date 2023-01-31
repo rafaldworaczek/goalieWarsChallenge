@@ -162,12 +162,17 @@ public class ModelToImageGenerator : MonoBehaviour
 "skin_9_5_2_9"
     };
 
+    public Animator anim;
     void Start()
     {
-        graphics = new GraphicsCommon();
-        flare.Play();
 
-        copyFiles();
+        anim.speed = 0.0001f;
+        anim.Play("3D_volley", 0, 0.19f);
+
+        graphics = new GraphicsCommon();
+        //flare.Play();
+
+        //copyFiles();
         //DirectoryInfo dir = new DirectoryInfo("Assets/Resources/skin");
         //FileInfo[] info = dir.GetFiles("*.*");
         //foreach (FileInfo file in info)
@@ -182,7 +187,7 @@ public class ModelToImageGenerator : MonoBehaviour
         //toTexture2D(rt);
 
 
-        toTexture2D(rt, Path.GetFileNameWithoutExtension("powersilverBallx2"));
+        ///toTexture2D(rt, Path.GetFileNameWithoutExtension("powersilverBallx2"));
 
     }
 
@@ -195,7 +200,7 @@ public class ModelToImageGenerator : MonoBehaviour
             //toTexture2D(rt);
             if (!isDone)
             {
-                StartCoroutine(createPngs(5));
+                StartCoroutine(createPngs(3));
                 isDone = true;
             }
     }
@@ -219,7 +224,7 @@ public class ModelToImageGenerator : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
 
-        toTexture2D(rt, Path.GetFileNameWithoutExtension("powersilverBallx2"));
+        toTexture2D(rt, Path.GetFileNameWithoutExtension("iconoutput"));
 
         yield break;
 
@@ -373,7 +378,7 @@ public class ModelToImageGenerator : MonoBehaviour
         tex.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
         tex.Apply();
 
-        System.IO.File.WriteAllBytes("C:/Users/dwo/playerCards/" + fileName + ".png", tex.EncodeToPNG());
+        System.IO.File.WriteAllBytes("C:/Users/dwo/icons/" + fileName + ".png", tex.EncodeToPNG());
         RenderTexture.active = oldRT;
         return null;
     }

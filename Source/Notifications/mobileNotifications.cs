@@ -21,8 +21,14 @@ public class mobileNotifications : MonoBehaviour
         var notification1 = new AndroidNotification();
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification1.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification1.Title = "Goalie Wars Football Street";
+        }
         else
+        {
             notification1.Title = "Goalie Wars Football Online";
+        }
 
         notification1.Text = "Ready to win the next match?";
         notification1.FireTime = System.DateTime.Now.AddMinutes(60);
@@ -31,7 +37,13 @@ public class mobileNotifications : MonoBehaviour
         var notification2 = new AndroidNotification();
 
         if (Globals.PITCHTYPE.Equals("INDOOR"))
+        {
             notification2.Title = "Goalie Wars Football Indoor";
+        }
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification2.Title = "Goalie Wars Football Street";
+        }
         else
             notification2.Title = "Goalie Wars Football Online";
 
@@ -44,6 +56,10 @@ public class mobileNotifications : MonoBehaviour
 
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification3.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification3.Title = "Goalie Wars Football Street";
+        }
         else
             notification3.Title = "Goalie Wars Football Online";
 
@@ -55,6 +71,10 @@ public class mobileNotifications : MonoBehaviour
         var notification4 = new AndroidNotification();
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification4.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification4.Title = "Goalie Wars Football Street";
+        }
         else
             notification4.Title = "Goalie Wars Football Online";
 
@@ -66,6 +86,10 @@ public class mobileNotifications : MonoBehaviour
         var notification5 = new AndroidNotification();
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification5.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification5.Title = "Goalie Wars Football Street";
+        }
         else
             notification5.Title = "Goalie Wars Football Online";
 
@@ -78,6 +102,10 @@ public class mobileNotifications : MonoBehaviour
 
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification6.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification6.Title = "Goalie Wars Football Street";
+        }
         else
             notification6.Title = "Goalie Wars Football Online";
 
@@ -89,6 +117,10 @@ public class mobileNotifications : MonoBehaviour
 
         if (Globals.PITCHTYPE.Equals("INDOOR"))
             notification7.Title = "Goalie Wars Football Indoor";
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            notification7.Title = "Goalie Wars Football Street";
+        }
         else
             notification7.Title = "Goalie Wars Football Online";
 

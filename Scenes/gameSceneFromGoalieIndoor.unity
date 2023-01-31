@@ -23442,7 +23442,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 5db549e84796fd340bef6c66b4b0f046, type: 3}
+  m_Texture: {fileID: 2800000, guid: 1dc17740b0077864e917280e15a4ad38, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -40279,7 +40279,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 5c2ed922d2b3ded4394ab1d1b95f8e0f, type: 3}
+  m_Texture: {fileID: 2800000, guid: 5b882eb4816026d488b7887e2e7b6a9d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -60736,6 +60736,13 @@ MonoBehaviour:
   goalDownFlare:
   - {fileID: 9447376}
   - {fileID: 1601222415}
+  flareParticle: []
+  extraGrounds: []
+  playerRenderer: []
+  hairRenderer: []
+  ballRenderer: {fileID: 0}
+  invisibility: []
+  snowParticle: []
 --- !u!1001 &1350378376
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70127,6 +70134,7 @@ MonoBehaviour:
   goalDownLastTimeHitPosts: 0
   goalUpCornertLastTimeHit: 0
   goalDownCornertLastTimeHit: 0
+  powersScript: {fileID: 0}
 --- !u!54 &1573683643
 Rigidbody:
   m_ObjectHideFlags: 0

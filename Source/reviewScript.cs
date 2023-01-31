@@ -82,7 +82,10 @@ public class reviewScript : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("INDOOR"))
         {
             Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieWarsFootbalIndoor");
-        } else
+        } else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieWarsFootbalIndoor");
+        }
         {
             Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball");
         }

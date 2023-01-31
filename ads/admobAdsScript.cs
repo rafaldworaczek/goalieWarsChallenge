@@ -47,6 +47,13 @@ public class admobAdsScript : MonoBehaviour
                 MobileAds.Initialize("ca-app-pub-4281391536440718~6866202819");
             else
                 MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
+        } 
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            if (!isAdTestEnable)
+                MobileAds.Initialize("ca-app-pub-4281391536440718~3490000901");
+            else
+                MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
         }
         else
         {
@@ -61,13 +68,39 @@ public class admobAdsScript : MonoBehaviour
     {    
         //print("DEBUGADMONB1 banner request");
         string adUnitId  = "";
-     
 
-        if (Globals.PITCHTYPE.Equals("INDOOR")) {
+
+        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        {
             if (!isAdTestEnable)
             {
                 #if UNITY_ANDROID
-                    adUnitId = "ca-app-pub-4281391536440718/4501207002";
+                adUnitId = "ca-app-pub-4281391536440718/4501207002";
+                #elif UNITY_IPHONE
+                    adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                #else   
+                    adUnitId = "unexpected_platform";
+                #endif
+            }
+            else
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-3940256099942544/6300978111";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+
+        }
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+
+            if (!isAdTestEnable)
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-4281391536440718/8549357093";
                 #elif UNITY_IPHONE
                     adUnitId = "ca-app-pub-3940256099942544/2934735716";
                 #else
@@ -84,28 +117,29 @@ public class admobAdsScript : MonoBehaviour
                 adUnitId = "unexpected_platform";
                 #endif
             }
-
-        } else {
-           if (!isAdTestEnable)
-           {
+        } 
+        else
+        {
+            if (!isAdTestEnable)
+            {
                 #if UNITY_ANDROID
-                    adUnitId = "ca-app-pub-4281391536440718/9627918321";
+                adUnitId = "ca-app-pub-4281391536440718/9627918321";
                 #elif UNITY_IPHONE
                     adUnitId = "ca-app-pub-3940256099942544/2934735716";
                 #else
                     adUnitId = "unexpected_platform";
                 #endif
-           }
-           else
-           {
-            #if UNITY_ANDROID
+            }
+            else
+            {
+                #if UNITY_ANDROID
                 adUnitId = "ca-app-pub-3940256099942544/6300978111";
-            #elif UNITY_IPHONE
+                #elif UNITY_IPHONE
                 adUnitId = "ca-app-pub-3940256099942544/2934735716";
-            #else
+                #else
                 adUnitId = "unexpected_platform";
-            #endif
-            }   
+                #endif
+            }
         }
 
         if (bannerView != null)
@@ -138,6 +172,29 @@ public class admobAdsScript : MonoBehaviour
                 adUnitId = "ca-app-pub-3940256099942544/2934735716";
                 #else
                 adUnitId = "unexpected_platform";
+                #endif
+            }
+            else
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-3940256099942544/6300978111";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+        }
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            if (!isAdTestEnable)
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-4281391536440718/8549357093";
+                #elif UNITY_IPHONE
+                    adUnitId = "ca-app-pub-3940256099942544/2934735716";
+                #else
+                    adUnitId = "unexpected_platform";
                 #endif
             }
             else
@@ -218,30 +275,55 @@ public class admobAdsScript : MonoBehaviour
                 #endif
             }
         }
+        else if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            if (!isAdTestEnable)
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-4281391536440718/4693872562";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/4411468910";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+            else
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-3940256099942544/1033173712";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/4411468910";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+        }
         else
         {
 
             if (!isAdTestEnable)
             {
-#if UNITY_ANDROID
+                #if UNITY_ANDROID
                 adUnitId = "ca-app-pub-4281391536440718/4659512731";
-#elif UNITY_IPHONE
+                #elif UNITY_IPHONE
                 adUnitId = "ca-app-pub-3940256099942544/4411468910";
-#else
+                #else
                 adUnitId = "unexpected_platform";
-#endif
+                #endif
             }
             else
             {
-#if UNITY_ANDROID
+                #if UNITY_ANDROID
                 adUnitId = "ca-app-pub-3940256099942544/1033173712";
-#elif UNITY_IPHONE
+                #elif UNITY_IPHONE
                 adUnitId = "ca-app-pub-3940256099942544/4411468910";
-#else
+                #else
                 adUnitId = "unexpected_platform";
-#endif
+                #endif
             }
         }
+
+
         // Initialize an InterstitialAd.
         if (interstitial != null)
         {
@@ -285,8 +367,31 @@ public class admobAdsScript : MonoBehaviour
                 #endif
             }
         }
-        else
+        else if (Globals.PITCHTYPE.Equals("STREET")) 
         {
+            if (!isAdTestEnable)
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-4281391536440718/2835394789";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/1712485313";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+            else
+            {
+                #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-3940256099942544/5224354917";
+                #elif UNITY_IPHONE
+                adUnitId = "ca-app-pub-3940256099942544/1712485313";
+                #else
+                adUnitId = "unexpected_platform";
+                #endif
+            }
+
+        }
+        else {
             if (!isAdTestEnable)
             {
                 #if UNITY_ANDROID
@@ -442,7 +547,6 @@ public class admobAdsScript : MonoBehaviour
     public void genericHandleOnAdFailedToLoad(object sender, EventArgs args)
     {
         adsFailedLoad = true;
-        print("DBGADS1 INTERSTIAL FAILED TO LOAD");
     }
 
     public void setAdsRewardEarn(bool val)

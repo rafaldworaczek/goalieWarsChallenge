@@ -578,7 +578,10 @@ public class controllerRigid : MonoBehaviour
         playerDownLeftHandFingers = GameObject.Find("playerDownLeftHandFingers");
         playerDownRightHandFingers = GameObject.Find("playerDownRightHandFingers");*/
 
-        cpuPlayer = new CpuPlayer(this, ball[1]);     
+        cpuPlayer = new CpuPlayer(this, ball[1]);
+
+        setupCanvasGameObjects();
+
     }
 
 
@@ -678,8 +681,7 @@ public class controllerRigid : MonoBehaviour
         //playerUpRigidBody = GameObject.Find("playerUp").GetComponent<PlayerUpRigidBody>();
         //MarkerBasic = GameObject.Find("Marker.Basic");
         //MarkerBasic.SetActive(false);
-
-        setupCanvasGameObjects();
+        
         setJoystickPosition();
         setSpecialButtonsPosition();
 
@@ -2920,8 +2922,10 @@ public class controllerRigid : MonoBehaviour
         //refereeBackground.SetActive(false);
         traningPanel.SetActive(false);
         pauseCanvas.SetActive(false);
-        if (isTrainingActive ||
-            isBonusActive)
+
+        if (!Globals.PITCHTYPE.Equals("STREET") &&
+            (isTrainingActive ||
+            isBonusActive))
         {
             //stadiumPeople.SetActive(false);
             foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
@@ -6961,6 +6965,9 @@ public class controllerRigid : MonoBehaviour
 
     private void updateFlagsPositions()
     {
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            return;
+
 
         for (int i = 0; i < FANS_FLAG_MAX; i++)
         {
