@@ -15,7 +15,7 @@ namespace GlobalsNS
     {
         public static int MAX_POWERS = 10;
         public static int MAX_SELECTED = 3;
-        public static bool adsEnable = false;
+        public static bool adsEnable = true;
 
         //GRASS, INDOOR, STREET
         //public static string PITCHTYPE = "GRASS";

@@ -4332,7 +4332,8 @@ public class controllerRigid : MonoBehaviour
 
                 int rand = getGoldSilverRandFreq();
 
-                if (rand == 5)
+                if ((rand == 5) &&
+                    !Globals.PITCHTYPE.Equals("STREET"))
                 {
                     if (UnityEngine.Random.Range(0, 3) == 1)
                        powersScript.goldenBall(true, (int)
@@ -12067,7 +12068,8 @@ public class controllerRigid : MonoBehaviour
                         endPosOrgPred = parentRb.INCORRECT_VECTOR;
                     }
 
-                    if (isChanceToShoot)
+                    if (isChanceToShoot && 
+                        !Globals.PITCHTYPE.Equals("STREET"))
                     {
                         int rand = UnityEngine.Random.Range(0, 1);
                         if ((Globals.stadiumNumber == 0) &&

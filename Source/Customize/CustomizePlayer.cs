@@ -953,6 +953,10 @@ public class CustomizePlayer : MonoBehaviour
 
     public void onClickFansFlagColorPanel()
     {
+        //todo
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            return;
+
         disableFocusApartFrom(4);
         deactivateAllPrevNextButtons();
         fansColorPanel.SetActive(true);
