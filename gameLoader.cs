@@ -21,7 +21,8 @@ public class gameLoader : MonoBehaviour
     private LeagueBackgroundMusic leagueBackgroundMusic;
     private float delayStart = 0f;
     void Start() {
-        if  (Globals.PITCHTYPE.Equals("INDOOR"))
+        if  (Globals.PITCHTYPE.Equals("INDOOR") ||
+             Globals.PITCHTYPE.Equals("STREET"))
         {
             Globals.commentatorStr = "NO";
         }
