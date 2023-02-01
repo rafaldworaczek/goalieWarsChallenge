@@ -17897,7 +17897,7 @@ PrefabInstance:
     - target: {fileID: 2300002, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 3bcf68eda375bfa4e87f6c0e6ebb1629, type: 2}
+      objectReference: {fileID: 2100000, guid: 334533480cc2f9c4eb9c65448d5cac61, type: 2}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
@@ -27488,7 +27488,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4be45adad655e2e41b66dffd91efc160, type: 2}
+  - {fileID: 2100000, guid: 7728ea21a7c699b4598513ed77519c9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -68457,8 +68457,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 310558400}
+        m_TargetAssemblyTypeName: BonusRounds, Assembly-CSharp
         m_MethodName: onClickClose
         m_Mode: 1
         m_Arguments:
