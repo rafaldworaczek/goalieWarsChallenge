@@ -1791,6 +1791,12 @@ public class gameSettings : MonoBehaviour
     {
         Globals.leagueName = leagueNames[leagueAIdx];
 
+        if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            Globals.stadiumNumber = 0;
+            Globals.commentatorStr = "NO";
+        }
+
         if (Globals.isFriendly)
         {
             print("Globals.isGameSettingActive " + Globals.isGameSettingActive);

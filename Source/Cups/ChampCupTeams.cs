@@ -173,8 +173,8 @@ namespace MenuCustomNS
                 "Marcoso:Brazil:91:89:L:5000:f2_s1_b0_t0_hblack8|" +
                 //Draxler Julian mid
                 "Jules Darxlorer:Germany:91:90:L:2000:f3_s2_b0_t0_hblack3|" +
-                 //Di Maria Angel mid
-                "Angelo Morita:Argentina:93:92:L:2300:f4_s1_b0_t0_hblack3|" +
+                 //Leo Messi - att
+                "Lio:Argentina:85:98:L:9700:f8_s1_b2_t9_hblack5|" +         
                  //Marco Verratti - mid
                 "Mark Venari:Italy:92:92:L:2300:f5_s2_b0_t0_hblack4|" +
                  //Mbappe Kylian - att

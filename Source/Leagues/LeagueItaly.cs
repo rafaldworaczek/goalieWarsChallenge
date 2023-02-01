@@ -188,6 +188,8 @@ namespace MenuCustomNS
                 "Paul Diblaes:Argentina:83:88:L:3500:f1_s1_b0_t0_hblonde4|" +
                  //Morata Alvaro - att
                 "Alvro Moate:Spain:85:93:L:3500:f2_s1_b0_t0_hblack5|" +
+                 //Di Maria Angel mid
+                "Angelo Morita:Argentina:93:92:L:2300:f4_s1_b0_t0_hblack3|" +
                  //Chiesa Federico - att
                 "Fedricko Cesa:Italy:84:92:L:3500:f9_s1_b0_t0_hblack8",
                 "shoewhiteblack",

@@ -85,7 +85,7 @@ public class reviewScript : MonoBehaviour
         } else if (Globals.PITCHTYPE.Equals("STREET"))
         {
             Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootballStreet");
-        }
+        } else
         {
             Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball");
         }
