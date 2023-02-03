@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
+  m_Name: PhotonServerSettings
+  m_EditorClassIdentifier: 
+  AppSettings:
+    AppIdRealtime: f20279d9-d42d-4b5a-8981-a865199f8c44
+    AppIdFusion: 
+    AppIdChat: a6cbaa42-1331-4c8f-b9dc-9e2d24d1cc0c
+    AppIdVoice: 
+    AppVersion: 1.0
+    UseNameServer: 1
+    FixedRegion: 
+    Server: 
+    Port: 0
+    ProxyServer: 
+    Protocol: 0
+    EnableProtocolFallback: 1
+    AuthMode: 0
+    EnableLobbyStatistics: 0
+    NetworkLogging: 1
+  DevRegion: eu
+  PunLogging: 0
+  EnableSupportLogger: 0
+  RunInBackground: 1
+  StartInOfflineMode: 0
+  RpcList:
+  - ClickRpc
+  - DestroyRpc
+  - DestroySpaceship
+  - Fire
+  - RespawnSpaceship
+  - RPC_animPlay
+  - RPC_animPlayWithParam
+  - RPC_ballPosUpdateMove
+  - RPC_ballPosUpdateOut
+  - RPC_GKanimPlay
+  - RPC_gkMovement
+  - RPC_GKoffsetanimPlay
+  - RPC_justBeforeShot
+  - RPC_peerShotPassedTime
+  - RPC_playerOnBAll
+  - RPC_playerRun
+  - RPC_playerStop
+  - RPC_prepareShot
+  - RPC_preShotCalc
+  - RPC_RbSync
+  - RPC_setBallOut
+  - RPC_setBallPosition
+  - RPC_shotActive
+  - RPC_shotDeactivate
+  - RPC_mainUpdate
+  - RPC_rbOnBall
+  - RPC_setCollisionActive
+  - RPC_GK_COLLISION_PREDICT
+  - RPC_ballOut
+  - RPC_updateGameSettings
+  - RPC_textureUpdateConfirmed
+  - RPC_updateGameSettingsCustomize
+  - RPC_wallPower
+  - RPC_ext
+  - RPC_extraPower
+  - RPC_PACKET_ACK
+  - RPC_goalUpdate
+  - RPC_ballOutNewPos
+  DisableAutoOpenWizard: 1
+  ShowSettings: 1
+  DevRegionSetOnce: 1
