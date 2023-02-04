@@ -86,8 +86,9 @@ public class rewardsAds : MonoBehaviour
         // }
         /// else
         ////  {
-        if (Globals.adsEnable)
-            {
+        if (Globals.adsEnable &&
+            !Globals.PITCHTYPE.Equals("STREET"))
+          {
                 if (admobAdsScript.showInterstitialAd())
                 {
                     admobCanvas.SetActive(true);

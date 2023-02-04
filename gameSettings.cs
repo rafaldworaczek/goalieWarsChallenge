@@ -335,7 +335,7 @@ public class gameSettings : MonoBehaviour
 
             print("Globals.teamBid " + Globals.teamBid);
             updateMultiTexture = true;
-            audioManager.Play("elementAppear");
+            audioManager.PlayNoCheck("elementAppear");
             saveSelectedTeamsToGlobals(true);
             setupTeamDefaults();
 

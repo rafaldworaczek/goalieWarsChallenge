@@ -2471,6 +2471,9 @@ public class playerControllerMultiplayer : MonoBehaviour
 
     void Awake()
     {
+
+   
+
         prepareShotPos = new Vector3[100, 2];
         //Globals.teamBid = -1;
         leagueBackgroundMusic =
@@ -2490,6 +2493,8 @@ public class playerControllerMultiplayer : MonoBehaviour
         //TOREMOVE
         Globals.playerPlayAway = false;
         Globals.commentatorStr = "YES";
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            Globals.commentatorStr = "NO";
         Globals.powersStr = "YES";
         Globals.joystickSide = "LEFT";
         Globals.graphicsQuality = "STANDARD";

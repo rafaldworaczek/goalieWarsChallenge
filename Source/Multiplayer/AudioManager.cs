@@ -111,7 +111,7 @@ namespace AudioManagerMultiNS
         {
             if (Globals.commentatorStr.Equals("NO"))
             {
-                stopAllCommentator();
+                //stopAllCommentator();
                 isCommentatorActive = false;
                 return;
             }
@@ -305,6 +305,9 @@ namespace AudioManagerMultiNS
 
         public string Commentator_GetRandomSave(float distX)
         {
+            if (!isCommentatorActive)
+                return String.Empty;
+
             string name = "com_save1";
             for (int i = 0; i < 5; i++)
             {
@@ -358,6 +361,9 @@ namespace AudioManagerMultiNS
 
         public string Commentator_getRandGoalAudio(bool isCpu)
         {
+            if (!isCommentatorActive)
+                return String.Empty;
+
             string name = "com_goal1";
             for (int i = 0; i < 5; i++)
             {
@@ -439,7 +445,6 @@ namespace AudioManagerMultiNS
 
         public void Commentator_PlayRandomGoal(bool isCpu)
         {
-
             if (isTraining ||
                 isBonus ||
                 !isCommentatorActive)
@@ -458,6 +463,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_Post()
         {
+            if (!isCommentatorActive)
+                return;
+
             string name = "com_goalpost1";
 
             if (!playerMainScript.doesGameStarted())
@@ -489,6 +497,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_CrossBar()
         {
+            if (!isCommentatorActive)
+                return;
+
             string name = "com_crossbarhit1";
             if (
                 !Commentator_lastTimePlayedBiggerThan(name, 20f) ||
@@ -526,6 +537,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_FantasticFansAtmosphere()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (
                 !playerMainScript.setTextureScript.isFlareEnable() ||
                 !playerMainScript.doesGameStarted())
@@ -547,6 +561,9 @@ namespace AudioManagerMultiNS
         }
         public void Commentator_MatchAlmostOver()
         {
+            if (!isCommentatorActive)
+                return;
+
             if ((playerMainScript.getMatchTimeMinute() < 75f) ||
                  commentatorCommentPlayed.ContainsKey("com_matchalmostover1"))
 
@@ -598,6 +615,9 @@ namespace AudioManagerMultiNS
 
         private void Commentator_LongRangeShot()
         {
+            if (!isCommentatorActive)
+                return;
+
             bool cpuShotActive = playerMainScript.peerPlayer.getShotActive();
             bool playerShotActive = playerMainScript.isShotActive();
             string name = "com_longrange_1";
@@ -682,6 +702,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_FinalWhistle()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (commentatorCommentPlayed.ContainsKey("matchFinalWhistle") ||
                 !playerMainScript.doesGameEnded())
                 return;
@@ -701,6 +724,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_rocketShot()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (!playerMainScript.doesGameStarted())
                 return;
 
@@ -746,6 +772,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_ballNotOutLongTime()
         {
+            if (!isCommentatorActive)
+                return;
+
             float howLongballNotOut =
                Time.time - playerMainScript.getLastTimeBallWasOut();
 
@@ -807,6 +836,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_ballOut()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (!playerMainScript.isBallOutOfPitch() ||
                 (playerMainScript.getDelayAfterGoal() > 0.4f) ||
                  !playerMainScript.doesGameStarted())
@@ -826,6 +858,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_onBallLongTime()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (
                 !playerMainScript.doesGameStarted())
                 return;
@@ -861,6 +896,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_duringGame()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (
                 !playerMainScript.doesGameStarted() ||
                 !playerMainScript.getIsPlayerOnTheBallNow() ||
@@ -899,6 +937,9 @@ namespace AudioManagerMultiNS
 
         public void Commentator_maxTimeToShot()
         {
+            if (!isCommentatorActive)
+                return;
+
             int timeToShot = (int) playerMainScript.getTimeOfShot();
             int maxTimeToShot = (int) playerMainScript.getMaxTimeToShot();
 
@@ -967,6 +1008,9 @@ namespace AudioManagerMultiNS
         bool playerUpWasShotActive = false;
         private void Commentator_missShot_playerUP()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (
                 !playerMainScript.doesGameStarted())
                 return;
@@ -1032,6 +1076,9 @@ namespace AudioManagerMultiNS
         bool playerDownWasShotActive = false;
         private void Commentator_missShot_playerDown()
         {
+            if (!isCommentatorActive)
+                return;
+
             if (
                 !playerMainScript.doesGameStarted())
                 return;

@@ -2848,7 +2848,9 @@ public class controllerRigid : MonoBehaviour
         powerButton2GameObject.SetActive(false);
         powerButton3GameObject.SetActive(false);
 
-        if (!isPowerEnable)
+        if (!isPowerEnable || 
+            (Globals.PITCHTYPE.Equals("STREET") &&
+            Globals.isMultiplayer))
         {
             powerButton1GameObject.SetActive(false);
             powerButton2GameObject.SetActive(false);
