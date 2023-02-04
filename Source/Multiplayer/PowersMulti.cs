@@ -31,7 +31,8 @@ public class PowersMulti : MonoBehaviour
         GOLDEN_BALL
     }
 
-    private int MAX_POWERS = 3;
+    private int MAX_POWERS = 10;
+    private int MAX_POWERS_IN_USE = 3;
     private bool[] RPC_confirmation;
     private float[] powerMaxTime;
 
@@ -381,8 +382,8 @@ public class PowersMulti : MonoBehaviour
 
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
-            badConditions(true,
-                         2,
+            badConditions(isMaster,
+                          2,
                          Vector3.zero,
                          Vector3.zero);
             return;
@@ -1946,9 +1947,12 @@ public class PowersMulti : MonoBehaviour
         {
             for (int i = 0; i < 10; i++)
             {
-                if ((playerMainScript.cpuPlayer.getShotActive() &&
+                /*if ((playerMainScript.cpuPlayer.getShotActive() &&
                     (playerMainScript.getBallPos().z < -13.2f)) ||
-                     playerMainScript.ball[1].getBallGoalCollisionStatus())
+                     playerMainScript.ball[1].getBallGoalCollisionStatus())*/
+                if ((
+                    (playerMainScript.getBallPos().z < -13.2f)) ||
+                    playerMainScript.ball[1].getBallGoalCollisionStatus())
                 {
                     if (playerMainScript.ball[1].getBallGoalCollisionStatus())
                         yield return new WaitForSeconds(0.35f);

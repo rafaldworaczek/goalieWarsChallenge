@@ -2988,6 +2988,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8da0bb4e36947b8b86ef45afe49258, type: 3}
+--- !u!198 &146715479 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19845368, guid: eb8da0bb4e36947b8b86ef45afe49258,
+    type: 3}
+  m_PrefabInstance: {fileID: 146715478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &148578842
 GameObject:
   m_ObjectHideFlags: 0
@@ -25634,6 +25640,12 @@ Cloth:
   - {x: 0.6666667, y: 0.16666667, z: 0.16666667}
   - {x: 0.5, y: 0.5, z: 0}
   m_VirtualParticleIndices: 
+--- !u!1 &495718242 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 5f74daffa2d3cfe4893a8c4955962556,
+    type: 3}
+  m_PrefabInstance: {fileID: 495718237}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &498372457
 GameObject:
   m_ObjectHideFlags: 0
@@ -34992,6 +35004,12 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.023019075, y: 1.3013387, z: -1.22}
     m_Extent: {x: 3.6832669, y: 1.3013387, z: 1.22}
   m_DirtyAABB: 0
+--- !u!1 &779196039 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 5f74daffa2d3cfe4893a8c4955962556,
+    type: 3}
+  m_PrefabInstance: {fileID: 779196035}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &781183267
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36508,7 +36526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868895325}
   m_Layer: 0
-  m_Name: scripts (1)
+  m_Name: scripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58835,8 +58853,8 @@ MonoBehaviour:
   smallGoal:
   - {fileID: 1480270288}
   - {fileID: 970353710}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2114443452}
+  - {fileID: 779196039}
   powerButtons:
   - {fileID: 2008247238}
   - {fileID: 228882009}
@@ -58846,11 +58864,11 @@ MonoBehaviour:
   goalUpObstacles:
   - {fileID: 26969020}
   powerButtonImg:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  goalUp: {fileID: 0}
-  goalDown: {fileID: 0}
+  - {fileID: 2008247242}
+  - {fileID: 228882013}
+  - {fileID: 2034227976}
+  goalUp: {fileID: 1631324945}
+  goalDown: {fileID: 495718242}
   goalDownBigger: {fileID: 988657228}
   goalUpBigger: {fileID: 413165275}
   goalDownCloth: {fileID: 0}
@@ -58868,6 +58886,9 @@ MonoBehaviour:
   - {fileID: 351955344}
   - {fileID: 1946929012}
   rpc_powers_state: 
+  snowParticle:
+  - {fileID: 2054100970}
+  - {fileID: 146715479}
 --- !u!1 &1621695070
 GameObject:
   m_ObjectHideFlags: 0
@@ -64127,6 +64148,12 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.023019075, y: 1.3013387, z: -1.22}
     m_Extent: {x: 3.6832669, y: 1.3013387, z: 1.22}
   m_DirtyAABB: 0
+--- !u!1 &1631324945 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 5f74daffa2d3cfe4893a8c4955962556,
+    type: 3}
+  m_PrefabInstance: {fileID: 1631324940}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1637477590
 GameObject:
   m_ObjectHideFlags: 0
@@ -76657,6 +76684,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb8da0bb4e36947b8b86ef45afe49258, type: 3}
+--- !u!198 &2054100970 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19845368, guid: eb8da0bb4e36947b8b86ef45afe49258,
+    type: 3}
+  m_PrefabInstance: {fileID: 2054100969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2056424729 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 402578, guid: 89f961677aa1e414aa3193f106f17ca0,
@@ -77538,6 +77571,12 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.023019075, y: 1.3013387, z: -1.22}
     m_Extent: {x: 3.6832669, y: 1.3013387, z: 1.22}
   m_DirtyAABB: 0
+--- !u!1 &2114443452 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 5f74daffa2d3cfe4893a8c4955962556,
+    type: 3}
+  m_PrefabInstance: {fileID: 2114443448}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2115947059
 GameObject:
   m_ObjectHideFlags: 0
