@@ -2639,6 +2639,8 @@ public class playerControllerMultiplayer : MonoBehaviour
         {
             Material goalNonTransparent = graphics.getMaterial("Goals/Material/goalNonTransparent");
             Material goalTransparent = graphics.getMaterial("Goals/Material/goalTransparent");
+            Material goalNonTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparent");
+            Material goalTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparentNet");
             Material wallObstaclesTransparent = 
                 graphics.getMaterial("powers/obstaclesMaterialTransparent");
             Material wallObstaclesNonTransparent = 
@@ -2646,26 +2648,61 @@ public class playerControllerMultiplayer : MonoBehaviour
 
             if (!PhotonNetwork.IsMasterClient)
             {
-                GameObject standsfences = GameObject.Find("standsFences");
+                GameObject standsfences = null;
+                if (!Globals.PITCHTYPE.Equals("STREET"))
+                    standsfences = GameObject.Find("standsFences");
                 GameObject stadiumObjects = GameObject.Find("stadiumObjects");
                 GameObject pitchBorders = GameObject.Find("pitchBorders");
 
                 //stadiumObjects.transform.position = new Vector3(16.81576f, stadiumObjects.transform.position.y, -21.9f);
-                stadiumObjects.transform.position = new Vector3(4.6f,  7.99f, 0.49f);
-                standsfences.transform.position = new Vector3(-4.9f, standsfences.transform.position.y, -0.58f);
-                standsfences.transform.eulerAngles = stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
-                pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
-                GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, -150f, 0f);
-                GameObject.Find("LineGoalDown").SetActive(false);
+                if (!Globals.PITCHTYPE.Equals("STREET"))
+                {
+                    stadiumObjects.transform.position = new Vector3(4.6f, 7.99f, 0.49f);
+                    standsfences.transform.position = 
+                        new Vector3(-4.9f, standsfences.transform.position.y, -0.58f);
+                    standsfences.transform.eulerAngles = 
+                        stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                    pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles =
+                        new Vector3(0f, 180f, 0f);
+                } else {
+                    stadiumObjects.transform.eulerAngles = new Vector3(0f, 270f, 0f);
+                    pitchBorders.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                }
+
                 graphics.setMaterialElement(
-                    GameObject.Find("goalDown_PostCrossbar"),
-                    goalNonTransparent,
-                    0);
+                            GameObject.Find("goalDown_PostCrossbar"),
+                            goalNonTransparent,
+                            0);
                 graphics.setMaterialElement(
-                    GameObject.Find("goalUp_PostCrossbar"),
-                    goalTransparent,
+                GameObject.Find("goalUp_PostCrossbar"),
+                goalTransparent,
+                0);
+
+                if (!Globals.PITCHTYPE.Equals("STREET"))
+                {
+                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, -150f, 0f);
+                    GameObject.Find("LineGoalDown").SetActive(false);
+                    
+                } else
+                {
+                    graphics.setMaterialElement(
+                    GameObject.Find("goalDownNet"),
+                    goalNonTransparentNet,
                     0);
-                GameObject.Find("goalDownBallCrossLine").SetActive(false);
+                    graphics.setMaterialElement(
+                    GameObject.Find("goalUpNet"),
+                    goalTransparentNet,
+                    0);
+                }
+
+
+
+
+          
+
+                if (!Globals.PITCHTYPE.Equals("STREET"))
+                    GameObject.Find("goalDownBallCrossLine").SetActive(false);
+
                 graphics.setMaterialElement(
                    GameObject.Find("wallGoalUpObstacle1"),
                    wallObstaclesTransparent,
@@ -2677,8 +2714,11 @@ public class playerControllerMultiplayer : MonoBehaviour
             }
             else
             {
-                GameObject.Find("goalUpBallCrossLine").SetActive(false);
-                GameObject.Find("LineGoalUp").SetActive(false);                
+                if (!Globals.PITCHTYPE.Equals("STREET"))
+                {
+                    GameObject.Find("goalUpBallCrossLine").SetActive(false);
+                    GameObject.Find("LineGoalUp").SetActive(false);
+                }
             }
 
             UICanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
@@ -2692,13 +2732,17 @@ public class playerControllerMultiplayer : MonoBehaviour
             lobButton = GameObject.Find("lob_button").GetComponent<buttonLobMulti>();
             audienceReactionsScript = GameObject.Find("fans").GetComponent<audienceReactions>();
             joystick = GameObject.Find("joystickBG").GetComponent<joystick1>();
-            fansFlag = new GameObject[FANS_FLAG_MAX];
-            fansFlagSticks = new GameObject[FANS_FLAG_MAX];
 
-            for (int i = 0; i < FANS_FLAG_MAX; i++)
+            if (!Globals.PITCHTYPE.Equals("STREET"))
             {
-                fansFlag[i] = GameObject.Find("flag" + (i + 4).ToString());
-                fansFlagSticks[i] = GameObject.Find("flag" + (i + 4).ToString() + "Stick");
+                fansFlag = new GameObject[FANS_FLAG_MAX];
+                fansFlagSticks = new GameObject[FANS_FLAG_MAX];
+
+                for (int i = 0; i < FANS_FLAG_MAX; i++)
+                {
+                    fansFlag[i] = GameObject.Find("flag" + (i + 4).ToString());
+                    fansFlagSticks[i] = GameObject.Find("flag" + (i + 4).ToString() + "Stick");
+                }
             }
         }
 
@@ -2707,7 +2751,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         rotatedRbToBallTmp = new GameObject();
 
-        playerControllerMultiplayer.wallCollierTest = GameObject.Find("wallUpLeft2").GetComponent<Collider>().isTrigger;
+        //playerControllerMultiplayer.wallCollierTest = GameObject.Find("wallUpLeft2").GetComponent<Collider>().isTrigger;
         //print("DBG342344COL onColliderTest START " + playerControllerMultiplayer.wallCollierTest);
         playerDownLeftToeBaseCollider = getChildWithName(gameObject, "playerDownLeftToeBaseCollider");
         playerColliderCollierTest = playerDownLeftToeBaseCollider.GetComponent<Collider>().isTrigger;
@@ -2901,8 +2945,11 @@ public class playerControllerMultiplayer : MonoBehaviour
             teamAStatisticsText.text = Globals.teamAname;
             teamBStatisticsText.text = Globals.teamBname;
 
-            updateStadiumTextures();
-            initFlagPositions();
+            if (!Globals.PITCHTYPE.Equals("STREET"))
+            {
+                updateStadiumTextures();
+                initFlagPositions();
+            }
 
             setScoresText();
             setTimesText();
@@ -3077,7 +3124,13 @@ public class playerControllerMultiplayer : MonoBehaviour
         //}
         //else
         //{
-        audioManager.Play("fanschantBackground2", 0.3f);
+
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            audioManager.PlayNoCheck("training1");
+        else
+            audioManager.Play("fanschantBackground2", 0.3f);
+
+
         //if (Globals.stadiumNumber == 1)
         if (photonView.IsMine)
             audienceReactionsScript.playApplause1();
@@ -3247,7 +3300,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //    gameStarted = true;
         clearGeneralInformtionText();
 
-        if (!isTrainingActive && !isBonusActive)
+        if (!isTrainingActive && !isBonusActive && !Globals.PITCHTYPE.Equals("STREET"))
             updateFlagsPositions();
 
         realTime += Time.deltaTime;
@@ -3282,7 +3335,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                 if (realTime > 11.5f)
                 {
-                    audioManager.Play("whislestart1");
+                    audioManager.PlayNoCheck("whislestart1");
                     int RandWhistleCom = UnityEngine.Random.Range(1, 3);
                     if (!Globals.commentatorStr.Equals("NO"))
                         audioManager.Play("com_firstwhistle" + RandWhistleCom.ToString());
@@ -3372,7 +3425,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 updateGameTime())
             {
                 addCoins();
-                audioManager.Play("whisleFinal1");
+                audioManager.PlayNoCheck("whisleFinal1");
                 realTime = 0.0f;
                 gameEnded = true;
                 rb.velocity = Vector3.zero;
@@ -4194,7 +4247,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     else
                         ball[activeBall].setPlayerUpLastGkCollision(Time.time);
 
-                    audioManager.Play("gksave1");      
+                    audioManager.PlayNoCheck("gksave1");      
                     audioManager.Commentator_PlayRandomSave(getGkLastDistXCord());
                     if (distX > 4.0f)
                     {
@@ -4851,11 +4904,11 @@ public class playerControllerMultiplayer : MonoBehaviour
                     if (timeofBallFlyOrg < 550f)
                     {
                         //ball[1].ballTrailRendererInit();
-                        audioManager.Play("ballFastSpeed");
+                        audioManager.PlayNoCheck("ballFastSpeed");
                     }
                     else
                     {
-                        audioManager.Play("kick2");
+                        audioManager.PlayNoCheck("kick2");
                     }
 
                     isBallTrailRendererInit = true;
@@ -5268,11 +5321,11 @@ public class playerControllerMultiplayer : MonoBehaviour
                        (ShotSpeedMin + 50.0f))
                     {
                         //ball.ballTrailRendererInit();
-                        audioManager.Play("ballFastSpeed");
+                        audioManager.PlayNoCheck("ballFastSpeed");
                     }
 
                     //else {
-                    audioManager.Play("kick2");
+                    audioManager.PlayNoCheck("kick2");
                     //}
 
                     isBallTrailRendererInit = true;
@@ -5365,7 +5418,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             if (isCollisionWithPlayer)
             {
                 float distX = getGkLastDistXCord();
-                audioManager.Play("gksave1");
+                audioManager.PlayNoCheck("gksave1");
 
                 ball[1].setwhoTouchBallLast(2);
 
@@ -5775,7 +5828,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             if (timeToShotExceeded)
             {
                 printGameEventsInfo("TIME'S UP!");
-                audioManager.Play("whistle1");
+                audioManager.PlayNoCheck("whistle1");
             }
 
             if (isBallOutOfPitch())
@@ -6332,7 +6385,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             {
                 animator.Play("3D_run", 0, 0.0f);
                 //print("DBGrun play run");
-                audioManager.Play("run2");
+                audioManager.PlayNoCheck("run2");
             }
 
             float ballRbDist =
@@ -6373,7 +6426,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 !isAnyTurnAnimPlaying)
             {
                 animator.Play("3D_run", 0, 0.0f);
-                audioManager.Play("run2");
+                audioManager.PlayNoCheck("run2");
             }
 
             isUpdateBallPosActive = true;
@@ -6462,7 +6515,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 isAnyTurnAnimPlaying = true;
                 rb.velocity = Vector3.zero;
                 animator.Update(0f);
-                audioManager.Play("run2");
+                audioManager.PlayNoCheck("run2");
                 lastPlayerMovePosHead = 0;
                 lastPlayerMovePosTail = 0;
             }   
@@ -6538,7 +6591,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     !animName.Contains("3D_run_"))
                 {
                     animator.Play("3D_run", 0, 0.0f);
-                    audioManager.Play("run2");
+                    audioManager.PlayNoCheck("run2");
                 }
 
                 if (photonView.IsMine)

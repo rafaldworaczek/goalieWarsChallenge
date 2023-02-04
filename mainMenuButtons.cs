@@ -39,7 +39,7 @@ public class mainMenuButtons : MonoBehaviour
     void Awake()
     {
         if (Globals.PITCHTYPE.Equals("STREET")) {
-            menuButtonsObj[0].SetActive(false);
+            //menuButtonsObj[0].SetActive(false);
             menuButtonsObj[7].SetActive(false);
         }
 
@@ -294,7 +294,11 @@ public class mainMenuButtons : MonoBehaviour
     {
         Globals.isMultiplayer = true;
         Globals.isMultiplayerUpdate = false;
-        Globals.commentatorStr = "YES";
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            Globals.commentatorStr = "NO";
+        else
+            Globals.commentatorStr = "YES";
+
         Globals.powersStr = "YES";
         Globals.joystickSide = "LEFT";
         Globals.graphicsQuality = "STANDARD";

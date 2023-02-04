@@ -35802,8 +35802,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
+      - m_Target: {fileID: 584127262}
+        m_TargetAssemblyTypeName: MultiplayerMenuOption, Assembly-CSharp
         m_MethodName: matchEndedOnClick
         m_Mode: 1
         m_Arguments:
@@ -48829,6 +48829,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ball1
       objectReference: {fileID: 0}
+    - target: {fileID: 3358643178879334411, guid: 5c74aaf26ad1dfe498872cab21ffe14c,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d145ea5da5f517941a0b00b6fedb7a40, type: 2}
     - target: {fileID: 3358643179134692607, guid: 5c74aaf26ad1dfe498872cab21ffe14c,
         type: 3}
       propertyPath: ballCollided

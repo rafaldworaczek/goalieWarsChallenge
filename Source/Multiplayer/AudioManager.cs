@@ -157,8 +157,24 @@ namespace AudioManagerMultiNS
             }
         }
 
+        public void PlayNoCheck(string name)
+        {
+            Sound s = Array.Find(sounds, sound => sound.name == name);
+            if (s != null && !s.source.isPlaying)
+            {
+                s.source.Play();
+                //print("SOUNDPLAY " + name);
+            }
+            {
+                //print("Audio CLip not found "  + name);
+            }
+        }
+
         public void Play(string name)
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return;
+
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s != null && !s.source.isPlaying)
             {
@@ -1076,6 +1092,9 @@ namespace AudioManagerMultiNS
 
         public void PlayAtTheSameTime(string name)
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return;
+
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s != null)
             {
@@ -1089,6 +1108,9 @@ namespace AudioManagerMultiNS
 
         public void Stop(string name)
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return;
+
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s != null)
             {
@@ -1102,6 +1124,9 @@ namespace AudioManagerMultiNS
 
         public bool isPlaying()
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return false;
+
             foreach (Sound sound in sounds)
             {
                 if (sound.source.isPlaying) return true;
@@ -1123,6 +1148,9 @@ namespace AudioManagerMultiNS
 
         public bool isPlayingByName(string name)
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return false;
+
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s != null)
             {

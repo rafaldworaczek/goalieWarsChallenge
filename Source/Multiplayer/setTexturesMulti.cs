@@ -76,7 +76,8 @@ public class setTexturesMulti : MonoBehaviour
         teams = new Teams(Globals.leagueName);
 
         ///it's sport halls
-        if (Globals.stadiumNumber != 1)
+        if (Globals.stadiumNumber != 1 &&
+            !Globals.PITCHTYPE.Equals("STREET"))
         {
             initWallsMaterials();
             int groundNum = 1;
@@ -117,7 +118,8 @@ public class setTexturesMulti : MonoBehaviour
     void Update() {
         //it's sport hall
         if (Globals.stadiumNumber == 1 ||
-            (playerMainScript == null))
+            (playerMainScript == null) ||
+            Globals.PITCHTYPE.Equals("STREET"))
         {
             return;
         }

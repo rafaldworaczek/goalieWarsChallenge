@@ -114,7 +114,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
     private void ConnectToPhotonChat()
     {
-        print("DBGPHOTONCHAT connectToPhotonChat");
+        //print("DBGPHOTONCHAT connectToPhotonChat");
         chatClient = new ChatClient(this);
         chatClient.UseBackgroundWorkerForSending = true;
         //chatClient.AuthValues = new AuthenticationValues(username);
