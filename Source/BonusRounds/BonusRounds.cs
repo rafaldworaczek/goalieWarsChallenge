@@ -315,7 +315,7 @@ public class BonusRounds : MonoBehaviour
         playerMainScript.resetDrawOnScreen();
 
         yield return new WaitForSeconds(delayTime);
-        audioManager.Play("whislestart1");
+        audioManager.PlayNoCheck("whislestart1");
         updateWaiting = false;
     }
 
@@ -810,7 +810,7 @@ public class BonusRounds : MonoBehaviour
         //bonusDescText.text = "Congratulations! \nYou just earned 20 coins + 20 diamonds!";
         bonusHeaderText.text = Languages.getTranslate("Congratulations!");
         showBonusPanel();
-        audioManager.Play("moneySound");
+        audioManager.PlayNoCheck("moneySound");
         //trainDialogFunc[index] = noOperation;
         preEventInit[index] = false;
         wasShotActive = false;
