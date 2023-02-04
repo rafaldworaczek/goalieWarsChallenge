@@ -3049,7 +3049,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
-            if (Globals.stadiumNumber == 0)
+            if (Globals.stadiumNumber == 0 ||
+                Globals.PITCHTYPE.Equals("STREET"))
                 m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
                                                               5.5f,
                                                               m_MainCamera.transform.position.z);
@@ -3061,7 +3062,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                                                               -m_MainCamera.transform.position.z);
                 m_MainCamera.transform.eulerAngles = new Vector3(m_MainCamera.transform.eulerAngles.x,
                                                                  m_MainCamera.transform.eulerAngles.y + 180f,
-                                                                 m_MainCamera.transform.eulerAngles.z);
+                                                                 m_MainCamera.transform.eulerAngles.z);                
             }
         }
 
