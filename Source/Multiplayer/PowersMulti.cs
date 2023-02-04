@@ -6,16 +6,34 @@ using GlobalsNS;
 using Photon.Pun;
 using AudioManagerMultiNS;
 
+
+
 public enum POWERSMODE
 {
     EXTRA_GOALS = 1,
     GOAL_WALLS = 2,
-    ENLARGE_GOAL
+    ENLARGE_GOAL,
+
 }
 public class PowersMulti : MonoBehaviour
 {
+    public enum POWER
+    {
+        TWO_EXTRA_GOAL = 1,
+        CUT_GOAL_BY_HALF,
+        ENLARGE_GOAL,
+        SILVER_BALL,
+        SHAKE_CAMERA,
+        INVISABLE_PLAYER,
+        GOAL_WALL,
+        BAD_CONDITIONS,
+        ENABLE_FLARE,
+        GOLDEN_BALL
+    }
+
     private int MAX_POWERS = 3;
     private bool[] RPC_confirmation;
+    private float[] powerMaxTime;
 
     private playerControllerMultiplayer playerMainScript;
     private GameObject wallUpLeftTop;
@@ -74,6 +92,10 @@ public class PowersMulti : MonoBehaviour
     private bool isPowerEnable = true;
     PhotonView photonView;
     private bool isMaster = false;
+
+    public ParticleSystem[] snowParticle;
+    private bool[] isPlayerSlowDown;
+
     [PunRPC]
     void RPC_extraPower(bool shotActive,
                         float shotPercent,
@@ -86,6 +108,28 @@ public class PowersMulti : MonoBehaviour
         photonView.RPC("RPC_PACKET_ACK",
                        RpcTarget.Others,
                        idx);
+
+        if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+
+
+            if (idx == (int) POWER.GOAL_WALL)
+            {
+                if (!shotActive)
+                {
+                    goalObstacles(
+                        isMaster,
+                        GOALS_OBSTACLES_TIME - lagDelay,
+                        false);
+                    return;
+                }
+                else
+                {
+                    rpc_powers_state[(int)POWERSMODE.GOAL_WALLS] = true;
+                }
+            }
+            return;
+        }
 
         //print("DBGEXTRAPOWERS lagDelay " + lagDelay + " idx " + idx);
         if (idx == (int) POWERSMODE.EXTRA_GOALS ||
@@ -163,7 +207,10 @@ public class PowersMulti : MonoBehaviour
             isPowerEnable = false;
             return;
         }
-        
+
+        isPlayerSlowDown = new bool[2];
+        initPowerTimes();
+
         cpuPowersUsed = new bool[MAX_POWERS + 1];
         playerPowerLock = new int[MAX_POWERS + 1];
         for (int i = 0; i < cpuPowersUsed.Length; i++)
@@ -173,6 +220,20 @@ public class PowersMulti : MonoBehaviour
             playerPowerLock[i] = 1;
         
         audioManager = FindObjectOfType<AudioManager>();
+
+
+        playerMainScript = Globals.player1MainScript;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            isMaster = true;
+        }
+        else
+        {
+            isMaster = false;
+        }
+
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            return;
 
         wallUpLeft1 = GameObject.Find("wallUpLeft1");
         wallUpRight1 = GameObject.Find("wallUpRight1");
@@ -190,17 +251,7 @@ public class PowersMulti : MonoBehaviour
             wallDownLeftGround2 = GameObject.Find("wallDownLeftGround2");
             wallDownRightGround1 = GameObject.Find("wallDownRightGround1");
             wallDownRightGround2 = GameObject.Find("wallDownRightGround2");
-        }
-
-        playerMainScript = Globals.player1MainScript;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            isMaster = true;
-        }
-        else
-        {
-            isMaster = false;
-        }
+        }   
     }
 
     void FixedUpdate()
@@ -303,7 +354,14 @@ public class PowersMulti : MonoBehaviour
         if (!isPowerEnable)
             return;
 
-        twoExtraGoals(isMaster, ADD_SMALL_GOALS_TIME, true);
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            cutGoalByHalf(!isMaster,
+                          0,
+                          new Vector3(1.32f, 1.32f / 1.5f, 1f),
+                          new Vector3(4.7f, 3.1f / 1.5f, 14f));
+
+        else
+            twoExtraGoals(isMaster, ADD_SMALL_GOALS_TIME, true);
         rpc_send(1);        
     }
 
@@ -320,6 +378,15 @@ public class PowersMulti : MonoBehaviour
     {
         if (!isPowerEnable)
             return;
+
+        if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            badConditions(true,
+                         2,
+                         Vector3.zero,
+                         Vector3.zero);
+            return;
+        }
 
         if (Globals.stadiumNumber != 1)
         {
@@ -1660,5 +1727,356 @@ public class PowersMulti : MonoBehaviour
     public bool isGoalUpEnlarge()
     {
         return isCpuGoalEnlarge;
+    }
+
+    public bool cutGoalByHalf(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
+    {
+        if (!isPowerEnable)
+            return false;
+
+        Vector3 localScale = arg1;
+        Vector3 realScale = arg2;
+
+        if (Globals.stadiumNumber != 1)
+        {
+            if (isCpu)
+            {
+                if (cpuPowersUsed[(int) POWER.CUT_GOAL_BY_HALF] ||
+                    cpuPowerLock)                    
+                    return false;
+
+
+                goalUp.transform.localScale = localScale;
+                playerMainScript.setGoalSizeCpu(realScale);
+                ///playerMainScript.cpuPlayer.recalculateCornerPoints(playerMainScript.getGoalSizePlr2());
+
+                //goalUpStandardColliders.SetActive(false);
+                //goalUpEnlargeColliders.SetActive(true);
+                cpuPowerLock = true;
+                cpuPowersUsed[(int)POWER.CUT_GOAL_BY_HALF] = true;
+
+                goalUpFlare[0].transform.position = new Vector3(goalUpFlare[0].transform.position.x,
+                                                                localScale.y + 0.2f,
+                                                                goalUpFlare[0].transform.position.z);
+                goalUpFlare[1].transform.position = new Vector3(goalUpFlare[1].transform.position.x,
+                                                                localScale.y + 0.2f,
+                                                                goalUpFlare[1].transform.position.z);
+
+                //goalUpCloth.enabled = false;
+                audioManager.Play("extraPowerEnable");
+                audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+
+                StartCoroutine(
+                    roolbackChangeGoal(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                       goalUp,
+                                       new Vector3(1.48f, 1.44f, 1f),
+                                       new Vector3(5.25f, 3.5f, 14.0f),
+                                       isCpu));
+            }
+            else
+            {
+                if (playerPowerLock[(int)POWER.CUT_GOAL_BY_HALF] < 1 ||
+                    mainPlayerLock)
+                    return false;
+
+                goalDown.transform.localScale = localScale;
+                playerMainScript.setGoalSize(realScale);
+
+                playerPowerLock[(int)POWER.CUT_GOAL_BY_HALF]--;
+                mainPlayerLock = true;
+
+                audioManager.Play("extraPowerEnable");
+                audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+
+
+                goalDownFlare[0].transform.position = new Vector3(goalDownFlare[0].transform.position.x,
+                                                                  localScale.y + 0.2f,
+                                                                  goalDownFlare[0].transform.position.z);
+                goalDownFlare[1].transform.position = new Vector3(goalDownFlare[1].transform.position.x,
+                                                                  localScale.y + 0.2f,
+                                                                  goalDownFlare[1].transform.position.z);
+
+                StartCoroutine(
+                  roolbackChangeGoal(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                      goalDown,
+                                      new Vector3(1.32f, 1.32f, 1f),
+                                      new Vector3(4.7f, 3.1f, 14.0f),
+                                      isCpu));
+                StartCoroutine(fillAmountImg(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                            powerButtonImg[powerIdx],
+                                            powerButtons[powerIdx]));
+            }
+        }
+        else
+        {
+            if (isCpu)
+            {
+                if (cpuPowersUsed[(int)POWER.CUT_GOAL_BY_HALF] ||
+                    cpuPowerLock)                    
+                    return false;
+
+                cpuPowerLock = true;
+                cpuPowersUsed[(int)POWER.CUT_GOAL_BY_HALF] = true;
+
+                goalUp.transform.localScale = localScale;
+                playerMainScript.setGoalSizeCpu(realScale);
+
+                //playerMainScript.cpuPlayer.recalculateCornerPoints(playerMainScript.getGoalSizePlr2());
+
+                // goalUpStandardColliders.SetActive(false);
+                // goalUpEnlargeColliders.SetActive(true);
+
+
+
+                goalUpFlare[0].transform.position = new Vector3(goalUpFlare[0].transform.position.x,
+                                                                localScale.y + 0.2f,
+                                                                goalUpFlare[0].transform.position.z);
+                goalUpFlare[1].transform.position = new Vector3(goalUpFlare[1].transform.position.x,
+                                                                localScale.y + 0.2f,
+                                                                goalUpFlare[1].transform.position.z);
+
+                //goalUpCloth.enabled = false;
+                audioManager.Play("extraPowerEnable");
+                audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+
+                StartCoroutine(
+                    roolbackChangeGoal(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                        goalUp,
+                                        new Vector3(3f, 1.758f, 3.498f),
+                                        new Vector3(5.25f, 3.5f, 14.0f),
+                                        isCpu));
+            }
+            else
+            {
+
+                if (playerPowerLock[(int)POWER.CUT_GOAL_BY_HALF] < 1 ||
+                    mainPlayerLock)
+                    return false;
+
+                //print("EXTRAGOALS enlargegoals ");
+
+                goalDown.transform.localScale = localScale;
+                playerMainScript.setGoalSize(realScale);
+
+                playerPowerLock[(int)POWER.CUT_GOAL_BY_HALF]--;
+                mainPlayerLock = true;
+                audioManager.Play("extraPowerEnable");
+                audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+
+                ////goalDownCloth.enabled = false;
+                // goalDown.transform.localScale = localScale;
+                //playerMainScript.setGoalSize(realScale);
+
+                ///goalDownStandardColliders.SetActive(false);
+                ///goalDownEnlargeColliders.SetActive(true);
+
+                goalDownFlare[0].transform.position = new Vector3(goalDownFlare[0].transform.position.x,
+                                                                  localScale.y + 0.2f,
+                                                                  goalDownFlare[0].transform.position.z);
+                goalDownFlare[1].transform.position = new Vector3(goalDownFlare[1].transform.position.x,
+                                                                  localScale.y + 0.2f,
+                                                                  goalDownFlare[1].transform.position.z);
+
+                StartCoroutine(
+                  roolbackChangeGoal(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                      goalDown,
+                                      new Vector3(3f, 1.558f, 3.13412f),
+                                      new Vector3(4.7f, 3.1f, 14.0f),
+                                      isCpu));
+                StartCoroutine(fillAmountImg(powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF],
+                                powerButtonImg[powerIdx],
+                                powerButtons[powerIdx]));
+            }
+        }
+
+        return true;
+    }
+
+    IEnumerator roolbackChangeGoal(float delay,
+                                   GameObject goal,
+                                   Vector3 localScale,
+                                   Vector3 realScale,
+                                   bool isCpu)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (isCpu)
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if ((playerMainScript.isShotActive() &&
+                    (playerMainScript.getBallPos().z > 13.2f)) ||
+                    playerMainScript.ball[1].getBallGoalCollisionStatus())
+                {
+                    if (playerMainScript.ball[1].getBallGoalCollisionStatus())
+                        yield return new WaitForSeconds(0.35f);
+                    else
+                        yield return new WaitForSeconds(0.1f);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            //if (Globals.stadiumNumber == 1)
+            //{
+            //    goalUpStandardColliders.SetActive(true);
+            //    goalUpEnlargeColliders.SetActive(false);
+            // }
+
+            goalUpFlare[0].transform.position = new Vector3(goalUpFlare[0].transform.position.x,
+                                                            3.656f,
+                                                            goalUpFlare[0].transform.position.z);
+            goalUpFlare[1].transform.position = new Vector3(goalUpFlare[1].transform.position.x,
+                                                            3.656f,
+                                                            goalUpFlare[1].transform.position.z);
+
+            //playerMainScript.cpuPlayer.recalculateCornerPoints(playerMainScript.getGoalSizePlr2());
+
+
+            goal.transform.localScale = localScale;
+            playerMainScript.setGoalSizeCpu(realScale);
+            cpuPowerLock = false;
+
+            //goalUpCloth.enabled = true;
+
+        }
+        else
+        {
+            for (int i = 0; i < 10; i++)
+            {
+                if ((playerMainScript.cpuPlayer.getShotActive() &&
+                    (playerMainScript.getBallPos().z < -13.2f)) ||
+                     playerMainScript.ball[1].getBallGoalCollisionStatus())
+                {
+                    if (playerMainScript.ball[1].getBallGoalCollisionStatus())
+                        yield return new WaitForSeconds(0.35f);
+                    else
+                        yield return new WaitForSeconds(0.1f);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            goalDownFlare[0].transform.position = new Vector3(goalDownFlare[0].transform.position.x,
+                                                              3.237f,
+                                                              goalDownFlare[0].transform.position.z);
+            goalDownFlare[1].transform.position = new Vector3(goalDownFlare[1].transform.position.x,
+                                                              3.237f,
+                                                              goalDownFlare[1].transform.position.z);
+
+            //if (Globals.stadiumNumber == 1)
+            ///{
+            ///     goalDownStandardColliders.SetActive(true);
+            //    goalDownEnlargeColliders.SetActive(false);
+            //}
+
+            goal.transform.localScale = localScale;
+            playerMainScript.setGoalSize(realScale);
+
+            mainPlayerLock = false;
+
+            //goalDownCloth.enabled = true;
+            //isPlayerGoalEnlarge = false;
+        }
+    }
+
+    public bool badConditions(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
+    {
+        if (!isPowerEnable)
+            return false;
+
+        if (!isCpu)
+        {
+            if ((playerPowerLock[(int)POWER.BAD_CONDITIONS] < 1) ||
+                 mainPlayerLock)
+                return false;
+
+            audioManager.Play("extraPowerEnable");
+            audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+            //TOCHECK
+
+            playerPowerLock[(int)POWER.BAD_CONDITIONS]--;
+            mainPlayerLock = true;
+
+            StartCoroutine(enableBadCondition(
+                                              isCpu,
+                                              powerMaxTime[(int)POWER.BAD_CONDITIONS]));
+            StartCoroutine(fillAmountImg(powerMaxTime[(int)POWER.BAD_CONDITIONS],
+                                         powerButtonImg[powerIdx],
+                                         powerButtons[powerIdx]));
+        }
+        else
+        {
+            if (cpuPowersUsed[(int)POWER.BAD_CONDITIONS] ||
+                cpuPowerLock)               
+                return false;
+
+            cpuPowerLock = true;
+            audioManager.Play("extraPowerEnable");
+            audioManager.Commentator_extraPower("com_extraPowerUsed_1");
+
+            cpuPowersUsed[(int)POWER.BAD_CONDITIONS] = true;
+
+            StartCoroutine(enableBadCondition(
+                isCpu,
+                powerMaxTime[(int)POWER.BAD_CONDITIONS]));            
+        }
+
+        return true;
+    }
+
+    IEnumerator enableBadCondition(bool isCpu, float delay)
+    {
+        if (!isCpu)
+        {
+            isPlayerSlowDown[1] = true;
+            snowParticle[1].Play();
+        }
+        else
+        {
+            isPlayerSlowDown[0] = true;
+            snowParticle[0].Play();
+        }
+
+        //audioManager.PlayAtTheSameTime("wind1");
+
+        yield return new WaitForSeconds(delay);
+
+        if (!isCpu)
+        {
+            isPlayerSlowDown[1] = false;
+            snowParticle[1].Stop();
+        }
+        else
+        {
+            isPlayerSlowDown[0] = false;
+            snowParticle[0].Stop();
+        }
+
+        //audioManager.Stop("wind1");
+
+        if (!isCpu)
+            mainPlayerLock = false;
+        else
+            cpuPowerLock = false;
+
+    }
+
+
+    private void initPowerTimes()
+    {
+        powerMaxTime = new float[MAX_POWERS + 1];
+
+        powerMaxTime[(int)POWER.CUT_GOAL_BY_HALF] = 3f;
+        powerMaxTime[(int)POWER.SILVER_BALL] = 4f;
+        powerMaxTime[(int)POWER.SHAKE_CAMERA] = 1.5f;
+        powerMaxTime[(int)POWER.INVISABLE_PLAYER] = 4f;
+        powerMaxTime[(int)POWER.ENABLE_FLARE] = 4f;
+        powerMaxTime[(int)POWER.BAD_CONDITIONS] = 5f;
+        powerMaxTime[(int)POWER.GOLDEN_BALL] = 4f;
     }
 }
