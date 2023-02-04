@@ -2639,8 +2639,8 @@ public class playerControllerMultiplayer : MonoBehaviour
         {
             Material goalNonTransparent = graphics.getMaterial("Goals/Material/goalNonTransparent");
             Material goalTransparent = graphics.getMaterial("Goals/Material/goalTransparent");
-            Material goalNonTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparent");
-            Material goalTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparentNet");
+            Material goalNonTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparentNet");
+            Material goalTransparentNet = graphics.getMaterial("Goals/Material/goalTransparentNet");
             Material wallObstaclesTransparent = 
                 graphics.getMaterial("powers/obstaclesMaterialTransparent");
             Material wallObstaclesNonTransparent = 
@@ -2667,6 +2667,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 } else {
                     stadiumObjects.transform.eulerAngles = new Vector3(0f, 270f, 0f);
                     pitchBorders.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+                    GameObject.Find("groundLight").transform.eulerAngles = new Vector3(50f, 100, 0f);
                 }
 
                 graphics.setMaterialElement(
@@ -2693,12 +2694,13 @@ public class playerControllerMultiplayer : MonoBehaviour
                     GameObject.Find("goalUpNet"),
                     goalTransparentNet,
                     0);
+                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 200f, 0f);
                 }
 
 
 
 
-          
+
 
                 if (!Globals.PITCHTYPE.Equals("STREET"))
                     GameObject.Find("goalDownBallCrossLine").SetActive(false);
@@ -6913,7 +6915,9 @@ public class playerControllerMultiplayer : MonoBehaviour
         //overheadButtonGameObject.SetActive(true);
         lobButtonGameObject.SetActive(true);
 
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            //TODO
+            Globals.PITCHTYPE.Equals("STREET"))
         {
             powerButton1GameObject.SetActive(false);
             powerButton2GameObject.SetActive(false);

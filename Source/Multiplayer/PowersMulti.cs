@@ -191,6 +191,13 @@ public class PowersMulti : MonoBehaviour
 
     void Start()
     {
+        //todo
+        if (Globals.PITCHTYPE.Equals("STREET")) {
+            for (int i = 0; i < 3; i++)
+                powerButtons[i].SetActive(false);
+            return;
+        }
+
         RPC_confirmation = new bool[MAX_POWERS + 1];
         rpc_powers_state = new bool[MAX_POWERS + 1];
         rpc_shotPercent = new float[MAX_POWERS + 1];
@@ -257,6 +264,9 @@ public class PowersMulti : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            return;
+
         for (int i = 1; i <= MAX_POWERS; i++)
         {
             if (!rpc_powers_state[i])
@@ -352,15 +362,18 @@ public class PowersMulti : MonoBehaviour
 
     public void button1Action()
     {
+        if (Globals.PITCHTYPE.Equals("STREET")) return;
+     
         if (!isPowerEnable)
             return;
 
         if (Globals.PITCHTYPE.Equals("STREET"))
+        {
             cutGoalByHalf(!isMaster,
                           0,
                           new Vector3(1.32f, 1.32f / 1.5f, 1f),
                           new Vector3(4.7f, 3.1f / 1.5f, 14f));
-
+        }
         else
             twoExtraGoals(isMaster, ADD_SMALL_GOALS_TIME, true);
         rpc_send(1);        
@@ -368,6 +381,8 @@ public class PowersMulti : MonoBehaviour
 
     public void button2Action()
     {
+        if (Globals.PITCHTYPE.Equals("STREET")) return;
+
         if (!isPowerEnable)
             return;
 
@@ -377,15 +392,17 @@ public class PowersMulti : MonoBehaviour
 
     public void button3Action()
     {
+        if (Globals.PITCHTYPE.Equals("STREET")) return;
+
         if (!isPowerEnable)
             return;
 
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
-            badConditions(isMaster,
+            badConditions(!isMaster,
                           2,
-                         Vector3.zero,
-                         Vector3.zero);
+                          Vector3.zero,
+                          Vector3.zero);
             return;
         }
 
