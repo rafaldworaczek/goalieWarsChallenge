@@ -256,7 +256,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 		if (other.collider.name.Contains("goalDownNet") ||
 			other.collider.name.Contains("goalUpNet"))
 		{
-			audioManager.Play("net1");
+			audioManager.PlayNoCheck("net1");
 		}
 
 		if (other.collider.name == "floor" ||
@@ -304,7 +304,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 			if (other.collider.name.Contains("goalDownPostCollider") || 
 				other.collider.name.Contains("goalUpPostCollider"))
 			{
-				audioManager.Play("goalpost1");
+				audioManager.PlayNoCheck("goalpost1");
 				if (other.collider.name.Contains("goalUpPostCollider"))
 					goalUpLastTimeHitPosts = Time.time;
 				else
@@ -323,7 +323,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 				other.collider.name == "goalUpCrossBarCollider")
 			{
 
-				audioManager.Play("crossbar");
+				audioManager.PlayNoCheck("crossbar");
 				if (other.collider.name == "goalUpCrossBarCollider")
 				{
 					goalUpCrossBarJustHit = true;
@@ -371,7 +371,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 			rb.velocity = Vector3.zero;*/
 
 			//print("wall collision after " + rb.velocity);
-			audioManager.Play("bounceMetal");
+			audioManager.PlayNoCheck("bounceMetal");
 
 			lastTimeGkCollisionUpdateCpu = 0f;
 			lastTimeGkCollisionUpdatePlayer = 0f;
@@ -433,7 +433,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 			if (colliderName.Contains("goalDownPostCollider") ||
 				colliderName.Contains("goalUpPostCollider"))
 			{
-				audioManager.Play("goalpost1");
+				audioManager.PlayNoCheck("goalpost1");
 				if (colliderName.Contains("goalUpPostCollider"))
 					goalUpLastTimeHitPosts = Time.time;
 				else
@@ -455,7 +455,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 			if (colliderName == "goalDownCrossBarCollider" ||
 				colliderName == "goalUpCrossBarCollider")
 			{		
-				audioManager.Play("crossbar");
+				audioManager.PlayNoCheck("crossbar");
 				if (colliderName == "goalUpCrossBarCollider")
 				{
 					goalUpCrossBarJustHit = true;

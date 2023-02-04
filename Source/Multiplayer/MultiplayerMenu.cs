@@ -43,13 +43,15 @@ public class MultiplayerMenu : MonoBehaviour
         Debug.Log("parse " + float.Parse(currBallPosStr, CultureInfo.InvariantCulture)
             + " currBallPosStr " + currBallPosStr);*/
 
-
+       
         Time.timeScale = 1f;
         Globals.isMultiplayer = true;
         Globals.savedFileName = Globals.multiplayerSaveName;
         Globals.isBonusActive = false;
         Globals.isTrainingActive = false;
         invitePartyPanel.SetActive(false);
+        if (Globals.PITCHTYPE.Equals("STREET"))
+            Globals.commentatorStr = "NO";
 
         if (PhotonNetwork.InRoom)
             PhotonNetwork.LeaveRoom();

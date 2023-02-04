@@ -188,6 +188,9 @@ namespace AudioManagerMultiNS
 
         public void Play(string name, float volume)
         {
+            if (Globals.PITCHTYPE.Equals("STREET"))
+                return;
+
             Sound s = Array.Find(sounds, sound => sound.name == name);
             if (s != null && !s.source.isPlaying)
             {
