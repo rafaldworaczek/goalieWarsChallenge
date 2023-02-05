@@ -17972,7 +17972,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3f6e2877fea3c164aaef7f02cc5976d0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8add84ddf36417043a85b031e069515d, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32977,7 +32977,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.45, y: -0.212}
   m_AnchorMax: {x: 0.23666666, y: 1.188}
-  m_AnchoredPosition: {x: -120.00012, y: 0}
+  m_AnchoredPosition: {x: -120, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &741241802
@@ -34887,7 +34887,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6fb2bd55eef4f064d83cb1788249734f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 35524b01c9769574ab70659fee6a0c3b, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -55133,7 +55133,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4be45adad655e2e41b66dffd91efc160, type: 2}
+  - {fileID: 2100000, guid: 0c7bfca38b3ea854e888823fb6c8b578, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -68327,6 +68327,7 @@ MonoBehaviour:
   - {fileID: 1816127262}
   - {fileID: 531632917}
   rpc_powers_state: 
+  snowParticle: []
 --- !u!1 &1554826109
 GameObject:
   m_ObjectHideFlags: 0
@@ -100903,6 +100904,7 @@ MonoBehaviour:
   - {fileID: 1683771921}
   - {fileID: 446187165}
   - {fileID: 1811022538}
+  buidlingBehindGoals: []
 --- !u!1 &2013869601
 GameObject:
   m_ObjectHideFlags: 0
@@ -106547,7 +106549,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8c139cc90a9b70446b5bb6f62e3e51e2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ab6f64e9737776b44afbe8f2c9f4d21f, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1

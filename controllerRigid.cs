@@ -12683,8 +12683,8 @@ public class controllerRigid : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log("parentRb " + parentRb);
-                                Debug.Log("parentRb.trainingScrip  " + parentRb.trainingScript);
+                                //Debug.Log("parentRb " + parentRb);
+                                //Debug.Log("parentRb.trainingScrip  " + parentRb.trainingScript);
 
                                 /*GO TO A INIT POSITION, MOVE GK TO FIT OPPONENT MOVES */
                                 if (parentRb.trainingScript.isShotTraining())

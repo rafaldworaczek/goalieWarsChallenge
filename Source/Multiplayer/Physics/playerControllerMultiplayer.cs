@@ -2689,8 +2689,10 @@ public class playerControllerMultiplayer : MonoBehaviour
                     GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, -150f, 0f);
                     GameObject.Find("LineGoalDown").SetActive(false);
                     
-                } else
-                {
+                } 
+                
+                //else
+                //{
                     graphics.setMaterialElement(
                     GameObject.Find("goalDownNet"),
                     goalNonTransparentNet,
@@ -2700,7 +2702,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     goalTransparentNet,
                     0);
                     GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 200f, 0f);
-                }
+                //}
 
 
 

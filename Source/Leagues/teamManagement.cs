@@ -937,7 +937,7 @@ public class teamManagement : MonoBehaviour
 
     public void onClickPlay()
     {
-        //print("Globals.isMultiplayer " + Globals.isMultiplayer);
+        print("Globals.isMultiplayer " + Globals.isMultiplayer);
        
         //print("DBGPLAYONCLICK TEAM MANAGEMENT 1 CLICK PLAY");
         Globals.recoverOriginalResolution();
