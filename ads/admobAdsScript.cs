@@ -44,24 +44,33 @@ public class admobAdsScript : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("INDOOR"))
         {
             if (!isAdTestEnable)
-                MobileAds.Initialize("ca-app-pub-4281391536440718~6866202819");
+                //MobileAds.Initialize("ca-app-pub-4281391536440718~6866202819");
+                MobileAds.Initialize(initStatus => { });
+
             else
-                MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
-        } 
+                //MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
+                MobileAds.Initialize(initStatus => { });
+
+        }
         else if (Globals.PITCHTYPE.Equals("STREET"))
         {
             if (!isAdTestEnable)
-                MobileAds.Initialize("ca-app-pub-4281391536440718~3490000901");
+                //MobileAds.Initialize("ca-app-pub-4281391536440718~3490000901");
+                MobileAds.Initialize(initStatus => { });
             else
-                MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
+                //MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
+                MobileAds.Initialize(initStatus => { });
+
         }
         else
         {
             if (!isAdTestEnable)
-                MobileAds.Initialize("ca-app-pub-4281391536440718~7400929053");
+                //                MobileAds.Initialize("ca-app-pub-4281391536440718~7400929053");
+                MobileAds.Initialize(initStatus => { });
             else
-                MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
-        }        
+                //MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
+                MobileAds.Initialize(initStatus => { });
+        }
     }
 
     private void RequestBanner()
@@ -523,6 +532,12 @@ public class admobAdsScript : MonoBehaviour
     {
         adsFailedLoad = true;
     }
+
+    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        adsFailedLoad = true;
+    }
+
 
     public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
     {
