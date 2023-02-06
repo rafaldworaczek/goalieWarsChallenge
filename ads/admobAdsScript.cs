@@ -30,18 +30,51 @@ public class admobAdsScript : MonoBehaviour
         lastTimeInterstetialDisplay = 0f;
 
         init();
-        RequestRewardedAd();
+        //RequestRewardedAd();
 
-        if (!Globals.adsEnable)
-        {
-            return;
-        }
-        RequestInterstitial();
+        ///if (!Globals.adsEnable)
+        //{
+        //    return;
+        //}
+        //RequestInterstitial();
     }
 
     public void init()
     {
-        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        //Debug.Log("#ADMOB init");
+        MobileAds.Initialize((initStatus) =>
+        {
+            Dictionary<string, AdapterStatus> map = initStatus.getAdapterStatusMap();
+            foreach (KeyValuePair<string, AdapterStatus> keyValuePair in map)
+            {
+                string className = keyValuePair.Key;
+                AdapterStatus status = keyValuePair.Value;
+                switch (status.InitializationState)
+                {
+                    case AdapterState.NotReady:
+                        // The adapter initialization did not complete.
+                        MonoBehaviour.print("#ADMOB Adapter: " + className + " not ready. desc " + status.Description);
+                        break;
+                    case AdapterState.Ready:
+                        // The adapter was successfully initialized.
+                        MonoBehaviour.print("#ADAPTER Adapter: " + className + " is initialized.");
+                        break;
+                }
+            }
+
+            RequestRewardedAd();
+            if (Globals.adsEnable)
+            {
+                RequestInterstitial();
+            }
+        });
+
+
+          
+    
+
+
+        /*if (Globals.PITCHTYPE.Equals("INDOOR"))
         {
             if (!isAdTestEnable)
                 //MobileAds.Initialize("ca-app-pub-4281391536440718~6866202819");
@@ -70,10 +103,10 @@ public class admobAdsScript : MonoBehaviour
             else
                 //MobileAds.Initialize("ca-app-pub-3940256099942544~3347511713");
                 MobileAds.Initialize(initStatus => { });
-        }
+        }*/
     }
 
-    private void RequestBanner()
+private void RequestBanner()
     {    
         //print("DEBUGADMONB1 banner request");
         string adUnitId  = "";
