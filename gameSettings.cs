@@ -1535,10 +1535,10 @@ public class gameSettings : MonoBehaviour
             chooseStadiumCanvas.SetActive(true);
         }
 
-        if (Globals.coins < 6000)
-            lockStadiumPanel.SetActive(true);
-        else
-            lockStadiumPanel.SetActive(false);
+        //if (Globals.coins < 6000)
+        //    lockStadiumPanel.SetActive(true);
+        //else
+        //    lockStadiumPanel.SetActive(false);
     }
 
     public void ChooseStadiumNextCanvas()
@@ -2733,13 +2733,9 @@ public class gameSettings : MonoBehaviour
         //    popUpNoCoins.SetActive(true);
          //   return;
         //}
-
-        if (idx == 2) {
-            Globals.PITCHTYPE = "STREET";
-        } else {
-            Globals.stadiumNumber = idx;
-        }
-        
+     
+        Globals.stadiumNumber = idx;
+               
         loadGameScene();
         admobAdsScript.hideBanner();
     }

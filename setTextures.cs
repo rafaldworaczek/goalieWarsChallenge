@@ -87,7 +87,8 @@ public class setTextures : MonoBehaviour
 
         ///it's sport halls
         if (Globals.stadiumNumber != 1 &&
-            !Globals.PITCHTYPE.Equals("STREET"))               
+            !Globals.PITCHTYPE.Equals("STREET") &&
+            (Globals.stadiumNumber != 2))               
         {
             initWallsMaterials();
             int groundNum = 0;

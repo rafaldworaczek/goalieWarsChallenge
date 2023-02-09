@@ -22,7 +22,8 @@ public class gameLoader : MonoBehaviour
     private float delayStart = 0f;
     void Start() {
         if  (Globals.PITCHTYPE.Equals("INDOOR") ||
-             Globals.PITCHTYPE.Equals("STREET"))
+             Globals.PITCHTYPE.Equals("STREET") ||
+             (Globals.stadiumNumber == 2))
         {
             Globals.commentatorStr = "NO";
         }
@@ -76,7 +77,7 @@ public class gameLoader : MonoBehaviour
     IEnumerator LoadSceneAsynchronously(string sceneName)
     {
         string loadingTextTmp = Languages.getTranslate("Loading");
-        print("#DBGgameScene name " + sceneName + " dontCheckOnlineUpdate " + Globals.dontCheckOnlineUpdate);
+        //print("#DBGgameScene name " + sceneName + " dontCheckOnlineUpdate " + Globals.dontCheckOnlineUpdate);
         if (Globals.isMultiplayer &&
             sceneName.Equals("multiplayerMenu") &&
             !Globals.dontCheckOnlineUpdate)

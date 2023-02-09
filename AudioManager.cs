@@ -150,7 +150,8 @@ namespace AudioManagerNS
 
         public void Play(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+                (Globals.stadiumNumber == 2))
                 return;
 
             Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -180,7 +181,8 @@ namespace AudioManagerNS
 
         public void Play(string name, float volume)
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+                (Globals.stadiumNumber == 2))
                 return;
 
             Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -1097,7 +1099,8 @@ namespace AudioManagerNS
 
         public void Stop(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET")||
+               (Globals.stadiumNumber == 2))
                 return;
 
             Sound s = Array.Find(sounds, sound => sound.name == name);
@@ -1113,7 +1116,8 @@ namespace AudioManagerNS
 
         public bool isPlaying()
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+               (Globals.stadiumNumber == 2))
                 return false;
 
             foreach (Sound sound in sounds)
@@ -1125,7 +1129,8 @@ namespace AudioManagerNS
 
         private bool checkIfAnyCommentatorPlaying()
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+               (Globals.stadiumNumber == 2))
                 return false;
 
             foreach (Sound sound in sounds)
@@ -1140,7 +1145,8 @@ namespace AudioManagerNS
 
         public bool isPlayingByName(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+                (Globals.stadiumNumber == 2))
                 return false;
 
             Sound s = Array.Find(sounds, sound => sound.name == name);

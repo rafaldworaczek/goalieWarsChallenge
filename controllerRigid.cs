@@ -780,7 +780,8 @@ public class controllerRigid : MonoBehaviour
 
         updateStadiumTextures();
 
-        if (!Globals.PITCHTYPE.Equals("STREET"))
+        if (!Globals.PITCHTYPE.Equals("STREET") &&
+            (Globals.stadiumNumber != 2))
             initFlagPositions();
 
         setScoresText();
@@ -905,7 +906,8 @@ public class controllerRigid : MonoBehaviour
         }
         else
         {
-            if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("STREET") ||
+                (Globals.stadiumNumber == 2))
                 audioManager.PlayNoCheck("training1");
             else
                 audioManager.Play("fanschantBackground2", 0.3f);
@@ -2851,7 +2853,7 @@ public class controllerRigid : MonoBehaviour
 
         if (!isPowerEnable || 
             (Globals.PITCHTYPE.Equals("STREET") &&
-            Globals.isMultiplayer))
+             Globals.isMultiplayer))
         {
             powerButton1GameObject.SetActive(false);
             powerButton2GameObject.SetActive(false);
@@ -2927,6 +2929,7 @@ public class controllerRigid : MonoBehaviour
         pauseCanvas.SetActive(false);
 
         if (!Globals.PITCHTYPE.Equals("STREET") &&
+            (Globals.stadiumNumber != 2) &&
             (isTrainingActive ||
             isBonusActive))
         {
@@ -4336,7 +4339,8 @@ public class controllerRigid : MonoBehaviour
                 int rand = getGoldSilverRandFreq();
 
                 if ((rand == 5) &&
-                    !Globals.PITCHTYPE.Equals("STREET"))
+                    !Globals.PITCHTYPE.Equals("STREET") &&
+                     (Globals.stadiumNumber != 2))
                 {
                     if (UnityEngine.Random.Range(0, 3) == 1)
                        powersScript.goldenBall(true, (int)
@@ -6969,7 +6973,8 @@ public class controllerRigid : MonoBehaviour
 
     private void updateFlagsPositions()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.PITCHTYPE.Equals("STREET") ||
+            (Globals.stadiumNumber == 2))
             return;
 
 
@@ -6998,7 +7003,8 @@ public class controllerRigid : MonoBehaviour
 
     private void updateStadiumTextures()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.PITCHTYPE.Equals("STREET") ||
+            (Globals.stadiumNumber == 2))
             return;
 
         //int teamColorChoosen = Globals.stadiumColorTeamA;
@@ -11569,7 +11575,8 @@ public class controllerRigid : MonoBehaviour
 
             if (Globals.isMultiplayer ||
                 (Globals.stadiumNumber != 0) ||
-                 Globals.PITCHTYPE.Equals("STREET"))
+                 Globals.PITCHTYPE.Equals("STREET") ||
+                 (Globals.stadiumNumber == 2))
             {
                 for (int i = 0; i < randPower.Length; i++)
                     randPower[i] = 0;
@@ -12072,7 +12079,8 @@ public class controllerRigid : MonoBehaviour
                     }
 
                     if (isChanceToShoot && 
-                        !Globals.PITCHTYPE.Equals("STREET"))
+                        !Globals.PITCHTYPE.Equals("STREET") &&
+                        (Globals.stadiumNumber != 2))
                     {
                         int rand = UnityEngine.Random.Range(0, 1);
                         if ((Globals.stadiumNumber == 0) &&
