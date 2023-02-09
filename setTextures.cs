@@ -50,10 +50,18 @@ public class setTextures : MonoBehaviour
          //{ "st_060_bg_field", "#5872E0" },
          //{ "st_060_bg_field", "#5F6FB0" },
          //{ "st_031_bg_field", "#636FA6" },
-         { "st_080_bg_field", "#918971" },
-         { "st_060_bg_field", "#92989A" },
-         { "st_080_bg_field", "#C3A0B2" },
-         { "st_080_bg_field", "#9B9F9A" },
+         //{ "st_080_bg_field", "#918971" },
+         //{ "st_060_bg_field", "#92989A" },
+         //{ "st_080_bg_field", "#C3A0B2" },
+         //{ "st_080_bg_field", "#9B9F9A" },
+       
+           { "st_080_bg_field", "#ECE5CF" },
+           { "st_060_bg_field", "#92989A" },
+           { "st_080_bg_field", "#FFFFFF" }, //very light
+           { "st_080_bg_field", "#FFC2E2" }, 
+
+
+
          //{ "st_060_bg_field", "#667779" }    
          //"Ground/Material/st_061_bg_field",        
          //"Ground/Material/st_070_bg_field",
@@ -166,8 +174,10 @@ public class setTextures : MonoBehaviour
     {
         int randWheather = UnityEngine.Random.Range(0, 5);
         if (randWheather <= 1) {
-            if (randWheather == 0)
+            if (randWheather == 0) {            
+                GameObject.Find("shadow1").SetActive(false);
                 return 3;
+            }
             return 2;
         } else if ((randWheather == 3) ||
                    (randWheather == 2))
@@ -177,6 +187,7 @@ public class setTextures : MonoBehaviour
         } else
         {
             snowParticle[0].Play();
+            GameObject.Find("shadow1").SetActive(false);
             return 1;
         }
 

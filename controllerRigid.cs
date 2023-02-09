@@ -11,6 +11,7 @@ using graphicsCommonNS;
 using gameStatisticsNS;
 using System.IO;
 using System;
+
 using MenuCustomNS;
 using GeometryCommonNS;
 using UnityEngine.Analytics;
@@ -941,7 +942,7 @@ public class controllerRigid : MonoBehaviour
         //print("maxTimeToShotDBG2 START" + maxTimeToShot);
 
 
-        Analytics.enabled = false;
+        Analytics.enabled = true;
 
         if (Globals.isAnalyticsEnable)
         {

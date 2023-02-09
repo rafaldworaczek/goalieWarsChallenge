@@ -199,7 +199,10 @@ public class Shop : MonoBehaviour
                         gSettings.onClickChooseStadium(1);
 
                     notificationCanvas.SetActive(false);
-                }
+                } else if (rewardAdsEventName.Contains("stadium_street")) {
+                    gSettings.onClickChooseStadium(2);
+                    notificationCanvas.SetActive(false);
+                } 
                 else if (rewardAdsEventName.Equals("refillEnergy"))
                 {
                     showNotification(

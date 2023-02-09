@@ -2669,6 +2669,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                         stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
                     pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles =
                         new Vector3(0f, 180f, 0f);
+                    GameObject.Find("shadow1").transform.position = new Vector3(7.8f, 0f, 12f);
                 } else {
                     stadiumObjects.transform.eulerAngles = new Vector3(0f, 270f, 0f);
                     pitchBorders.transform.eulerAngles = new Vector3(0f, 180f, 0f);
@@ -2687,8 +2688,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 if (!Globals.PITCHTYPE.Equals("STREET"))
                 {
                     GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, -150f, 0f);
-                    GameObject.Find("LineGoalDown").SetActive(false);
-                    
+                    GameObject.Find("LineGoalDown").SetActive(false);                    
                 } 
                 
                 //else
@@ -3242,7 +3242,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //print("cameraIntro pos " + m_MainCamera.transform.position +
         //    " rot " + m_MainCamera.transform.eulerAngles);
 
-
+        Analytics.enabled = true;
         if (Globals.isAnalyticsEnable)
         {
             AnalyticsResult analyticsResult = Analytics.CustomEvent("Game_Started", new Dictionary<string, object>

@@ -26,7 +26,7 @@ public class gameSettings : MonoBehaviour
     public MultiplayerMenu multiplayerMenuScript;
 
     private GraphicsCommon graphicsStandard;
-    private int currATeamIdx = 4;
+    private int currATeamIdx = 5;
     private int currBTeamIdx = 13;
     /*This reference is updated dynamically using changeTeamReferences function */
     private TextMeshProUGUI teamAname;
@@ -952,7 +952,7 @@ public class gameSettings : MonoBehaviour
     {
         leagueAIdx = 0;
         leagueBIdx = 0;
-        currATeamIdx = 4;
+        currATeamIdx = 5;
         currBTeamIdx = 13;
 
         //print("DBGTOURNAMENT23 GLOBAL GAMETYEP " + Globals.gameType);
@@ -2734,7 +2734,11 @@ public class gameSettings : MonoBehaviour
          //   return;
         //}
 
-        Globals.stadiumNumber = idx;
+        if (idx == 2) {
+            Globals.PITCHTYPE = "STREET";
+        } else {
+            Globals.stadiumNumber = idx;
+        }
         
         loadGameScene();
         admobAdsScript.hideBanner();
