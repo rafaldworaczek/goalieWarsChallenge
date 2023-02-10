@@ -2689,7 +2689,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                 if (!Globals.PITCHTYPE.Equals("STREET"))
                 {
-                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, -150f, 0f);
+                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 210f, 0f);
                     GameObject.Find("LineGoalDown").SetActive(false);                    
                 } 
                 
@@ -2705,9 +2705,6 @@ public class playerControllerMultiplayer : MonoBehaviour
                     0);
                     GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 200f, 0f);
                 //}
-
-
-
 
 
 
