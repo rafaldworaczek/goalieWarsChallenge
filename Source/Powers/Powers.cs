@@ -138,7 +138,8 @@ public class Powers : MonoBehaviour
         playerMainScript = GameObject.Find("playerDown").GetComponent<controllerRigid>();
 
 
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.PITCHTYPE.Equals("STREET") ||
+            (Globals.stadiumNumber == 2))
             return;
 
         wallUpLeft1 = GameObject.Find("wallUpLeft1");
@@ -1214,7 +1215,8 @@ public class Powers : MonoBehaviour
     {
         powerChoosen = new bool[MAX_POWERS + 1];
 
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.PITCHTYPE.Equals("STREET") ||
+            (Globals.stadiumNumber == 2))
         {
             funcList.Add(twoExtraGoals);
             funcList.Add(cutGoalByHalf);
@@ -1269,7 +1271,8 @@ public class Powers : MonoBehaviour
         else
         //its sport hall or multiplayer
         {
-            if (!Globals.PITCHTYPE.Equals("STREET"))
+            if (!Globals.PITCHTYPE.Equals("STREET") ||
+                (Globals.stadiumNumber == 2))
             {
                 powerChoosen[0] = true;
                 powerChoosen[1] = true;

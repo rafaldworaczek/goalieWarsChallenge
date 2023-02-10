@@ -2669,7 +2669,9 @@ public class playerControllerMultiplayer : MonoBehaviour
                         stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
                     pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles =
                         new Vector3(0f, 180f, 0f);
-                    GameObject.Find("shadow1").transform.position = new Vector3(7.8f, 0f, 12f);
+                    //GameObject.Find("shadow1").transform.position = new Vector3(7.8f, 0f, 12f);
+                    if (GameObject.Find("shadow1") != null)
+                        GameObject.Find("shadow1").SetActive(false);
                 } else {
                     stadiumObjects.transform.eulerAngles = new Vector3(0f, 270f, 0f);
                     pitchBorders.transform.eulerAngles = new Vector3(0f, 180f, 0f);
@@ -2727,7 +2729,11 @@ public class playerControllerMultiplayer : MonoBehaviour
                 {
                     GameObject.Find("goalUpBallCrossLine").SetActive(false);
                     GameObject.Find("LineGoalUp").SetActive(false);
+                    if (GameObject.Find("shadow2") != null)
+                        GameObject.Find("shadow2").SetActive(false);
                 }
+
+
             }
 
             UICanvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();

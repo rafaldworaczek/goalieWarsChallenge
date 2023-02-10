@@ -15,7 +15,7 @@ public class admobAdsScript : MonoBehaviour
     private bool adsRewardEarn = false;
     /*CHANGEIT TO TEST*/
 
-    private bool isAdTestEnable = true;
+    private bool isAdTestEnable = false;
     private bool DEBUG_ENABLE = true;
     private float lastTimeInterstetialDisplay;
 

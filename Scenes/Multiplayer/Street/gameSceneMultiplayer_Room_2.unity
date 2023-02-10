@@ -57787,6 +57787,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a97962f7d5ba4df0823334b52c7c02c, type: 3}
+--- !u!198 &1555935246 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 19800000, guid: 5a97962f7d5ba4df0823334b52c7c02c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1555935245}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1558773881
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78317,7 +78323,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   flareParticle:
-  - {fileID: 0}
+  - {fileID: 1555935246}
   snowParticle:
   - {fileID: 1303246129}
   rainParticle:

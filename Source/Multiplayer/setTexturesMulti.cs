@@ -169,7 +169,7 @@ public class setTexturesMulti : MonoBehaviour
         if (randWheather <= 1)
         {
             if (randWheather == 0) {
-                GameObject.Find("shadow1").SetActive(false); 
+                disableShadows();
                 return 3;
             }
             return 2;
@@ -181,11 +181,21 @@ public class setTexturesMulti : MonoBehaviour
         }
         else
         {
-            GameObject.Find("shadow1").SetActive(false); 
+            disableShadows();
             return 1;
         }
 
         return 2;
+    }
+
+    private static void disableShadows() {
+            if (GameObject.Find("shadow1") != null) {
+                GameObject.Find("shadow1").SetActive(false);
+            }
+
+            if (GameObject.Find("shadow2") != null) {
+                GameObject.Find("shadow2").SetActive(false);
+            }
     }
 
     private void playWheatherEffect(int randWheather)
@@ -213,6 +223,10 @@ public class setTexturesMulti : MonoBehaviour
     }
 
     private void setFlarePlay() {
+        //todo
+        if (Globals.isMultiplayer)
+            return;
+
         int randFlare = UnityEngine.Random.Range(1, 4);
         
         for (int i = 0; i < flareParticle.Length; i++)
