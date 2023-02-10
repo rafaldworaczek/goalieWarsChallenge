@@ -97,11 +97,13 @@ public class setTextures : MonoBehaviour
                 groundNum = playWheatherEffect();
             else
             {
-                if (Globals.isTrainingActive)
-                    groundNum = 3;
-                else
+                if (Globals.isTrainingActive) {
+                   groundNum = 3;         
+                }
+                else {
                     groundNum = 0;
-                rainParticle[0].Play();
+                    rainParticle[0].Play();
+                }
             }
             intGroundMaterials(groundNum);
 
@@ -179,8 +181,8 @@ public class setTextures : MonoBehaviour
         int randWheather = UnityEngine.Random.Range(0, 5);
         if (randWheather <= 1) {
             if (randWheather == 0) {        
-                if (GameObject.Find("shadow1") != null)
-                    GameObject.Find("shadow1").SetActive(false);
+                //if (GameObject.Find("shadow1") != null)
+                //    GameObject.Find("shadow1").SetActive(false);
                 return 3;
             }
             return 2;

@@ -53,7 +53,7 @@ public class admobAdsScript : MonoBehaviour
                 {
                     case AdapterState.NotReady:
                         // The adapter initialization did not complete.
-                        MonoBehaviour.print("#ADMOB Adapter: " + className + " not ready. desc " + status.Description);
+                        MonoBehaviour.print("#ADAPTER ADMOB Adapter: " + className + " not ready. desc " + status.Description);
                         break;
                     case AdapterState.Ready:
                         // The adapter was successfully initialized.
@@ -62,9 +62,11 @@ public class admobAdsScript : MonoBehaviour
                 }
             }
 
+            MonoBehaviour.print("#ADAPTER AFTER requestReward");
             RequestRewardedAd();
             if (Globals.adsEnable)
             {
+                MonoBehaviour.print("#ADAPTER AFTER request interstitial");
                 RequestInterstitial();
             }
         });
@@ -503,8 +505,6 @@ private void RequestBanner()
             this.interstitial.Show();
             lastTimeInterstetialDisplay = Time.time;
             RequestInterstitial();
-
-
         } else
         {
             return false;

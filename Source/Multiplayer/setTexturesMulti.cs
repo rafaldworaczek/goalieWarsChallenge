@@ -169,7 +169,7 @@ public class setTexturesMulti : MonoBehaviour
         if (randWheather <= 1)
         {
             if (randWheather == 0) {
-                disableShadows();
+                //disableShadows();
                 return 3;
             }
             return 2;

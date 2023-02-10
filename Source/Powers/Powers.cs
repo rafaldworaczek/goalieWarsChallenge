@@ -1271,8 +1271,8 @@ public class Powers : MonoBehaviour
         else
         //its sport hall or multiplayer
         {
-            if (!Globals.PITCHTYPE.Equals("STREET") ||
-                (Globals.stadiumNumber == 2))
+            if (!Globals.PITCHTYPE.Equals("STREET") &&
+                (Globals.stadiumNumber != 2))
             {
                 powerChoosen[0] = true;
                 powerChoosen[1] = true;
