@@ -1717,7 +1717,7 @@ namespace LANGUAGE_NS
                 //ES
                 "Antes de disparar haz clic en el botón L en la esquina inferior",
                 //PT
-                "Clique no botão V no canto inferior",
+                "Clique no botão L no canto inferior",
                 "",
                 "",
                 },

@@ -430,6 +430,7 @@ public class controllerRigid : MonoBehaviour
     private float INCORRECT_DIST = float.MinValue;
     private GameObject rotatedRbToBall;
     private GameObject tmpRotatedRbToBall;
+    private GameObject tmpRotGO;
 
     private bool isUpdateBallPosActive = false;
     private Vector3 updateBallPos;
@@ -688,6 +689,7 @@ public class controllerRigid : MonoBehaviour
 
         rotatedRbToBall = new GameObject();
         tmpRotatedRbToBall = new GameObject();
+        tmpRotGO = new GameObject();
 
         Globals.score1 = 0;
         Globals.score2 = 0;
@@ -7537,6 +7539,78 @@ public class controllerRigid : MonoBehaviour
         return ballRbRightSide[ballIdx].transform.position;
     }
 
+
+    //this might be unintentional click
+    private bool checkIfClickTooFar(Touch touch) {
+         Vector3 gkPlayerTouch = INCORRECT_VECTOR;
+         Vector3 realHitPlaceLocal;
+
+         Ray ray = m_MainCamera.ScreenPointToRay(touch.position);
+
+         getRotatedRbToBall(cpuPlayer.getBallInit(),
+                            rb,
+                            ref tmpRotGO,
+                            getGkCornerPoints());
+                            
+        Plane tmpRotPlane = new Plane(
+            tmpRotGO.transform.forward,
+            tmpRotGO.transform.position);
+            
+        float dist = 0.0f;
+        if (tmpRotPlane.Raycast(ray, out dist))
+        {
+            Vector3 hitPoint = ray.GetPoint(dist);
+            gkPlayerTouch = hitPoint;
+        } else {
+            return false;
+        }
+
+        Vector3 clickedRbRotatedLS = InverseTransformPointUnscaled(
+                            tmpRotGO.transform,
+                            gkPlayerTouch);
+
+        /*Debug.Log("DBGclick forward global pos " + 
+            InverseTransformPointUnscaled(tmpRotGO.transform, tmpRotGO.transform.forward)
+            + " forward " + tmpRotGO.transform.forward);*/
+
+
+
+        clickedRbRotatedLS.z =  0.0f;
+	   
+        realHitPlaceLocal = bezierCurvePlaneInterPoint(0.0f,
+                                                       1.0f,
+                                                       tmpRotGO,
+                                                       cpuPlayer.getOutShotStart(),
+                                                       cpuPlayer.getOutShotMid(),
+                                                       cpuPlayer.getOutShotEnd(),
+                                                       false);
+
+         if (Mathf.Abs(realHitPlaceLocal.z) > 0.5f)
+         {
+            realHitPlaceLocal = INCORRECT_VECTOR;
+         }
+          
+         gkDistRealClicked = 
+            Vector3.Distance(clickedRbRotatedLS, realHitPlaceLocal);
+
+         /*Debug.Log("#DBGclick " + clickedRbRotatedLS + " realHit " + realHitPlaceLocal
+         + " dist " + (Vector3.Distance(clickedRbRotatedLS, realHitPlaceLocal)
+         + " rb.transPos " + rb.transform.position + " rbRot " + rb.transform.eulerAngles
+         + " tmpRotGOPos " + tmpRotGO.transform.position
+         + " tmpRotGoRot" + tmpRotGO.transform.eulerAngles)
+         + " gkPlayerTouch " + gkPlayerTouch
+         + " touch.position " + touch.position);*/
+
+         if ((gkDistRealClicked > 7f) &&
+             (realHitPlaceLocal != INCORRECT_VECTOR))
+         {
+            return true;
+         }
+
+         return false;
+    }
+
+
     float calculatedTimeToStartPos = 0.227f;
 
     /* Goalkeeper movement - dist is only related to cpu player*/
@@ -9953,13 +10027,16 @@ public class controllerRigid : MonoBehaviour
                 + " joystick.getPointerId()" + joystick.getPointerId());*/
             for (int i = 0; i < Input.touchCount; i++)
             {
-                if (joystick.getPointerId() == i)
-                    continue;
+                //if (joystick.getPointerId() == i)
+                //    continue;
 
+                touch = Input.GetTouch(i);
                 if (isTouchInsidePowerButtons(touch.position))
                     continue;
 
-                touch = Input.GetTouch(i);
+                if (checkIfClickTooFar(touch))
+                    continue;
+
                 bool intersectWithHelper = checkRectPointIntersection(
                                                 touch.position,
                                                 gkHelperRectTransform.position,
@@ -10228,8 +10305,6 @@ public class controllerRigid : MonoBehaviour
         gkTouchPosRbWS = INCORRECT_VECTOR;
 
         Ray ray = m_MainCamera.ScreenPointToRay(touch.position);
-
-
 
         Plane rbRotatedPlane = new Plane(
             rotatedRbToBall.transform.forward,
@@ -10682,13 +10757,13 @@ public class controllerRigid : MonoBehaviour
 
         /*print("DEBUGLASTTOUCHLUCKXYU DRAW HELPER CIRCLE START SHOTV " + shotvariant +
              " OUTSHOTS " + outShotStart + " MID " + outShotMid + " OUTSHOTEND " + outShotEnd);*/
-        Vector3 hitPointWS = getBallHitRbPoint(gameObjectRbRotated, shotvariant, outShotStart, outShotMid, outShotEnd);
+        Vector3 hitPointWS = 
+            getBallHitRbPoint(gameObjectRbRotated, shotvariant, outShotStart, outShotMid, outShotEnd);
         //print("DEBUGLASTTOUCH HELPER IMAGE " + hitPointWS + " shotvariant " + shotvariant);
         if (hitPointWS != INCORRECT_VECTOR)
         {
             gkHelperRectTransform.position = m_MainCamera.WorldToScreenPoint(hitPointWS);
             gkHelperImage.enabled = true;
-
         }
 
 
@@ -12598,6 +12673,7 @@ public class controllerRigid : MonoBehaviour
 
 
                         parentRb.setGkHelperImageVal(true);
+                        drawHelperImage();
                         //midPosv3 = (ballInitPos + endPosOrg) / 2.0f;
                         drawGKHelperTime = 0.0f;
                         parentRb.audioManager.PlayNoCheck("kick3");
@@ -14228,7 +14304,7 @@ public class controllerRigid : MonoBehaviour
             {
                 //print("DEBUGLASTTOUCHLUCKXYU UPDATE ROTATED " + ballInitPos);
 
-                parentRb.drawGkHelperCircle(
+               /* parentRb.drawGkHelperCircle(
                     parentRb.getRotatedRbToBall(ballInitPos,
                                                 parentRb.getPlayerRb(),
                                                 ref parentRb.getRotatedRbToBallRef(),
@@ -14237,12 +14313,27 @@ public class controllerRigid : MonoBehaviour
                                                 outShotStart,
                                                 outShotMid,
                                                 outShotEnd);
+                                                */
+               drawHelperImage();
             }
 
             if (cpuPlayerRb.transform.position.y < 0.03f)
                 cpuPlayerRb.transform.position =
                     new Vector3(cpuPlayerRb.transform.position.x, 0.03f, cpuPlayerRb.transform.position.z);
         }
+
+        void drawHelperImage() {
+              parentRb.drawGkHelperCircle(
+                    parentRb.getRotatedRbToBall(ballInitPos,
+                                                parentRb.getPlayerRb(),
+                                                ref parentRb.getRotatedRbToBallRef(),
+                                                parentRb.getGkCornerPoints()),
+                                                shotvariant,
+                                                outShotStart,
+                                                outShotMid,
+                                                outShotEnd);
+        }
+
 
         public void onAniatorIk()
         {

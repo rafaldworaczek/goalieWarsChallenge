@@ -899,7 +899,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         photonView.RPC("RPC_PACKET_ACK",
                      RpcTarget.Others,
-                     (byte)RPC_ACK.GK_PREDICT_CONFIRM);
+                     (byte) RPC_ACK.GK_PREDICT_CONFIRM);
 
         RPC_lastUpdateTime[(int) RPC_ACK.GK_PREDICT_CONFIRM] = Time.time;
 
@@ -2859,6 +2859,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         rotatedRbToBall = new GameObject();
         tmpRotatedRbToBall = new GameObject();
+        tmpRotGO = new GameObject();
 
         Globals.score1 = 0;
         Globals.score2 = 0;
@@ -8817,7 +8818,9 @@ public class playerControllerMultiplayer : MonoBehaviour
                 //}
 
                     shotActive = true;
-
+                    if (!photonView.IsMine)
+                        peerPlayer.drawGkHelperCircle();
+                    //peerPlayer.drawGkHelperCircle();
 
 
                 //RPC_expectedSequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM]++;
@@ -12773,6 +12776,64 @@ public class playerControllerMultiplayer : MonoBehaviour
 
     float calculatedTimeToStartPos = 0.227f;
 
+    GameObject tmpRotGO;
+    //this might be unintentional click
+    //this might be unintentional click
+    private bool checkIfClickTooFar(Touch touch) {
+         Vector3 gkPlayerTouch = INCORRECT_VECTOR;
+         Vector3 realHitPlaceLocal;
+
+         Ray ray = m_MainCamera.ScreenPointToRay(touch.position);
+
+         getRotatedRbToBall(peerPlayer.getBallInit(),
+                            rb,
+                            ref tmpRotGO,
+                            getGkCornerPoints());
+                            
+        Plane tmpRotPlane = new Plane(
+            tmpRotGO.transform.forward,
+            tmpRotGO.transform.position);
+            
+        float dist = 0.0f;
+        if (tmpRotPlane.Raycast(ray, out dist))
+        {
+            Vector3 hitPoint = ray.GetPoint(dist);
+            gkPlayerTouch = hitPoint;
+        } else {
+            return false;
+        }
+
+        Vector3 clickedRbRotatedLS = InverseTransformPointUnscaled(
+                            tmpRotGO.transform,
+                            gkPlayerTouch);
+
+
+        clickedRbRotatedLS.z =  0.0f;
+	   
+        realHitPlaceLocal = bezierCurvePlaneInterPoint(0.0f,
+                                                       1.0f,
+                                                       tmpRotGO,
+                                                       peerPlayer.getOutShotStart(),
+                                                       peerPlayer.getOutShotMid(),
+                                                       peerPlayer.getOutShotEnd(),
+                                                       false);
+
+         if (Mathf.Abs(realHitPlaceLocal.z) > 0.5f)
+         {
+            realHitPlaceLocal = INCORRECT_VECTOR;
+         }
+          
+         gkDistRealClicked = 
+            Vector3.Distance(clickedRbRotatedLS, realHitPlaceLocal);
+
+         if ((gkDistRealClicked > 7f) &&
+             (realHitPlaceLocal != INCORRECT_VECTOR))
+         {
+            return true;
+         }
+
+         return false;
+    }
     /* Goalkeeper movement - dist is only related to cpu player*/
     private void gkMoves(Animator animator,
                          Rigidbody rb,
@@ -15572,13 +15633,17 @@ public class playerControllerMultiplayer : MonoBehaviour
                 + " joystick.getPointerId()" + joystick.getPointerId());*/
             for (int i = 0; i < Input.touchCount; i++)
             {
-                if (joystick.getPointerId() == i)
-                    continue;
+                //if (joystick.getPointerId() == i)
+                //    continue;
+
+                touch = Input.GetTouch(i);
 
                 if (isTouchInsidePowerButtons(touch.position))
                     continue;
 
-                touch = Input.GetTouch(i);
+                if (checkIfClickTooFar(touch))
+                    continue;
+
                 bool intersectWithHelper = checkRectPointIntersection(
                                                 touch.position,
                                                 gkHelperRectTransform.position,
@@ -16406,6 +16471,22 @@ public class playerControllerMultiplayer : MonoBehaviour
         }
 
         return realHitPlace;
+    }
+
+
+    private void drawGkHelperCircle() {
+                        
+                drawGkHelperCircle(
+                      getRotatedRbToBall(peerPlayer.prepareShotPos[0, 0],
+                                         getPlayerRb(),
+                                         ref getRotatedRbToBallRef(),
+                                         getGkCornerPoints()),
+                      peerPlayer.getShotVariant(),
+                      peerPlayer.getOutShotStart(),
+                      peerPlayer.getOutShotMid(),
+                      peerPlayer.getOutShotEnd(),
+                      peerPlayer.prepareShotPos,
+                      peerPlayer.prepareShotMaxIdx);
     }
 
     private void drawGkHelperCircle(
