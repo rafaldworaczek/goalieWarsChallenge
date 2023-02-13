@@ -97,13 +97,13 @@ public class setTextures : MonoBehaviour
                 groundNum = playWheatherEffect();
             else
             {
-                if (Globals.isTrainingActive) {
-                   groundNum = 3;         
-                }
-                else {
+                //if (Globals.isTrainingActive) {
+                //   groundNum = 3;         
+                //}
+                //else {
                     groundNum = 0;
                     rainParticle[0].Play();
-                }
+                //}
             }
             intGroundMaterials(groundNum);
 

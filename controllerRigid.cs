@@ -10027,10 +10027,13 @@ public class controllerRigid : MonoBehaviour
                 + " joystick.getPointerId()" + joystick.getPointerId());*/
             for (int i = 0; i < Input.touchCount; i++)
             {
-                //if (joystick.getPointerId() == i)
-                //    continue;
+
+                if (joystick.getPointerId() == i)
+                    continue;
 
                 touch = Input.GetTouch(i);
+                //Debug.Log("#DBGTOUCH ID " + i + " VALUE " + touch.position + " Id " + joystick.getPointerId());
+
                 if (isTouchInsidePowerButtons(touch.position))
                     continue;
 

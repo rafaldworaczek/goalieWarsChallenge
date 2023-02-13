@@ -8729,10 +8729,10 @@ public class playerControllerMultiplayer : MonoBehaviour
                 //    print("CPUMOVEDEBUG123X_CPU " + onBall);
             }
 
-            if (!photonView.IsMine)
-            {
+            //if (!photonView.IsMine)
+            //{
                 onBall = true;
-            }
+            //}
 
             if (onBall)
             {
@@ -15633,8 +15633,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                 + " joystick.getPointerId()" + joystick.getPointerId());*/
             for (int i = 0; i < Input.touchCount; i++)
             {
-                //if (joystick.getPointerId() == i)
-                //    continue;
+                if (joystick.getPointerId() == i)
+                    continue;
 
                 touch = Input.GetTouch(i);
 
