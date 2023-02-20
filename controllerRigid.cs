@@ -968,11 +968,21 @@ public class controllerRigid : MonoBehaviour
         }
     }
 
-
-
     //int deltaIterator = 1;
+   
     void Update()
     {
+
+        if (Globals.isPhotoModeEnable)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                int rand = UnityEngine.Random.Range(0, 100000000);
+                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 2);
+                Debug.Log("A screenshot was taken!");
+            }
+        }
+
         if (Globals.isMultiplayer &&
             !PhotonNetwork.IsConnected)
             return;
@@ -1247,8 +1257,154 @@ public class controllerRigid : MonoBehaviour
         }
     }
 
+    private void photo_3DVolley()
+    {
+        ballRb [activeBall].transform.position = new Vector3(-3f, 1.5f, -2f);
+        if (!isPlaying(animator, "3D_volley", 1f))
+        {
+            animator.speed = 0.001f;
+            animator.Play("3D_volley", 0, 0.45f);
+            animator.Update(0f);
+            rb.transform.position = new Vector3(-5f, 0f, -6f);
+            ballRb[activeBall].velocity = Vector3.zero;
+
+            RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            RblookAtDirection(cpuPlayer.getPlayerRb(), 
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position, 
+                              100f);
+        }
+    }
+
+    private void photo_save1()
+    {
+        ballRb[activeBall].transform.position = new Vector3(-4f, 2.5f, -8f);
+        ballRb[activeBall].velocity = Vector3.zero;
+
+        if (!isPlaying(animator, "3D_GK_sidecatch_left_up", 1f))
+        {
+            animator.speed = 0.001f;
+            animator.Play("3D_GK_sidecatch_left_up", 0, 0.05f);
+            animator.Update(0f);
+            rb.transform.position = new Vector3(0f, 0f, -10.5f);
+            rb.velocity = Vector3.zero;
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            //RblookAtDirection(cpuPlayer.getPlayerRb(),
+            //                  rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+            //                  100f);
+
+            RblookAtDirection(cpuPlayer.getPlayerRb(),
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+                              100f);
+        }
+
+        Animator cpuAnim = cpuPlayer.getAnimator();
+        cpuPlayer.setAnimatorSpeed(0.001f);
+        if (!isPlaying(cpuAnim, "3D_volley", 1f))
+        {
+            cpuAnim.speed = 0.001f;
+            cpuAnim.Play("3D_volley", 0, 0.45f);
+            cpuAnim.Update(0f);
+            cpuPlayer.getPlayerRb().transform.position = new Vector3(-3f, 0f, 5f);
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            RblookAtDirection(cpuPlayer.getPlayerRb(),
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+                              100f);
+        }
+    }
+
+    private void photo_save2()
+    {
+        ballRb[activeBall].transform.position = new Vector3(-3f, 3.1f, 10f);
+        ballRb[activeBall].velocity = Vector3.zero;
+        Animator cpuAnimator = cpuPlayer.getAnimator();
+
+        if (!isPlaying(animator, "3D_GK_sidecatch_rightpunch_up", 1f))
+        {
+            cpuAnimator.speed = 0.001f;
+            cpuAnimator.Play("3D_GK_sidecatch_rightpunch_up", 0, 0.16f);
+            cpuAnimator.Update(0f);
+            cpuPlayer.getPlayerRb().transform.position = new Vector3(0f, 0f, 10.5f);
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            //RblookAtDirection(cpuPlayer.getPlayerRb(),
+            //                  rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+            //                  100f);
+
+            RblookAtDirection(cpuPlayer.getPlayerRb(),
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+                              100f);
+        }
+
+        if (!isPlaying(animator, "3D_shot_right_foot", 1f))
+        {
+            animator.speed = 0.001f;
+            animator.Play("3D_shot_right_foot", 0, 0.40f);
+            animator.Update(0f);
+            rb.transform.position = new Vector3(5f, 0f, -8f);
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            RblookAtDirection(rb,
+                              cpuPlayer.getPlayerRb().transform.position - rb.transform.position,
+                              100f);
+        }
+    }
+
+    private void photo_save3()
+    {
+        ballRb[activeBall].transform.position = new Vector3(-4.5f, 0.3f, -12f);
+        ballRb[activeBall].velocity = Vector3.zero;
+        Animator cpuAnimator = cpuPlayer.getAnimator();
+
+        if (!isPlaying(animator, "3D_GK_sidecatch_leftpunch_down", 1f))
+        {
+            animator.speed = 0.001f;
+            animator.Play("3D_GK_sidecatch_leftpunch_down", 0, 0.14f);
+            animator.Update(0f);
+            rb.transform.position = new Vector3(0f, 0f, -13.5f);
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            //RblookAtDirection(cpuPlayer.getPlayerRb(),
+            //                  rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+            //                  100f);
+
+            //RblookAtDirection(cpuPlayer.getPlayerRb(),
+            //                  rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+            //                  100f);
+        }
+
+        if (!isPlaying(animator, "3D_shot_right_foot", 1f))
+        {
+            cpuAnimator.speed = 0.001f;
+            cpuAnimator.Play("3D_shot_right_foot", 0, 0.40f);
+            cpuAnimator.Update(0f);
+            cpuPlayer.getPlayerRb().transform.position = new Vector3(-5f, 0f, 5f);
+
+            //RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
+            RblookAtDirection(cpuPlayer.getPlayerRb(),
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
+                              100f);
+        }
+    }
+
     void FixedUpdate()
     {
+        
+
+        if (Globals.isPhotoModeEnable) {
+            if (!gameStarted)
+            {
+                return;
+            }
+            //photo_3DVolley();
+            //photo_save1();
+            //photo_save2();
+            photo_save3();
+
+            //cpuPlayer.fixedUpdate();
+            return;
+        }
 
         if (Globals.isMultiplayer &&
             !PhotonNetwork.IsConnected)
@@ -5631,6 +5787,10 @@ public class controllerRigid : MonoBehaviour
 
     public void cameraMovement(bool noLerpMove, int camIdx)
     {
+
+        //cameraMovementPortrait(noLerpMove, camIdx);
+        ///return;
+
         int cameraIdx = cameraButton.getCameraIdx();
         if (camIdx != -1)
             cameraIdx = camIdx;
@@ -5823,6 +5983,132 @@ public class controllerRigid : MonoBehaviour
                 new Vector3(m_MainCamera.transform.position.x,
                             m_MainCamera.transform.position.y,
                             cameraSettings[cameraIdx][5]);
+        }
+
+        /*print("#DEBUGCAMERA m_MainCamera.transform.position "
+            + " X "
+            + " MOVEON X " 
+            + (1f - Mathf.Pow(1f - 0.16f, fps * Time.deltaTime))
+            + " TIMEDELTA " + Time.deltaTime
+            + " CAMERA "
+            + m_MainCamera.transform.position.ToString("F5")
+            + " RB TRANSFORM " + rb.transform.position.ToString("F5")
+            + " RB " + rb.position.ToString("F5")
+            );
+        */
+
+        return;
+    }
+
+    float[][] cameraSettingsPortrait = new float[][] {
+            new float[] {50f, 20.6f, 20.0f, 20f, 24.0f, -35.00f, 3.0f, 20f, 20f, 0f}
+    };
+    
+    public void cameraMovementPortrait(bool noLerpMove, int camIdx)
+    {       
+        int cameraIdx = cameraButton.getCameraIdx();
+        if (camIdx != -1)
+            cameraIdx = camIdx;
+
+        /*
+         * [0] Field of view
+         * [1] distance
+         * [2] X rotation angle
+         * [3] minZ distance
+         * [4] maxZ distance
+         * [5] maxZ Pos
+         * [6] rb transform div
+         * [7] minY distance
+         * [8] maxY distance
+         */
+
+        float fps = 30.0f;
+        float yDist = Mathf.InverseLerp(0, -PITCH_HEIGHT_HALF, rb.transform.position.z);
+        if (rb.transform.position.z <= -PITCH_HEIGHT_HALF)
+            yDist = 1.0f;
+
+        //print("DBGPOSIION " + rb.transform.position.z);
+        //TOCHECK
+        if (cameraIdx == 0)
+        {
+            yDist = Mathf.InverseLerp(0f, -10f, rb.transform.position.z);
+            yDist = yDist - ((1f - yDist) * 0.85f);
+            //print("#DBGYDIST " + yDist + " rb.transform.position.z " + rb.transform.position.z);
+            yDist = Mathf.Clamp(yDist, 0f, 1f);
+
+            m_MainCamera.transform.eulerAngles =
+                new Vector3(
+                    cameraSettingsPortrait[cameraIdx][2] - (Mathf.InverseLerp(-10, 0f, rb.transform.position.z) * 4f), cameraSettingsPortrait[cameraIdx][9], 0.0f);
+
+            if (Mathf.Abs(rb.transform.position.z) > 10f)
+            {
+                yDist = 1f;
+                m_MainCamera.transform.eulerAngles =
+                    new Vector3(cameraSettingsPortrait[cameraIdx][2], cameraSettingsPortrait[cameraIdx][9], 0.0f);
+            }
+
+            //m_MainCamera.GetComponent<Camera>().fieldOfView =
+            cameraComp.fieldOfView =
+                Mathf.Min(47f, 41f + (Mathf.Abs(rb.transform.position.z)));
+        }
+
+        //if (Mathf.Abs(rb.transform.position.z) < 5.5f)
+        //   yDist = 0f;
+        //ENDTOCHECK
+
+        yDist = Mathf.Lerp(cameraSettingsPortrait[cameraIdx][7],
+                           cameraSettingsPortrait[cameraIdx][8],
+                           yDist);
+        float zDist =
+            cameraSettingsPortrait[cameraIdx][1] +
+            Mathf.Abs(rb.transform.position.z / (cameraSettingsPortrait[cameraIdx][6]));
+
+        zDist = Mathf.Max(zDist, cameraSettingsPortrait[cameraIdx][3]);
+        zDist = Mathf.Min(zDist, cameraSettingsPortrait[cameraIdx][4]);
+
+        if (noLerpMove)
+        {
+            m_MainCamera.transform.position =
+                new Vector3(
+                    rb.transform.position.x,
+                    yDist,
+                    rb.transform.position.z - zDist);
+        }
+        else
+        {
+
+            /* x = lerp(x, target, rate)
+               https://forum.unity.com/threads/camera-stutters-in-a-simple-rotation.389899/
+               lerp(x, target, 1 - pow(1 - rate, 60 * dt)) 
+               frame independent*/
+
+            //zDist = 20;
+            Vector3 newCameraPos = m_MainCamera.transform.position =
+                        new Vector3(
+                    Mathf.Lerp(m_MainCamera.transform.position.x, rb.transform.position.x, 0.2f),
+                               Mathf.Lerp(m_MainCamera.transform.position.y, yDist, 0.1f),
+                               Mathf.Lerp(m_MainCamera.transform.position.z,
+                               rb.transform.position.z - zDist,
+                               0.2f));
+
+            /*Camera was moved from FixedUpdate to LateUpdate. When system is under pressure on the 
+             * very high graphics settings FixedUpdate can be executed a few times but Update may be dropped due a high load.
+             * if you don't use isFixedUpdate loop (you only execute once) camera will be more and more behind player 
+             * , because position player was updated for instance twice but camera movement only once. 
+             */
+
+
+            m_MainCamera.transform.position =
+                    newCameraPos;
+        }
+
+        /*max z camera position */
+        if (m_MainCamera.transform.position.z < cameraSettingsPortrait[cameraIdx][5])
+        {
+            m_MainCamera.transform.position =
+                new Vector3(m_MainCamera.transform.position.x,
+                            m_MainCamera.transform.position.y,
+                            cameraSettingsPortrait[cameraIdx][5]);
         }
 
         /*print("#DEBUGCAMERA m_MainCamera.transform.position "

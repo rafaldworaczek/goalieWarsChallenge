@@ -17,6 +17,8 @@ using AudioManagerMultiNS;
 
 public class gameSettings : MonoBehaviour
 {
+    public GameObject stadiumRewardAds;
+    public Button stadiumChooseRewardAdsButton;
     public bool isMultiplayer = false;
     private int MAX_PLAYERS_CARDS = 2;
     //public NationalTeams nationalTeams;
@@ -2736,6 +2738,8 @@ public class gameSettings : MonoBehaviour
      
         Globals.stadiumNumber = idx;
                
+
+
         loadGameScene();
         admobAdsScript.hideBanner();
     }
@@ -2790,6 +2794,23 @@ public class gameSettings : MonoBehaviour
         return true;
     }
 
+    public void onClickShowStadiumWatchAd(string eventAction)
+    {
+        stadiumRewardAds.SetActive(true);
+
+        stadiumChooseRewardAdsButton.onClick.RemoveAllListeners();
+        stadiumChooseRewardAdsButton.onClick.AddListener(
+                   delegate {
+                       shopScript.watchRewardAdButton(eventAction);
+                   });
+        Debug.Log("button click " + eventAction);
+    }
+
+    public void onClickCloseStadiumWatchAds()
+    {
+        stadiumRewardAds.SetActive(false);
+    }
+               
     #region testCode
     int playerIdx = 0;
 

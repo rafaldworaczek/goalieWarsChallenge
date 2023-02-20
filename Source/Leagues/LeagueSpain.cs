@@ -63,16 +63,16 @@ namespace MenuCustomNS
                 "Marko Stigen:Germany:94:83:L:5000:f1_s2_b0_t0_hblonde3|" +
                 //Pique Gerard def
                 "Gerald Parqet:Spain:93:85:L:7500:f2_s1_b2_t8_hblack10|" +                
+                 //Lewandowski Robert att
+                "Robert Lengolski:Poland:86:99:L:3500:f3_s1_b0_t0_hblack10|" +
                 //Coutinho Philippe - mid
                 "Phil Carinios:Brazil:89:89:L:7500:f3_s1_b0_t0_hblack5|" +
                 //Ousmane Dembele - att
                 "Osmi Deble:France:84:92:L:7900:f5_s1_b0_t0_hblack6|" +
                 //Frankie de Jong - mid
-                "Frank Jog:Netherlands:95:89:L:8100:f5_s2_b0_t0_hblonde2|" + 
+                "Frank Jog:Netherlands:95:89:L:8100:f5_s2_b0_t0_hblonde2|" +               
                 //Antoine Griezmann - att
-                "Anti Grizmo:France:84:90:L:7500:f6_s1_b2_t9_hblack15|" +
-                 //Leo Messi - att
-                "Lio:Argentina:85:98:L:9700:f8_s1_b2_t9_hblack5",
+                "Anti Grizmo:France:84:90:L:7500:f6_s1_b2_t9_hblack15",            
                 "shoeblue|shoered",
                 "glovebluered|glovebluewhite"},
              new string[] {
