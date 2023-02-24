@@ -978,7 +978,7 @@ public class controllerRigid : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 int rand = UnityEngine.Random.Range(0, 100000000);
-                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 2);
+                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 1);
                 Debug.Log("A screenshot was taken!");
             }
         }

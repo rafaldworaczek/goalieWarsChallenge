@@ -61,7 +61,6 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     public TextMeshProUGUI oopsPanelInfoText;
     private GameObject admobGameObject;
     private admobAdsScript admobAdsScript;
-
     // Start is called before the first frame update
 
     void Start()
@@ -85,7 +84,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         initUIObjects();
 
         ///chatClient.ChatRegion = "eu";
-        ConnectToPhotonChat();
+        //////ConnectToPhotonChat();
         nickName = PlayerPrefs.GetString("ONLINE_NICKNAME");
         onClickShowFriends();
 
@@ -712,7 +711,10 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     }
 
     public void onClickShowInvitePartyPanel()
-    {
+    {        
+        if (chatClient == null)
+            ConnectToPhotonChat();
+
         print("invitePartyPanel onClick");
         invitePartyPanel.SetActive(true);
         if (!PlayerPrefs.HasKey("ONLINE_NICKNAME"))

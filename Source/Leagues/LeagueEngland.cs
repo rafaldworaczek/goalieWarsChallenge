@@ -125,8 +125,6 @@ namespace MenuCustomNS
                 "Ingo Gondogen:Germany:96:93:L:2000:f7_s1_b2_t5_hblack3|" +
                 //Mahrez Riyad - att
                 "Ri Mohraz:Algeria:89:92:L:2300:f8_s1_b2_t9_hblack3|" +
-                //Haaland Erling att
-                "Eric Hellen:Norway:87:95:L:3500:f6_s1_b0_t0_hblonde1|" +
                 //Sterling Raheem - att \\TO DO\\
                 "Rahim Serliggs:England:87:94:L:2600:f9_s5_b2_t9_hblack3|" +
                 //Gabriel Jesus - att

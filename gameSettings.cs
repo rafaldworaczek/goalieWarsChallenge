@@ -113,7 +113,8 @@ public class gameSettings : MonoBehaviour
     public Image multiplayerPlayerBAttackSkillsBar;
 
     private string[] levels = { "KID", "EASY", "NORMAL", "HARD", "EXPERT" };
-    private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
+    //  private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
+    private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES" };
     private string[] trainingModes = { "NO", "YES" };
     private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
     private string[] joystickSide = { "LEFT", "RIGHT" };

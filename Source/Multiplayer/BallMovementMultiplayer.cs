@@ -297,6 +297,8 @@ public class BallMovementMultiplayer : MonoBehaviour
 		//print("DBGCOLLISIONCALC1024DB NORMAL BALL ballRb velocity apply ORIGINAL NAME " + other.collider.name + " vel " + rb.velocity
 		//	+ " ballRb.transform.position " + rb.transform.position);
 
+		///Debug.Log("DBGSHOT12 collision !!" + other.collider.name);
+
 		ballTrailRendererStop();
 
 		if (!goalCollision)

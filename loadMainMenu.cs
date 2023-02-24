@@ -122,7 +122,6 @@ public class loadMainMenu : MonoBehaviour
             PlayerPrefs.Save();
         }
 
-
         if (PlayerPrefs.HasKey("audioMute"))
         {
             int audioMute = PlayerPrefs.GetInt("audioMute");
@@ -329,7 +328,12 @@ public class loadMainMenu : MonoBehaviour
              PlayerPrefs.Save();
          }
 
-         PlayerPrefs.Save();
+        if (PlayerPrefs.HasKey("gameTimesIdx")) {
+            if (PlayerPrefs.GetInt("gameTimesIdx") > 2);
+                PlayerPrefs.SetInt("gameTimesIdx", 2);
+        }
+
+        PlayerPrefs.Save();
        //}
 
 

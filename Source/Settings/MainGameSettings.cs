@@ -30,7 +30,8 @@ public class MainGameSettings : MonoBehaviour
     public TextMeshProUGUI commentatorText;
 
     private string[] levels = { "KID", "EASY", "NORMAL", "HARD", "EXPERT" };
-    private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
+    //private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
+    private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES" };
     private string[] trainingModes = { "NO ", "YES" };
     private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
     private string[] joystickSide = { "LEFT", "RIGHT" };
@@ -75,6 +76,8 @@ public class MainGameSettings : MonoBehaviour
             //Level cannot be change after starting a game
             //levelsIdx = PlayerPrefs.GetInt(savedFileName + "_levelsIdx");
             gameTimesIdx = PlayerPrefs.GetInt(savedFileName + "_gameTimesIdx");
+            if (gameTimesIdx > 2)
+                gameTimesIdx = 2;
             //trainingModeIdx = PlayerPrefs.GetInt(savedFileName + "_trainingModeIdx");
             trainingModeIdx = 0;
             graphicsSettingsIdx = PlayerPrefs.GetInt(savedFileName + "_graphicsSettingsIdx");

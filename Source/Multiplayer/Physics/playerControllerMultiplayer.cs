@@ -1242,7 +1242,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             peerPlayer.clearAfterBallCollision();
             rpc_isShotActive = false;
         }*/
-
+        
         /*print("#DBGPLA LAG " + rpc_mainLag + " shotActive " + shotActive);
         print("#DBGPLA rbPos " + rbPos + " rbVelocity " + rbVelocity
             + " rbAngularVelocity " + rbAngularVelocity
@@ -3608,7 +3608,6 @@ public class playerControllerMultiplayer : MonoBehaviour
         if ((Globals.peersReady < Globals.MAX_PLAYERS) ||
             isGamePaused())
         {
-
             return;
         }
         else
@@ -3670,6 +3669,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             {
                 playerOnBall = true;
                 ball[1].setwhoTouchBallLast(1);
+                //Debug.Log("DBGSHOT12 clear After ball Collision #2");
                 peerPlayer.clearAfterBallCollision();
             }
 
@@ -3689,6 +3689,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 lockCollision == false)
             {
                 //print("#DBG342344COL getBallCollided ballPos " + ball[activeBall].transform.position);
+                ////Debug.Log("DBGSHOT12 clear After ball Collision #3");
                 clearAfterBallCollision();
                 isCollisionActive = true;
                 ball[activeBall].setBallCollided(false);
@@ -4303,6 +4304,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                 ball[activeBall].setIsPlayerDownCollided(false);
                 setPlayersColliders(gameObject, false);
                 peerPlayer.RPCclearPreShotVariables();
+                ///Debug.Log("DBGSHOT12 clear After ball Collision #4");
+
                 clearAfterBallCollision();
                 isCollisionWithPlayer = false;
                 //print("DBG342344COL try to set setGkHelperImageVal");
@@ -4356,12 +4359,15 @@ public class playerControllerMultiplayer : MonoBehaviour
                 setPlayersColliders(gameObject, false);
                 //TOCHECK
                 peerPlayer.RPCclearPreShotVariables();
+                ///Debug.Log("DBGSHOT12 clear After ball Collision #5");
+
                 clearAfterBallCollision();
                 //print("DBGSHOT ballCollidedCOLISSSION SHOTACTIVEdbg ballRb velocity apply try to set setGkHelperImageVal");
                 setGkHelperImageVal(false);
 
                 rpc_playerOnBallActive = false;
-                rpc_shotActive = false;            
+                rpc_shotActive = false;
+                ///Debug.Log("DBGSHOT12 rpcShotActive false 3");
             }
         }
 
@@ -4487,6 +4493,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                     peerPlayer.setShotActive(false);
                     setPlayersColliders(gameObject, false);
                     peerPlayer.RPCclearPreShotVariables();
+                    ///Debug.Log("DBGSHOT12 clear After ball Collision #6");
+
                     clearAfterBallCollision();
                     setGkHelperImageVal(false);
                     setIsGoalJustScored(false);
@@ -5502,6 +5510,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
             //print("DBGCOLLISIONCALC1024D playerDownLeftToeBaseCollider isTrigger "
             //    + GameObject.Find("playerDownLeftToeBaseCollider").GetComponent<Collider>().isTrigger);
+
+            ///Debug.Log("DBGSHOT12 clear After ball Collision #7");
 
             peerPlayer.clearAfterBallCollision();
             rpc_isShotActive = false;
@@ -8190,6 +8200,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //rint("DBGprepare1234 RPCclearPreShotVariables here " + preShotActive);
 
         rpc_preShotCalc = false;
+        ///Debug.Log("DBGSHOT12 rpcShotActive false 1");
         rpc_shotActive = false;
         rpc_playerOnBallActive = false;
         prepareShotRpcSend = false;
@@ -8685,10 +8696,12 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         clipOffsetTime = animationOffsetTime[shotType];
 
-        //print("DBGSHOT12## " + shotType + " OFFSET TIME " + clipOffsetTime + " noramlized time " +
-        //    animator.GetCurrentAnimatorStateInfo(0).normalizedTime + " VALUE " 
-        //    + animator.GetCurrentAnimatorStateInfo(0).IsName(shotType)
-        //    + " isMine " + photonView.IsMine);
+        /*print("DBGSHOT12## " + shotType + " OFFSET TIME " + clipOffsetTime + " noramlized time " +
+            animator.GetCurrentAnimatorStateInfo(0).normalizedTime + " VALUE " 
+            + animator.GetCurrentAnimatorStateInfo(0).IsName(shotType)
+            + " isMine " + photonView.IsMine
+            + "animName nameAnimationPlaying(animator, 1.0f) "
+            + nameAnimationPlaying(animator, 1.0f));*/
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName(shotType) &&
             animator.GetCurrentAnimatorStateInfo(0).normalizedTime > clipOffsetTime)
@@ -8709,6 +8722,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
             //print("GKDEBUG1 ballDIST INSIDE " + ballDist);
             //print("BALLDISTANCE " + ballDist + " SHOTTYPE " + shotType + " ISCPU " + isCpu);
+            //Debug.Log("DBGSHOT12 isOnBall " + onBall);
             if (shotType.Equals("3D_volley"))
             {
 
@@ -8731,7 +8745,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
             //if (!photonView.IsMine)
             //{
-                onBall = true;
+            onBall = true;
             //}
 
             if (onBall)
@@ -8749,6 +8763,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                         ///print("NOWPOSITION RB BEFORE GKDEBUG1X BALL PoS before shot ERROR DIDN' COME ???????");
                         //print("DBGSHOT12## LOCKED");
 
+                        //Debug.Log("DBGSHOT12 timeScale == 0");
                         Time.timeScale = 0f;
                         return false;
 
@@ -8809,15 +8824,21 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                 //if (!PhotonNetwork.IsMasterClient)
                 //{
-                    /*print("DBGSHOT " 
-                    + " shotType " + shotType + " outShotStart " + outShotStart
-                    + " ballRb.Transform " + ballRb.transform.position
-                    + " Vector3.Distance " + Vector3.Distance(ballRb.transform.position, outShotStart)
-                    + " prepareShotJustBeforeShotPos " + prepareShotJustBeforeShotPos
-                    + " rb.transform.position " + rb.transform.position);*/
+                /*print("DBGSHOT " 
+                + " shotType " + shotType + " outShotStart " + outShotStart
+                + " ballRb.Transform " + ballRb.transform.position
+                + " Vector3.Distance " + Vector3.Distance(ballRb.transform.position, outShotStart)
+                + " prepareShotJustBeforeShotPos " + prepareShotJustBeforeShotPos
+                + " rb.transform.position " + rb.transform.position);*/
                 //}
 
-                    shotActive = true;
+
+                   //Debug.Log("DBGSHOT12 shotActive set " + shotActive);
+                   shotActive = true;
+    
+                    //for (int i = 0; i < prepareShotMaxIdx; i++) {
+                    //    Debug.Log("DBGSHOT12 prepareShot val " + prepareShotPos[i, 0] + " idx " + i);
+                   // }
                     if (!photonView.IsMine)
                         peerPlayer.drawGkHelperCircle();
                     //peerPlayer.drawGkHelperCircle();
@@ -16192,6 +16213,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         ballRb[activeBall].velocity = Vector3.zero;
         ballRb[activeBall].angularVelocity = Vector3.zero;
 
+        //Debug.Log("DBGSHOT12 clearAferBallCollision 1");
         clearAfterBallCollision();
         isBallInGame = true;
         goalJustScored = false;
@@ -16229,6 +16251,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         isUpdateBallVelDuringShot = false;
 
         //print("DBG342344COL clearAfterBallCollision");
+        //Debug.Log("DBGSHOT12 rpcShotActive false 2");
         rpc_preShotCalc = false;
         rpc_shotActive = false;
         rpc_playerOnBallActive = false;
@@ -16242,6 +16265,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
+            ///Debug.Log("DBGSHOT12 clear After ball Collision #1");
             peerPlayer.clearAfterBallCollision();
         }
 
