@@ -3347,7 +3347,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                 //print("#DBGINTRO inside " + photonView.IsMine + " gameStarted " + gameStarted);
 
-                if (realTime > 11.5f)
+                if (realTime > 10f)
                 {
                     audioManager.PlayNoCheck("whislestart1");
                     int RandWhistleCom = UnityEngine.Random.Range(1, 3);
@@ -16424,7 +16424,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
     private void updateGameSettings()
     {
-        Globals.matchTime = "90 SECONDS";
+        //Globals.matchTime = "90 SECONDS";
+        Globals.matchTime = "60 SECONDS";
         Globals.isTrainingActive = false;
     }
 

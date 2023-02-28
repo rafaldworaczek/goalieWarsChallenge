@@ -197,8 +197,10 @@ private void RequestBanner()
         // Create an empty ad request.
         AdRequest request = new AdRequest.Builder().Build();
 
-        // Load the banner with the request.
+        //Debug.Log("showBanner 3");
         bannerView.LoadAd(request);
+        // Load the banner with the request.
+        //Debug.Log("showBanner 4 ret ");     
     }
 
     private void RequestBanner(AdPosition pos)

@@ -113,6 +113,14 @@ public class ExtraPowers : MonoBehaviour
     public RawImage powerDescImg;
     public Button buyPowerInfoButton;
     public GameObject loadingCanvas;
+    private GameObject admobGameObject;
+    private admobAdsScript admobAdsScript;
+
+    void Awake()
+    {
+        adInit();
+    }
+
     void Start()
     {
         if (Globals.powersStr.Equals("NO"))
@@ -840,6 +848,7 @@ public class ExtraPowers : MonoBehaviour
 
     public void onClickPlay()
     {
+        hideBanner();
         loadingCanvas.SetActive(true);
 
         if (Globals.stadiumNumber == 1)
@@ -853,5 +862,37 @@ public class ExtraPowers : MonoBehaviour
         setupDefaults();
         shopCanvas.SetActive(false);
         buyPlayerPanel.SetActive(false);
+    }
+
+    private void adInit()
+    {
+        admobGameObject = GameObject.Find("admobAdsGameObject");
+        admobAdsScript = admobGameObject.GetComponent<admobAdsScript>();
+        admobAdsScript.setAdsClosed(false);
+        admobAdsScript.setAdsFailed(false);
+        admobAdsScript.setAdsRewardEarn(false);
+        showBanner();
+
+        //admobAdsScript.hideBanner();
+    }
+
+    private void showBanner()
+    {
+        //Debug.Log("showBanner 1");
+        if (admobGameObject != null &&
+            admobAdsScript != null)
+        {
+            //Debug.Log("showBanner 2");
+            admobAdsScript.showBannerAd();
+        }
+    }
+
+    private void hideBanner()
+    {
+        if (admobGameObject != null &&
+            admobAdsScript != null)
+        {
+            admobAdsScript.hideBanner();
+        }
     }
 }

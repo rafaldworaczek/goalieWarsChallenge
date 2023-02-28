@@ -293,13 +293,15 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
     public void OnApplicationPause(bool pauseStatus)
     {
+        return;
+
         Debug.Log("DBGPHOTONCHAT OnApplicationPause pauseStatus " + pauseStatus 
             + " chatClient " + chatClient);
 
         if (pauseStatus)
         {
             if (chatClient != null)
-            {
+            {               
                chatClient.Disconnect();
             }
             //chatClient.Disconnect();
@@ -308,7 +310,10 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
         else
         {
-            ConnectToPhotonChat();
+            if (chatClient == null)
+            {
+                ConnectToPhotonChat();
+            }
             // app is foreground again
         }
     }

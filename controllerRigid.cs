@@ -831,14 +831,19 @@ public class controllerRigid : MonoBehaviour
         }
         else
         {
-            timeFactor = 60.0f;
+            //timeFactor = 60.0f;
+            timeFactor = 50.0f;
         }
 
         string timeOfGame = Regex.Replace(Globals.matchTime, "[^0-9]", "");
         timeOfGameInSec = float.Parse(timeOfGame) * timeFactor;
+        //if (Globals.matchTime.Contains("MINUTES"))
+        //{
+            
+        //}
 
-        stoppageTime = UnityEngine.Random.Range(4, 10);
-
+        //stoppageTime = UnityEngine.Random.Range(4, 10);
+        stoppageTime = UnityEngine.Random.Range(1, 4);
 
         //timeOfGameInSec = 1000f;
         //print("TIMEOFGAME " + timeOfGameInSec);
@@ -1027,7 +1032,7 @@ public class controllerRigid : MonoBehaviour
             cameraMovementIntro();
             //}
 
-            if (realTime > 11.5f)
+            if (realTime > 10f)
             {
                 audioManager.PlayNoCheck("whislestart1");
                 int RandWhistleCom = UnityEngine.Random.Range(1, 3);
@@ -1259,13 +1264,13 @@ public class controllerRigid : MonoBehaviour
 
     private void photo_3DVolley()
     {
-        ballRb [activeBall].transform.position = new Vector3(-3f, 1.5f, -2f);
+        ballRb [activeBall].transform.position = new Vector3(-3f, 1.5f, -6f);
         if (!isPlaying(animator, "3D_volley", 1f))
         {
             animator.speed = 0.001f;
             animator.Play("3D_volley", 0, 0.45f);
             animator.Update(0f);
-            rb.transform.position = new Vector3(-5f, 0f, -6f);
+            rb.transform.position = new Vector3(-7f, 0f, -9f);
             ballRb[activeBall].velocity = Vector3.zero;
 
             RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
@@ -1397,10 +1402,10 @@ public class controllerRigid : MonoBehaviour
             {
                 return;
             }
-            //photo_3DVolley();
+            photo_3DVolley();
             //photo_save1();
             //photo_save2();
-            photo_save3();
+            //photo_save3();
 
             //cpuPlayer.fixedUpdate();
             return;
@@ -10023,10 +10028,11 @@ public class controllerRigid : MonoBehaviour
         if (realTime > 5.2f)
         {
             matchStatisticsPanelHeaderDown.SetActive(true);
+            matchStatisticsNext.SetActive(true);
         }
 
-        if (realTime > 7.0)
-            matchStatisticsNext.SetActive(true);
+        //if (realTime > 7.0)
+        //    matchStatisticsNext.SetActive(true);
 
         if (realTime > 9.0f)
         {
@@ -11762,7 +11768,7 @@ public class controllerRigid : MonoBehaviour
     private void initBonuses()
     {
         if ((Globals.isTrainingActive == false)
-            && (Globals.numMatchesInThisSession % 3 == 2))
+            && (Globals.numMatchesInThisSession % 4 == 3))
         {
             if (!Globals.isBonusActive)
             {

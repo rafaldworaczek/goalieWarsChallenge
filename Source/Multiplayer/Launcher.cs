@@ -498,7 +498,8 @@ namespace Com.Osystems.GoalieStrikerFootball
             Globals.teamBid = -1;
             Globals.peersReady = 0;
 
-            Globals.stoppageTime = UnityEngine.Random.Range(4, 10);
+            //Globals.stoppageTime = UnityEngine.Random.Range(4, 10);
+            Globals.stoppageTime = UnityEngine.Random.Range(2, 4);
         }
 
         private IEnumerator syncPlayerTextures(float delay)
