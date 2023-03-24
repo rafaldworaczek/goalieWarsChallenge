@@ -68,9 +68,7 @@ namespace MenuCustomNS
                  //Sane Leroy - mid
                  "Lee Zeane:Germany:92:91:L:2300:f1_s5_b2_t10_hblack14|" +
                  //Coman Kingsley att
-                 "King Cormen:France:81:94:L:2600:f2_s5_b2_t3_hblack5|" +
-                 //Lewandowski Robert att
-                 "Robert Lengolski:Poland:86:99:L:3500:f3_s1_b0_t0_hblack10",
+                 "King Cormen:France:81:94:L:2600:f2_s5_b2_t3_hblack5",                 
                  "shoeredwhite|shoered","gloveredwhite"},
              new string[] {
                  "Leipzig Team",
@@ -589,9 +587,7 @@ namespace MenuCustomNS
                 //Reus Marco mid
                 "Markus Ross:Germany:89:87:L:2300:f5_s2_b0_t0_hblonde1|" +
                 //Sancho Jadon att
-                "Jandi Senhus:England:72:88:L:2600:f7_s1_b2_t5_hblack5|" +
-                //Haaland Erling att
-                "Eric Hellen:Norway:87:95:L:3500:f6_s1_b0_t0_hblonde1",
+                "Jandi Senhus:England:72:88:L:2600:f7_s1_b2_t5_hblack5",      
                 "shoeblack|shoeyellow",
                 "gloveyellowblack|gloveyellow"},
              new string[] {

@@ -72,7 +72,10 @@ public class mainMenuButtons : MonoBehaviour
             {
                 adsCanvas.SetActive(true);
                 waitingForAddEvent = true;
-            } 
+            } else
+            {
+                showBannerAd();
+            }
             admobAdsScript.setAdsClosed(false);
             admobAdsScript.setAdsFailed(false);
         }
@@ -143,6 +146,7 @@ public class mainMenuButtons : MonoBehaviour
             admobAdsScript.setAdsClosed(false);
             admobAdsScript.setAdsFailed(false);
             audioClip.Play();
+            showBannerAd();
         }
     }
 

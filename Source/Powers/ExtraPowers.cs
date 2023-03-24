@@ -882,13 +882,13 @@ public class ExtraPowers : MonoBehaviour
         if (admobGameObject != null &&
             admobAdsScript != null)
         {
-            //Debug.Log("showBanner 2");
             admobAdsScript.showBannerAd();
         }
     }
 
     private void hideBanner()
     {
+        //Debug.Log("hideBanner");
         if (admobGameObject != null &&
             admobAdsScript != null)
         {

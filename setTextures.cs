@@ -136,6 +136,7 @@ public class setTextures : MonoBehaviour
     void Update() {
         //it's sport hall
         if (Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2 ||
             Globals.PITCHTYPE.Equals("STREET"))
         {
             return;

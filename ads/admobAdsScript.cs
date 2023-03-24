@@ -545,9 +545,7 @@ private void RequestBanner()
 
     public bool hideBanner()
     {
-        //if (!Globals.adsEnable)
-        // return false;
-
+        Debug.Log("hide banner");
         if (bannerView != null)
             bannerView.Hide();
 

@@ -468,7 +468,10 @@ public class Shop : MonoBehaviour
             admobAdsScript.setAdsClosed(false);
             admobAdsScript.setAdsFailed(false);
             admobAdsScript.setAdsRewardEarn(false);
-            admobAdsScript.hideBanner();
+        //workaround
+            //Debug.Log("sceneName " + SceneManager.GetActiveScene().name);
+            if (!SceneManager.GetActiveScene().name.Equals("extraPowers"))
+                admobAdsScript.hideBanner();
         //}    
     }
 
@@ -1978,7 +1981,7 @@ public class Shop : MonoBehaviour
         promotionCodesDict.Add("5mptvA", "coins_100");
         promotionCodesDict.Add("09jFxG", "coins_200");
         promotionCodesDict.Add("eCUwT7", "coins_200");
-        promotionCodesDict.Add("RY2sSa", "coins_200");
+        promotionCodesDict.Add("RY2sSa", "coins_200");  
         promotionCodesDict.Add("5RyFjk", "coins_200");
         promotionCodesDict.Add("CnupbX", "coins_200");
         promotionCodesDict.Add("agftXi", "coins_200");
@@ -1993,6 +1996,7 @@ public class Shop : MonoBehaviour
         promotionCodesDict.Add("Fici8e", "coins_500");
         promotionCodesDict.Add("U6zUpb", "coins_500");
         promotionCodesDict.Add("cKE6rm", "coins_500");
+
         promotionCodesDict.Add("sj9NX1", "coins_500");
         promotionCodesDict.Add("tHFzOt", "coins_500");
         promotionCodesDict.Add("rhthj3", "coins_500");

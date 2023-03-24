@@ -28,8 +28,8 @@ public class gameSettings : MonoBehaviour
     public MultiplayerMenu multiplayerMenuScript;
 
     private GraphicsCommon graphicsStandard;
-    private int currATeamIdx = 5;
-    private int currBTeamIdx = 13;
+    private int currATeamIdx = 0;
+    private int currBTeamIdx = 10;
     /*This reference is updated dynamically using changeTeamReferences function */
     private TextMeshProUGUI teamAname;
     public TextMeshProUGUI teamBname;
@@ -496,7 +496,7 @@ public class gameSettings : MonoBehaviour
         }
 
         leagueBIdx = 0;
-        currBTeamIdx = 6;
+        currBTeamIdx = 10;
          
         //print("#DBGINITA LEAGUE NAME " + leagueNames[leagueAIdx]);
         //print("#DBGINITB LEAGUE NAME " + leagueNames[leagueBIdx]);
@@ -955,8 +955,8 @@ public class gameSettings : MonoBehaviour
     {
         leagueAIdx = 0;
         leagueBIdx = 0;
-        currATeamIdx = 5;
-        currBTeamIdx = 13;
+        currATeamIdx = 0;
+        currBTeamIdx = 10;
 
         //print("DBGTOURNAMENT23 GLOBAL GAMETYEP " + Globals.gameType);
 

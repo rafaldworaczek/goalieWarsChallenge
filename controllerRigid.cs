@@ -832,7 +832,7 @@ public class controllerRigid : MonoBehaviour
         else
         {
             //timeFactor = 60.0f;
-            timeFactor = 50.0f;
+            timeFactor = 52.0f;
         }
 
         string timeOfGame = Regex.Replace(Globals.matchTime, "[^0-9]", "");
@@ -9469,6 +9469,17 @@ public class controllerRigid : MonoBehaviour
             float skillNorm = getSkillInterpolationReverse(defenseSkillsCpu);
             float animatorDelay = (levelNorm + skillNorm) / 2.0f;
 
+            //TODO fix it
+            /*if (Globals.level == 2)
+            {
+                Globals.level = 3;
+                levelNorm = getLevelInterpolationReverse();
+                skillNorm = getSkillInterpolationReverse(defenseSkillsCpu);
+                animatorDelay = (levelNorm + skillNorm) / 2.0f;
+                Globals.level = 2;
+            }*/
+
+
             //baseAnimSpeed = 2.0f;
             baseAnimSpeed = 1.5f;
             if (animName.Contains("punch"))
@@ -12048,6 +12059,13 @@ public class controllerRigid : MonoBehaviour
                                 4.5f,
                                 Mathf.Abs((-12f + levelOffset) * 2),
                                 4f + Mathf.Abs(levelOffset / 2f));
+            /*if (Globals.level == 2)
+            {
+                shotZone = new Rect(-12f + levelOffset,
+                               4.5f,
+                               Mathf.Abs((-12f + levelOffset) * 2),
+                               UnityEngine.Random.Range(4f, 12f));
+            }*/
 
             float dontTouchXOffset = parentRb.getGoalSizePlr2().x + 2;
             dontTouchBallZone =
@@ -14486,6 +14504,11 @@ public class controllerRigid : MonoBehaviour
             {
                 zStart = Mathf.Lerp(8.0f, 10f, levelInter);
                 zEnd = Mathf.Lerp(10f, 12.0f, levelInter);
+            }
+
+            if (Globals.level == 2)
+            {
+                zEnd = 11f;
             }
 
             goalieBasePoint = new Vector3(0.0f, 0.0f, parentRb.getRandFloat(zStart, zEnd));
