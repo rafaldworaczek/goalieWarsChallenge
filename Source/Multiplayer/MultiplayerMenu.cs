@@ -60,7 +60,7 @@ public class MultiplayerMenu : MonoBehaviour
         showInterstitialAd();
 
         updateTreasure();
-        #if !UNITY_EDITOR
+        //#if !UNITY_EDITOR
         if (Globals.coins < COINS_NEEDED_TO_PLAY)
         {
             infoCanvas.SetActive(true);
@@ -70,7 +70,7 @@ public class MultiplayerMenu : MonoBehaviour
             infoImage.texture = Resources.Load<Texture2D>("Shop/shopNotificationCoins");
             return;
         }
-        #endif
+        //#endif
 
         if (!Globals.showBetaVersionOfMultiplayer)
         {
