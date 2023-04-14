@@ -12,6 +12,7 @@ using LANGUAGE_NS;
 using Com.Osystems.GoalieStrikerFootball;
 using AudioManagerMultiNS;
 using System.Text.RegularExpressions;
+
 public class PhotonChatController : MonoBehaviour, IChatClientListener
 {
     private ChatClient chatClient;
@@ -61,13 +62,17 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     public TextMeshProUGUI oopsPanelInfoText;
     private GameObject admobGameObject;
     private admobAdsScript admobAdsScript;
+    public RawImage[] onlineStatusImg;
+    private Dictionary<string, int> userStatus;
     // Start is called before the first frame update
 
     void Start()
     {
+        if (Globals.coins < Globals.MIN_COINS_PLAY_ONLINE)
+            return;
+
         admobGameObject = GameObject.Find("admobAdsGameObject");
         admobAdsScript = admobGameObject.GetComponent<admobAdsScript>();
-
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
 
         initLists();
@@ -86,13 +91,16 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         ///chatClient.ChatRegion = "eu";
         //////ConnectToPhotonChat();
         nickName = PlayerPrefs.GetString("ONLINE_NICKNAME");
-        onClickShowFriends();
+        //onClickShowFriends();
 
         //print("DBGPHOTONCHAT START executed ");
     }
 
     void Update()
     {
+        if (Globals.coins < Globals.MIN_COINS_PLAY_ONLINE)
+            return;
+
         //print("send message");
         if (chatClient != null)
         {
@@ -121,11 +129,14 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
         bool ret = chatClient.Connect(
                     PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat,
-                    PhotonNetwork.AppVersion,
+                    //PhotonNetwork.AppVersion,
+                    "goaliewarsfootball_v1",
                     new AuthenticationValues(username));
-                    //new Photon.Chat.AuthenticationValues(username));
-        //Debug.Log("DBGPHOTONCHAT " + username + " ret " + ret + "" +
-        //    " id " + PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat);
+        Debug.Log("#DBGchat client");
+        /*Debug.Log("DBGPHOTONCHAT " + username + " ret " + ret + "" +
+            " id " + PhotonNetwork.PhotonServerSettings.AppSettings.AppIdChat
+            + " appversion " + PhotonNetwork.AppVersion 
+            + " version end");*/
     }
 
     public void OnGetMessages(string channelName,
@@ -188,7 +199,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             if (checkIfItemExists(friendInvities, msg[1] + ":" + msg[2]) ||
                 checkIfItemExists(friendList, msg[1] + ":" + msg[2]))
                 return;
-
+           
             audioManager.Play("bell1");
             friendInvities.Add(msg[1] + ":" + msg[2]);
             saveToPrefs(msg[1] + ":" + msg[2], friendInvitiesListFileName);
@@ -329,8 +340,12 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
                                bool gotMessage,
                                object message)
     {
-        //Debug.Log("DBGPHOTONCHAT disconnected");
+        userStatus[user] = status;
+        if (activeMenu == 0)
+            printList(gameLoadPageIdx, friendList, 0);
 
+        Debug.Log("DBGchat get status changed " + user + " status " + status + " msg " + gotMessage + " activeMenu "
+            + activeMenu);
     }
 
     public void OnSubscribed(string[] channels,
@@ -394,53 +409,30 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             printActiveList();
         }
     }
-    public void printFriends(int gameLoadPageIdx, List<string> list)
+
+    /*public void printFriends(int gameLoadPageIdx, List<string> list)
     {
         int startIdx = gameLoadPageIdx * listNumRows;
         int currIdx = 0;
+        Debug.Log("print Friends list " + list.Count);
 
         for (int i = startIdx; i < list.Count; i++)
         {
             ListGameButtonGO[currIdx].SetActive(true); 
             ListText[currIdx].text = list[i].Split(':')[0];
-            /*    saveIdx + ": " +
-                Languages.getTranslate(" Week ") + teamDesc[2] +
-                Languages.getTranslate(" - Season ") + teamDesc[3] + "/" +
-                (int.Parse(teamDesc[3]) + 1).ToString();*/
-
-            //string fullTeamPath = "national/" + countryName[0];
-            /* if (countryName[0].Contains("CUP"))
-             {
-                 loadGameFlagsCountryImg[currIdx].texture =
-                      Resources.Load<Texture2D>("others/cupLong");
-             }
-             else
-             {
-                 setFlagImage(loadGameFlagsCountryImg[currIdx], "national/" + countryName[0]);
-             }*/
-
-            //fullTeamPath = countryName[0].ToLower() + "/" + teamDesc[1];
-
-            //string fullTeamPath =
-            //    Globals.getFlagPath(countryName[0], teamDesc[1]);   
-
-            //string fullTeamPath =
-            //        graphicsStandard.getFlagPath(teamDesc[1]);
-
-            //setFlagImage(loadGameFlagsClubImg[currIdx], fullTeamPath);
+           
             currIdx++;
 
             if (currIdx > (listNumRows - 1))
                 break;
         }
 
-        /*Leave others empty*/
         for (int i = currIdx; i < listNumRows; i++)
         {
             ListText[i].text = "";
             ListGameButtonGO[i].SetActive(false);
         }
-    }
+    }*/
 
     public void printList(int gameLoadPageIdx, List<string> list, int type)
     {
@@ -456,37 +448,31 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             {
                 listAcceptButtonImage[currIdx].texture =
                     Resources.Load<Texture2D>("online/icon_01_119");
-            } else 
+
+                //add username to get status of user
+                if (chatClient != null)
+                {
+                    Debug.Log("DBGchat add friend to watch");
+                    chatClient.AddFriends(new string[] { list[i].Split(':')[1] });
+                }
+
+                Debug.Log("DBGchat type find " + chatClient);
+                int keyVal = 0;
+                bool keyExists = userStatus.TryGetValue(list[i].Split(':')[1], out keyVal);
+                if (keyExists && keyVal == 2) {
+                    onlineStatusImg[currIdx].texture =
+                        Resources.Load<Texture2D>("online/online_yes");
+                } else
+                {
+                    onlineStatusImg[currIdx].texture =
+                         Resources.Load<Texture2D>("online/online_no");
+                }
+            }
+            else 
             {
                 listAcceptButtonImage[currIdx].texture =
                     Resources.Load<Texture2D>("online/icon_01_18");
             }
-
-            /*    saveIdx + ": " +
-                Languages.getTranslate(" Week ") + teamDesc[2] +
-                Languages.getTranslate(" - Season ") + teamDesc[3] + "/" +
-                (int.Parse(teamDesc[3]) + 1).ToString();*/
-
-//string fullTeamPath = "national/" + countryName[0];
-/* if (countryName[0].Contains("CUP"))
- {
-     loadGameFlagsCountryImg[currIdx].texture =
-          Resources.Load<Texture2D>("others/cupLong");
- }
- else
- {
-     setFlagImage(loadGameFlagsCountryImg[currIdx], "national/" + countryName[0]);
- }*/
-
-//fullTeamPath = countryName[0].ToLower() + "/" + teamDesc[1];
-
-//string fullTeamPath =
-//    Globals.getFlagPath(countryName[0], teamDesc[1]);   
-
-//string fullTeamPath =
-//        graphicsStandard.getFlagPath(teamDesc[1]);
-
-//setFlagImage(loadGameFlagsClubImg[currIdx], fullTeamPath);
             currIdx++;
 
             if (currIdx > (listNumRows - 1))
@@ -521,14 +507,6 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             }
         }
         
-        //else
-        //{
-        //    for (int i = 0; i < listNumRows; i++)
-        //    {
-        //        ListGameButtonGO[i].SetActive(false);
-        //    }            
-        //}
-
         for (int i = 0; i < listNumRows; i++)
         {
             int tmpIdx = i;
@@ -548,6 +526,9 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
     private void initLists()
     {
+        if (userStatus == null)
+            userStatus = new Dictionary<string, int>();
+
         if (friendList == null)
             friendList = new List<string>();
         else
@@ -628,11 +609,11 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         }
     }
 
-    public void AreFriendsOnline()
+    /*public void AreFriendsOnline()
     {
-        //friends = new List<string>() { "Ford", "Zaphod", "Marvin", "Eddie" };
         chatClient.AddFriends(friendList.ToArray());
     }
+    */
 
     public void onClickInpuUserIdChanged()
     {
@@ -720,7 +701,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         if (chatClient == null)
             ConnectToPhotonChat();
 
-        print("invitePartyPanel onClick");
+        print("DBGchat invitePartyPanel onClick");
         invitePartyPanel.SetActive(true);
         if (!PlayerPrefs.HasKey("ONLINE_NICKNAME"))
         {
@@ -732,6 +713,8 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             nicknamePanel.SetActive(true);
             return;
         }
+
+        onClickShowFriends();
     }
   
 
@@ -804,7 +787,6 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     public void onClickNickNameSet()
     {
         string name = inputNickname.text;
-        print("inputNickname.text " + name);
 
         if (string.IsNullOrEmpty(name))
         {
@@ -825,7 +807,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         admobAdsScript.hideBanner();
         nicknamePanel.SetActive(false);
 
-        onClickShowFriends();
+        //onClickShowFriends();
 
         PlayerPrefs.SetString("ONLINE_NICKNAME", name);
         PlayerPrefs.Save();
@@ -854,39 +836,22 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         yesNoMenuNoAnswer.onClick.RemoveAllListeners();
         yesNoMenuYesAnswer.onClick.RemoveAllListeners();
 
+        if (checkIfItemExists(friendList, newFriendName))
+            return;
+
         friendList.Add(newFriendName);
+        chatClient.AddFriends(new string[] { newFriendName.Split(':')[1] });
         saveToPrefs(newFriendName, friendListFileName);
         deleteListItemYes(newFriendName,
                           friendInvitiesListFileName);
 
         sendMessage(newFriendName.Split(':')[1], "A:" + nickName + ":" + username);
-
-        /*if (PlayerPrefs.HasKey(friendListFileName))
-        {
-
-            yesNoMenuHeaderText.text =
-                Languages.getTranslate("Do you want to delete friend");
-
-            yesNoMenuYesAnswer.onClick.AddListener(
-            delegate {
-                deleteListItemYes(itemName,
-                                  friendListFileName);
-            });
-        } else
-        {
-
-        }
-
-        yesNoMenuNoAnswer.onClick.AddListener(
-          delegate { closeYesNoMenuPanel(); });
-
-        yesNoMenuPanel.SetActive(true);*/
     }
 
-    public void createParty()
+    /*public void createParty()
     {
         onClickShowFriends();
-    }
+    }*/
 
     public void acceptGame(int buttonIdx, string fileName, List<string> list)
     {
@@ -968,8 +933,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
         yesNoMenuPanel.SetActive(true);
     }
-
-
+ 
     public void onCloseUserIdPanel()
     {
         userIdInfoPanel.SetActive(false);
