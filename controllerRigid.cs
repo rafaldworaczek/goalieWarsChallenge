@@ -983,7 +983,7 @@ public class controllerRigid : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 int rand = UnityEngine.Random.Range(0, 100000000);
-                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 1);
+                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 2);
                 Debug.Log("A screenshot was taken!");
             }
         }
@@ -1270,7 +1270,7 @@ public class controllerRigid : MonoBehaviour
             animator.speed = 0.001f;
             animator.Play("3D_volley", 0, 0.45f);
             animator.Update(0f);
-            rb.transform.position = new Vector3(-7f, 0f, -9f);
+            rb.transform.position = new Vector3(-7f, 0f, -10f);
             ballRb[activeBall].velocity = Vector3.zero;
 
             RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
