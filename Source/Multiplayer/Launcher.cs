@@ -7,6 +7,7 @@ using GlobalsNS;
 using LANGUAGE_NS;
 using AudioManagerMultiNS;
 
+
 namespace Com.Osystems.GoalieStrikerFootball
 {
     public class Launcher : MonoBehaviourPunCallbacks
@@ -23,7 +24,7 @@ namespace Com.Osystems.GoalieStrikerFootball
         //private GameObject progressLabel;
         bool isConnecting;
         PhotonView photonView;
-        string roomName = "test1";
+        //string roomName = "test1";
         bool updateTextureConfirm = false;
         public GameObject blockingCanvas;
         public MultiplayerMenu multiplayerMenu;
@@ -34,6 +35,9 @@ namespace Com.Osystems.GoalieStrikerFootball
         private bool isEnergyChange = false;
         public gameSettings GameSettings;
         private float maxWaitTime = 15f;
+        private string lastActionType = "random";
+        private string lastRoomName = "random";
+
 
         [PunRPC]
         void RPC_textureUpdateConfirmed()
@@ -278,6 +282,7 @@ namespace Com.Osystems.GoalieStrikerFootball
         public void Connect(string actionType, string roomName)
         {
             //blockingCanvas.SetActive(true);
+            //Debug.Log("DBGDEBUGROOM connect roomName " + roomName);
             connectStartTime = Time.time;
             //progressLabel.SetActive(true);
             //controlPanel.SetActive(false);
@@ -306,23 +311,23 @@ namespace Com.Osystems.GoalieStrikerFootball
                     break;
             }
 
+            lastActionType = actionType;
+            lastRoomName = roomName;
+
             if (PhotonNetwork.IsConnected)
             {
                 //TODO
                 PhotonNetwork.LocalPlayer.NickName = "goaliewarsfootball_kqp23#xdj34#-2022"; //1
-                Debug.Log("PhotonNetwork.IsConnected! | Trying to JOIN Room ");
-                if (actionType.Equals("random"))
+                //Debug.Log("PhotonNetwork.IsConnected! | Trying to JOIN Room ");
+                if (actionType.Equals("random")) 
                 {
+                    //Debug.Log("DBGDEBUGROOM init Photon Connection joinRandomRoom");
                     PhotonNetwork.JoinRandomRoom();
                 } else
                 {
+                    //Debug.Log("DBGDEBUGROOM init Photon Connection joinRandomRoom roomName " + roomName);
                     PhotonNetwork.JoinRoom(roomName);
-                }
-
-                //inRandomOrCreateRoom.JoinRandomOrCreateRoom
-                //TypedLobby typedLobby = new TypedLobby(roomName, LobbyType.Default); //3
-                ///PhotonNetwork.JoinOrCreateRoom(roomName, roomOptions, typedLobby); //4
-                ///PhotonNetwork.JoinOrCreateRoom(null, roomOptions, null); //4
+                }               
             }
             else
             {
@@ -335,10 +340,21 @@ namespace Com.Osystems.GoalieStrikerFootball
             if (isConnecting)
             {
                 connectStartTime = Time.time;
-                Debug.Log(" OnConnectedToMaster() ");
+                //Debug.Log("DBGDEBUGROOM OnConnectedToMaster() ");
                 // #Critical: The first we try to do is to join a potential existing room. If there is, good, else, we'll be called back with OnJoinRandomFailed()
 
-                PhotonNetwork.JoinRandomRoom();
+                if (lastActionType.Equals("random"))
+                {
+                    //Debug.Log("DBGDEBUGROOM init Photon Connection joinRandomRoom");
+                    PhotonNetwork.JoinRandomRoom();
+                }
+                else
+                {
+                    //Debug.Log("DBGDEBUGROOM init Photon Connection joinRandomRoom roomName " + lastRoomName);
+                    PhotonNetwork.JoinRoom(lastRoomName);
+                }
+
+                //PhotonNetwork.JoinRandomRoom();
                 isConnecting = false;
             }
         }
@@ -347,7 +363,7 @@ namespace Com.Osystems.GoalieStrikerFootball
         {
             // 5
             /*NULL POINTER HERE*/
-            print("PhotonNetwork.CurrentRoom.PlayerCount Loadgame " + PhotonNetwork.CurrentRoom.PlayerCount);
+            //print("PhotonNetwork.CurrentRoom.PlayerCount Loadgame " + PhotonNetwork.CurrentRoom.PlayerCount);
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -405,7 +421,8 @@ namespace Com.Osystems.GoalieStrikerFootball
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
         {
-            Debug.Log("player join");
+            //print("DBGDEBUGROOM OnPlayerEnteredRoom");
+            //Debug.Log("DBGDEBUG player join");
             Debug.Log(newPlayer.ToStringFull());
             LoadGame(); 
         }
@@ -421,24 +438,21 @@ namespace Com.Osystems.GoalieStrikerFootball
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
-            PhotonNetwork.CreateRoom(PhotonChatController.roomName, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
+            //Debug.Log("DBGDEBUGROOM onjoinroomfailed " + PhotonChatController.roomName);
+            PhotonNetwork.CreateRoom(PhotonChatController.roomName, 
+                                     new RoomOptions { IsVisible = false, MaxPlayers = maxPlayersPerRoom });
         }
 
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            print("OnJoinRandomFailed create rooom");
+            print("DBGDEBUGROOM OnJoinRandomFailed create rooom");
             //RoomOptions room = new RoomOptions();
             ///room.PublishUserId = true;
             //room.MaxPlayers = maxPlayersPerRoom;
 
             PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
             return;
-            Debug.Log("PUN Basics Tutorial/Launcher:OnJoinRandomFailed() was called by PUN. No random room available, so we create one.\nCalling: PhotonNetwork.CreateRoom");
-
-            // #Critical: we failed to join a random room, maybe none exists or they are all full. No worries, we create a new room.
-
-            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = maxPlayersPerRoom });
         }
 
         //public override void OnConnected()
@@ -449,6 +463,8 @@ namespace Com.Osystems.GoalieStrikerFootball
         // Photon Methods
         public override void OnConnected()
         {
+            print("DBGDEBUGROOM onConnected");
+
             print("onConnected");
             // 1
             base.OnConnected();
@@ -456,16 +472,18 @@ namespace Com.Osystems.GoalieStrikerFootball
 
         public override void OnJoinedRoom()
         {
-            Debug.Log("OnJoinedRoom() ### called by PUN. Now this client is in a room. PlayerCount " +
-                PhotonNetwork.CurrentRoom.PlayerCount);
+            //print("DBGDEBUGROOM OnJoinedRoom");
+
+            //Debug.Log("OnJoinedRoom() ### called by PUN. Now this client is in a room. PlayerCount " +
+            //    PhotonNetwork.CurrentRoom.PlayerCount);
 
             // #Critical: We only load if we are the first player, else we rely on `PhotonNetwork.AutomaticallySyncScene` to sync our instance scene.
-            print("#PHOTONDBG123 PhotonNetwork.CurrentRoom.PlayerCount " +
-                PhotonNetwork.CurrentRoom.PlayerCount);
+            //print("#PHOTONDBG123 PhotonNetwork.CurrentRoom.PlayerCount " +
+            //    PhotonNetwork.CurrentRoom.PlayerCount);
 
             if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
             {
-                Debug.Log("We load the 'Room for 1' ");
+                //Debug.Log("We load the 'Room for 1' ");
                 LoadGame();
 
                 // #Critical
@@ -475,7 +493,7 @@ namespace Com.Osystems.GoalieStrikerFootball
         }
         public override void OnLeftRoom()
         {
-            Debug.Log("OnLeftRoom()");
+            //Debug.Log("OnLeftRoom()");
             PhotonNetwork.Disconnect();
         }
 

@@ -64,6 +64,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     private admobAdsScript admobAdsScript;
     public RawImage[] onlineStatusImg;
     private Dictionary<string, int> userStatus;
+    private string lastInviteToRoomMsg = String.Empty;
     // Start is called before the first frame update
 
     void Start()
@@ -182,6 +183,13 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         {
             //if (checkIfItemExists(gameInviteList, msg[1] + ":" + msg[2]))
             //    return;
+            //Debug.Log("#DBGINVIATEA lastgameplayed before");
+
+            if (Globals.multiplayer_lastGameName.Equals(msg[1] + ":" + msg[2] + ":" + msg[3]))
+            {
+                //Debug.Log("#DBGINVIATEA lastgameplayed duplication");
+                return;
+            }
 
             audioManager.Play("bell1");
 
@@ -196,8 +204,8 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
 
             gameInviteList.Add(msg[1] + ":" + msg[2]);
             saveToPrefs(msg[1] + ":" + msg[2] + ":" + msg[3], gameInvitesFileName);
-            //Debug.Log("gameInvitesFileName prefs " + PlayerPrefs.GetString(gameInvitesFileName)
-            //    + " itemFullName " + itemFullName);
+            //Debug.Log("DBGINVIATEA gameInvitesFileName prefs " + PlayerPrefs.GetString(gameInvitesFileName)
+            //          + " itemFullName " + itemFullName + " newADD " + msg[1] + ":" + msg[2]);
 
             if (activeMenu == 2)
                 onClickShowGameInvites();
@@ -322,8 +330,8 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     {
         return;
 
-        Debug.Log("DBGPHOTONCHAT OnApplicationPause pauseStatus " + pauseStatus 
-            + " chatClient " + chatClient);
+        //Debug.Log("DBGPHOTONCHAT OnApplicationPause pauseStatus " + pauseStatus 
+        //    + " chatClient " + chatClient);
 
         if (pauseStatus)
         {
@@ -361,8 +369,8 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         //    printList(gameLoadPageIdx, friendList, 0);
         printActiveList();
 
-        Debug.Log("DBGchat get status changed " + user + " status " + status + " msg " + gotMessage + " activeMenu "
-            + activeMenu);
+        //Debug.Log("DBGchat get status changed " + user + " status " + status + " msg " + gotMessage + " activeMenu "
+        //    + activeMenu);
     }
 
     public void OnSubscribed(string[] channels,
@@ -480,7 +488,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
                 StartCoroutine(addToCheckOnlineStatus(list[i].Split(':')[1]));
             }
 
-            Debug.Log("DBGchat type find " + chatClient);
+            //Debug.Log("DBGchat type find " + chatClient);
             int keyVal = 0;
             bool keyExists = userStatus.TryGetValue(list[i].Split(':')[1], out keyVal);
             if (keyExists && keyVal == 2)
@@ -852,6 +860,7 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
         roomName = newGame.Split(':')[2];
         //print("roomName " + roomName);
         Globals.isMultiplayerFriendConActive = true;
+        Globals.multiplayer_lastGameName = newGame;
         launcher.Connect("playwithfriend", roomName);
         invitePartyPanel.SetActive(false);        
     }
@@ -860,11 +869,14 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
     {
         int chosenGameIdx = (gameLoadPageIdx * listNumRows) + buttonIdx;
         string recipient = friendList[chosenGameIdx].Split(':')[1];
+        string msg = "IG:" + nickName + ":" + username + ":" + roomName;
+        
         //print("invite to room executed " +
         //    "IG:" + nickName + ":" + username + ":" + roomName
         //    + " recipient " + recipient);
-        sendMessage(recipient, "IG:" + nickName + ":" + username + ":" + roomName);
-        launcher.Connect("friendparty", roomName);
+        sendMessage(recipient, msg);
+        print("inviteToRoommsg " + msg);
+        launcher.Connect("playwithfriend", roomName);
         Globals.isMultiplayerFriendConActive = true;
         invitePartyPanel.SetActive(false);
     }
