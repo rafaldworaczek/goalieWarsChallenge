@@ -16,8 +16,9 @@ namespace GlobalsNS
         public static bool isPhotoModeEnable = false;
         public static int MAX_POWERS = 10;
         public static int MAX_SELECTED = 3;
-        public static bool adsEnable = false;
-
+        public static bool adsEnable = true;
+        public static int MIN_COINS_PLAY_ONLINE = 10;
+        public static string multiplayer_lastGameName = String.Empty;
         //GRASS, INDOOR, STREET
         //public static string PITCHTYPE = "GRASS";
         public static string PITCHTYPE = "GRASS";
@@ -904,6 +905,27 @@ namespace GlobalsNS
             }
 
             return false;
+        }
+
+        //This function returns full item name - when you have only parts of the name
+        public static string getFullItemName(string itemName,
+                                             string itemFileName,
+                                             char delimeter)
+        {
+            if (PlayerPrefs.HasKey(itemFileName))
+            {
+                string item =
+                    PlayerPrefs.GetString(itemFileName);
+                string[] items = item.Split(delimeter);
+
+                for (int i = 0; i < items.Length; i++)
+                {
+                    if (items[i].Contains(itemName)) 
+                        return items[i];
+                }          
+            }
+
+            return String.Empty;
         }
 
         /*public static int numerOfSavesToDelete(string teamName)

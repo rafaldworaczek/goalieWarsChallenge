@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16301,7 +16301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: c193956d71514f54ba953c22bdfce779, type: 3}
+  m_Texture: {fileID: 2800000, guid: 31c8db74cc46cef4fbf19d3c73d4d351, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -35312,7 +35312,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.041333333, y: 0.59638554}
   m_AnchorMax: {x: 0.34133333, y: 0.71686745}
-  m_AnchoredPosition: {x: -21, y: -443}
+  m_AnchoredPosition: {x: -21.00003, y: -443}
   m_SizeDelta: {x: 0.000030517578, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &814467034
@@ -42874,7 +42874,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 2d8a6b633a767fb46951805161fe0997, type: 3}
+  m_Texture: {fileID: 2800000, guid: 9727ede4c71670841b3d52788e1642d6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -70663,7 +70663,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 7040704fe3ecaf144a9968faaf2b7db4, type: 3}
+  m_Texture: {fileID: 2800000, guid: 9eb1ed36a61b54945870a75516fc9f5d, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -81115,6 +81115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8f6be431802fb41b432b037091d3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shopPromotionCanvas: {fileID: 0}
   IS_ADS_MODULE_ENABLED: 1
   IS_SKILLS_MODULE_ENABLED: 1
   IS_PROMOTION_CODES_ENABLED: 1

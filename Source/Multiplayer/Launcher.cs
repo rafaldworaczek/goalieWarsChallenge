@@ -370,7 +370,7 @@ namespace Com.Osystems.GoalieStrikerFootball
                 PhotonNetwork.CurrentRoom.IsVisible = false;
                 connectStartTime = Time.time;
 
-                print("PhotonNetwork.CurrentRoom.PlayerCount load level");
+                //print("PhotonNetwork.CurrentRoom.PlayerCount load level");
                 //PhotonNetwork.LoadLevel("gameSceneMultiplayer_Room_2");
            
                 StartCoroutine(loadMainGame(0.5f));
@@ -446,7 +446,7 @@ namespace Com.Osystems.GoalieStrikerFootball
 
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            print("DBGDEBUGROOM OnJoinRandomFailed create rooom");
+            //print("DBGDEBUGROOM OnJoinRandomFailed create rooom");
             //RoomOptions room = new RoomOptions();
             ///room.PublishUserId = true;
             //room.MaxPlayers = maxPlayersPerRoom;
@@ -463,9 +463,9 @@ namespace Com.Osystems.GoalieStrikerFootball
         // Photon Methods
         public override void OnConnected()
         {
-            print("DBGDEBUGROOM onConnected");
+            //print("DBGDEBUGROOM onConnected");
 
-            print("onConnected");
+            //print("onConnected");
             // 1
             base.OnConnected();
         }

@@ -9505,7 +9505,7 @@ GameObject:
   - component: {fileID: 313570793}
   - component: {fileID: 313570792}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9550,7 +9550,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -9616,14 +9616,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10898,14 +10898,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12218,7 +12218,7 @@ GameObject:
   - component: {fileID: 424007221}
   - component: {fileID: 424007220}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12263,7 +12263,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -12885,7 +12885,7 @@ GameObject:
   - component: {fileID: 432810649}
   - component: {fileID: 432810648}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12930,7 +12930,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -13258,14 +13258,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19633,14 +19633,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28699,15 +28699,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7b7ccc812964b4113bcb420b583b6a17, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -30656,7 +30656,7 @@ GameObject:
   - component: {fileID: 1121518189}
   - component: {fileID: 1121518188}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30701,7 +30701,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -45240,7 +45240,7 @@ GameObject:
   - component: {fileID: 1788966801}
   - component: {fileID: 1788966800}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45285,7 +45285,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -45867,6 +45867,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d881d712b4d747348b5d61477cde6526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stadiumRewardAds: {fileID: 0}
+  stadiumChooseRewardAdsButton: {fileID: 0}
   isMultiplayer: 1
   multiplayerMenuScript: {fileID: 2033041095}
   teamBname: {fileID: 0}
@@ -47652,7 +47654,7 @@ GameObject:
   - component: {fileID: 1911804508}
   - component: {fileID: 1911804507}
   m_Layer: 5
-  m_Name: flagImage2
+  m_Name: isOnlineImg2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47697,7 +47699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b86a781c3bba2b44684c2e782c399c21, type: 3}
+  m_Texture: {fileID: 2800000, guid: 08f591bc5c1b4f748880b57c39c974b7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -50760,14 +50762,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.07450981, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f965acaf030bc408bb107241ad5d371b, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -52798,6 +52800,13 @@ MonoBehaviour:
   launcher: {fileID: 7229815}
   oopsPanel: {fileID: 1100795077}
   oopsPanelInfoText: {fileID: 1558323698}
+  onlineStatusImg:
+  - {fileID: 1121518188}
+  - {fileID: 1911804507}
+  - {fileID: 432810648}
+  - {fileID: 1788966800}
+  - {fileID: 424007220}
+  - {fileID: 313570792}
 --- !u!1 &2138723403
 GameObject:
   m_ObjectHideFlags: 0
