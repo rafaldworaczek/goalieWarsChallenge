@@ -184,13 +184,20 @@ public class PhotonChatController : MonoBehaviour, IChatClientListener
             //if (checkIfItemExists(gameInviteList, msg[1] + ":" + msg[2]))
             //    return;
             //Debug.Log("#DBGINVIATEA lastgameplayed before");
-
-            if (Globals.multiplayer_lastGameName.Equals(msg[1] + ":" + msg[2] + ":" + msg[3]))
+          
+            if (PlayerPrefs.HasKey(msg[2] + ":" + msg[3]))
+                //(//Globals.multiplayer_lastGameName.Equals(msg[1] + ":" + msg[2] + ":" + msg[3]) ||
+                //(double.Parse(msg[4], CultureInfo.InvariantCulture) - PhotonNetwork.Time > 5.0)
             {
+                ////Debug.Log("DBGINVITES ignore " + msg[1] + ":" + msg[2] + ":" + msg[3]);
                 //Debug.Log("#DBGINVIATEA lastgameplayed duplication");
                 return;
             }
 
+            PlayerPrefs.SetString(msg[2] + ":" + msg[3], "1");
+            PlayerPrefs.Save();
+
+            ////Debug.Log("#DBGINVITES get invite accepted " + msg[1] + ":" + msg[2] + ":" + msg[3]);
             audioManager.Play("bell1");
 
             //keep only the latest inviation from the user
