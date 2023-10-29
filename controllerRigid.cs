@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Linq;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using GlobalsNS;
@@ -11,6 +10,7 @@ using graphicsCommonNS;
 using gameStatisticsNS;
 using System.IO;
 using System;
+using System.Linq;
 
 using MenuCustomNS;
 using GeometryCommonNS;
@@ -1264,13 +1264,13 @@ public class controllerRigid : MonoBehaviour
 
     private void photo_3DVolley()
     {
-        ballRb [activeBall].transform.position = new Vector3(-3f, 1.5f, -6f);
+        ballRb [activeBall].transform.position = new Vector3(0f, 1.5f, -4f);
         if (!isPlaying(animator, "3D_volley", 1f))
         {
             animator.speed = 0.001f;
             animator.Play("3D_volley", 0, 0.45f);
             animator.Update(0f);
-            rb.transform.position = new Vector3(-7f, 0f, -10f);
+            rb.transform.position = new Vector3(-3f, 0f, -6f);
             ballRb[activeBall].velocity = Vector3.zero;
 
             RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
@@ -1402,8 +1402,8 @@ public class controllerRigid : MonoBehaviour
             {
                 return;
             }
-            photo_3DVolley();
-            //photo_save1();
+            //photo_3DVolley();
+            photo_save1();
             //photo_save2();
             //photo_save3();
 
@@ -1945,6 +1945,10 @@ public class controllerRigid : MonoBehaviour
                 /*CUT MAX SPEED TOO SOMETHING LOWER THAN SHOT SPEED MAX FOR WEAKER PLAYERS*/
                 timeofBallFly = Mathf.Min(ShotSpeedMax, timeofBallFly);
                 timeofBallFly = Mathf.Max(ShotSpeedMin, timeofBallFly);
+
+
+                //temporary solution
+                timeofBallFly = ShotSpeedMax;
 
                 //print("DEBUG1234 TIMEOFBALL SPEED AFTER CUT " + timeofBallFly);
 
@@ -7386,10 +7390,16 @@ public class controllerRigid : MonoBehaviour
                 numOfFansActive = 10;
             }
 
-            //todelete
 
+
+
+            //todelete
+            //int randMaterial_fans = UnityEngine.Random.Range(0, 13);
             foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
             {
+               
+
+
                 if (allStadiumPeople.name.Contains("fan_"))
                 {
                     if (currentFansActive >= numOfFansActive ||
@@ -7399,7 +7409,7 @@ public class controllerRigid : MonoBehaviour
                         allStadiumPeople.transform.parent.gameObject.SetActive(false);
                         continue;
                     }
-
+                 
                     if (Globals.graphicsQuality.Equals("LOW"))
                     {
                         int randFans = UnityEngine.Random.Range(0, 3);
