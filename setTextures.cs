@@ -56,7 +56,8 @@ public class setTextures : MonoBehaviour
          //{ "st_080_bg_field", "#9B9F9A" },
        
            { "st_080_bg_field", "#ECE5CF" },
-           { "st_060_bg_field", "#92989A" },
+           //{ "st_060_bg_field", "#92989A" },
+           { "st_080_bg_field", "#ECE4CE" },
            { "st_080_bg_field", "#FFFFFF" }, //very light
            { "st_080_bg_field", "#FFC2E2" }, 
 
@@ -194,10 +195,10 @@ public class setTextures : MonoBehaviour
             return 0;
         } else
         {
-            snowParticle[0].Play();
+            //snowParticle[0].Play();
             
-            if (GameObject.Find("shadow1") != null)
-                GameObject.Find("shadow1").SetActive(false);
+            //if (GameObject.Find("shadow1") != null)
+            //    GameObject.Find("shadow1").SetActive(false);
             return 1;
         }
 
