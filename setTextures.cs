@@ -50,19 +50,10 @@ public class setTextures : MonoBehaviour
          //{ "st_060_bg_field", "#5872E0" },
          //{ "st_060_bg_field", "#5F6FB0" },
          //{ "st_031_bg_field", "#636FA6" },
-         //{ "st_080_bg_field", "#918971" },
-         //{ "st_060_bg_field", "#92989A" },
-         //{ "st_080_bg_field", "#C3A0B2" },
-         //{ "st_080_bg_field", "#9B9F9A" },
-       
-           { "st_080_bg_field", "#ECE5CF" },
-           //{ "st_060_bg_field", "#92989A" },
-           { "st_080_bg_field", "#ECE4CE" },
-           { "st_080_bg_field", "#FFFFFF" }, //very light
-           { "st_080_bg_field", "#FFC2E2" }, 
-
-
-
+         { "st_080_bg_field", "#918971" },
+         { "st_060_bg_field", "#92989A" },
+         { "st_080_bg_field", "#C3A0B2" },
+         { "st_080_bg_field", "#9B9F9A" },
          //{ "st_060_bg_field", "#667779" }    
          //"Ground/Material/st_061_bg_field",        
          //"Ground/Material/st_070_bg_field",
@@ -88,8 +79,7 @@ public class setTextures : MonoBehaviour
 
         ///it's sport halls
         if (Globals.stadiumNumber != 1 &&
-            !Globals.PITCHTYPE.Equals("STREET") &&
-            (Globals.stadiumNumber != 2))               
+            !Globals.PITCHTYPE.Equals("STREET"))               
         {
             initWallsMaterials();
             int groundNum = 0;
@@ -98,13 +88,8 @@ public class setTextures : MonoBehaviour
                 groundNum = playWheatherEffect();
             else
             {
-                //if (Globals.isTrainingActive) {
-                //   groundNum = 3;         
-                //}
-                //else {
-                    groundNum = 0;
-                    rainParticle[0].Play();
-                //}
+                groundNum = 0;
+                rainParticle[0].Play();
             }
             intGroundMaterials(groundNum);
 
@@ -137,7 +122,6 @@ public class setTextures : MonoBehaviour
     void Update() {
         //it's sport hall
         if (Globals.stadiumNumber == 1 ||
-            Globals.stadiumNumber == 2 ||
             Globals.PITCHTYPE.Equals("STREET"))
         {
             return;
@@ -182,11 +166,8 @@ public class setTextures : MonoBehaviour
     {
         int randWheather = UnityEngine.Random.Range(0, 5);
         if (randWheather <= 1) {
-            if (randWheather == 0) {        
-                //if (GameObject.Find("shadow1") != null)
-                //    GameObject.Find("shadow1").SetActive(false);
+            if (randWheather == 0)
                 return 3;
-            }
             return 2;
         } else if ((randWheather == 3) ||
                    (randWheather == 2))
@@ -195,10 +176,7 @@ public class setTextures : MonoBehaviour
             return 0;
         } else
         {
-            //snowParticle[0].Play();
-            
-            //if (GameObject.Find("shadow1") != null)
-            //    GameObject.Find("shadow1").SetActive(false);
+            snowParticle[0].Play();
             return 1;
         }
 
