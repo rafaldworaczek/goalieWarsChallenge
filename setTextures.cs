@@ -50,10 +50,15 @@ public class setTextures : MonoBehaviour
          //{ "st_060_bg_field", "#5872E0" },
          //{ "st_060_bg_field", "#5F6FB0" },
          //{ "st_031_bg_field", "#636FA6" },
-         { "st_080_bg_field", "#918971" },
-         { "st_060_bg_field", "#92989A" },
+         /*{ "st_080_bg_field", "#918971" },
+         { "st_060_bg_field", "#9B9F9A" },
          { "st_080_bg_field", "#C3A0B2" },
-         { "st_080_bg_field", "#9B9F9A" },
+         { "st_080_bg_field", "#9B9F9A" },*/
+         { "GrassShader_2", "#AEB03C" },
+         { "st_060_bg_field", "#92989A" },
+         { "GrassShader_1", "#FFFFFF" },
+         { "GrassShader_4", "#FFB9B9" },
+         { "GrassShader_3", "#FFB9B9" }
          //{ "st_060_bg_field", "#667779" }    
          //"Ground/Material/st_061_bg_field",        
          //"Ground/Material/st_070_bg_field",
@@ -294,12 +299,16 @@ public class setTextures : MonoBehaviour
         int randGround = 
             UnityEngine.Random.Range(0, groundFilesNames.GetLength(0));
 
+
+        if (Globals.numGameOpened <= 1 &&
+            Globals.numMatchesInThisSession < 2)
+            randGround = 0;
         //if c)
         //    randGround = 2;
         //TOREMOVE
         //randGround = 2;
-        if (groundNum != -1)
-            randGround = groundNum;
+        //if (groundNum != -1)
+        //    randGround = groundNum;
 
         //print("RANDGROUND " + randGround + " Globals.numGameOpened " +
         //    Globals.numGameOpened + " Globals.numMatchesInThisSession " + Globals.numMatchesInThisSession);
@@ -316,15 +325,15 @@ public class setTextures : MonoBehaviour
 
         graphics.setMaterialElement(stadium, groundMaterial, 0);
 
-        Color color;
-        ColorUtility.TryParseHtmlString(groundFilesNames[randGround, 1], out color);
+        //Color color;
+        //ColorUtility.TryParseHtmlString(groundFilesNames[randGround, 1], out color);
         //groundMaterial.SetColor("_Color", color);
 
         //TODO
-        Material[] materials = stadium.GetComponent<Renderer>().materials;
-        materials[0].mainTexture = groundTexture;
-        materials[0].SetColor("_Color", color);
-        stadium.GetComponent<Renderer>().materials = materials;
+        //Material[] materials = stadium.GetComponent<Renderer>().materials;
+        //materials[0].mainTexture = groundTexture;
+        //materials[0].SetColor("_Color", color);
+        //stadium.GetComponent<Renderer>().materials = materials;
     }
 
     private void setWallsTopColors()
