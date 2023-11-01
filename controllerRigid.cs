@@ -845,7 +845,7 @@ public class controllerRigid : MonoBehaviour
         //stoppageTime = UnityEngine.Random.Range(4, 10);
         stoppageTime = UnityEngine.Random.Range(1, 4);
 
-        //timeOfGameInSec = 1000f;
+        //timeOfGameInSec = 10000f;
         //print("TIMEOFGAME " + timeOfGameInSec);
         //animator = GameObject.Find("mainPlayer1").GetComponent<Animator>();
         animator = GetComponent<Animator>();
@@ -1402,8 +1402,8 @@ public class controllerRigid : MonoBehaviour
             {
                 return;
             }
-            //photo_3DVolley();
-            photo_save1();
+            photo_3DVolley();
+            //photo_save1();
             //photo_save2();
             //photo_save3();
 
@@ -5008,16 +5008,16 @@ public class controllerRigid : MonoBehaviour
         float level = (float)Globals.level;
 
         if (Globals.level <= 2)
-            levelFactor = 0.05f + (level * 0.07f);
+            levelFactor = 0.05f + (level * 0.17f);
         else
         {
             if (Globals.level == 3)
             {
-                levelFactor = 0.27f;
+                levelFactor = 0.50f;
             }
             else if (Globals.level == 4)
             {
-                levelFactor = 0.50f;
+                levelFactor = 0.60f;
             }
             else if (Globals.level == 5)
             {
@@ -10327,7 +10327,7 @@ public class controllerRigid : MonoBehaviour
                 + Input.touchCount
                 + " touch.fingerId " + touch.fingerId
                 + " TOUCHPOSITION " + touch.position
-                + " touch.phase " + touch.phase);
+                + " touch.phase " + touche.phase);
         }*/
 
         touch = Input.GetTouch(0);
@@ -10340,7 +10340,6 @@ public class controllerRigid : MonoBehaviour
                 + " joystick.getPointerId()" + joystick.getPointerId());*/
             for (int i = 0; i < Input.touchCount; i++)
             {
-
                 if (joystick.getPointerId() == i)
                     continue;
 
@@ -10453,8 +10452,9 @@ public class controllerRigid : MonoBehaviour
         if (touch.phase == TouchPhase.Moved)
         {
             if (!isTouchBegin ||
-               (isTouchBegin && (touch.fingerId != touchFingerId)))
-                return;
+               (isTouchBegin && (touch.fingerId != touchFingerId)) ||
+               isCpuShotActive)
+               return;
 
             touchCount++;
             shotDirection2D = (touch.position - startPos).normalized;
@@ -10502,11 +10502,14 @@ public class controllerRigid : MonoBehaviour
             /*get only one point*/
             if (isCpuShotActive)
             {
-                updateLastGkTouchPos(touch);
+                //touchFingerId = touch.fingerId;
+                //isTouchBegin = true;
+                //touchCount = 1;
+                /*updateLastGkTouchPos(touch);
                 touchLocked = true;
                 gkTouchDone = true;
                 gkClickHelper.enabled = true;
-                rectTransformGkClickHelper.position = touch.position;
+                rectTransformGkClickHelper.position = touch.position;*/
                 return;
             }
             else
@@ -10555,9 +10558,24 @@ public class controllerRigid : MonoBehaviour
 
         if (touch.phase == TouchPhase.Ended)
         {
+
+            if (isCpuShotActive)
+            {
+                updateLastGkTouchPos(touch);
+                touchLocked = true;
+                gkTouchDone = true;
+                gkClickHelper.enabled = true;
+                rectTransformGkClickHelper.position = touch.position;
+                touchFingerId = -1;
+                isTouchBegin = false;
+                return;
+            }
+
+
             if (!isTouchBegin ||
                 (isTouchBegin && (touch.fingerId != touchFingerId)))
                 return;
+
 
             //print("UPDATTOUCH145 END" + touch.position
             //+ " touchFingerId " + touchFingerId
