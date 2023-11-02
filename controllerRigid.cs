@@ -7389,22 +7389,27 @@ public class controllerRigid : MonoBehaviour
             {
                 numOfFansActive = 10;
             }
-
-
-    
-
+  
               int randMaterial_fans = UnityEngine.Random.Range(0, 13);
               Material fansMaterial_static;
               foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
               {
                     if (allStadiumPeople.name.Contains("fan_static_"))
                     {
+
+                    if (isBonusActive ||
+                        isTrainingActive)
+                    {
+                        allStadiumPeople.SetActive(false);
+                        continue;
+                    }
+
                         randMaterial_fans = randMaterial_fans % 14;
-                        if (randMaterial_fans == 8 || randMaterial_fans == 1)
-                        {
-                            randMaterial_fans = randMaterial_fans % 14;
-                            randMaterial_fans = randMaterial_fans % 14;
-                        }
+                        //if (randMaterial_fans == 8 || randMaterial_fans == 1)
+                       // {
+                        //    randMaterial_fans = randMaterial_fans % 14;
+                        //    randMaterial_fans = randMaterial_fans % 14;
+                        //}
 
                         fansMaterial_static = graphics.getMaterial("stadium/fans/materials/audienceMaterial" + randMaterial_fans.ToString());
                         randMaterial_fans++;                        
