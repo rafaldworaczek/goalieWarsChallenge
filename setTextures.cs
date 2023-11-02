@@ -307,6 +307,10 @@ public class setTextures : MonoBehaviour
         if (Globals.numGameOpened <= 1 &&
             Globals.numMatchesInThisSession < 2)
             randGround = 0;
+
+        //prefer first two grasses
+        if (randGround >= 2 && UnityEngine.Random.Range(0, 2) == 1)
+            randGround = UnityEngine.Random.Range(0, 2);
         //if c)
         //    randGround = 2;
         //TOREMOVE
