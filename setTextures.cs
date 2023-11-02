@@ -55,10 +55,10 @@ public class setTextures : MonoBehaviour
          { "st_080_bg_field", "#C3A0B2" },
          { "st_080_bg_field", "#9B9F9A" },*/
          { "GrassShader_2", "#AEB03C" },
-         { "st_060_bg_field", "#ADCC8C" },
+         //{ "st_060_bg_field", "#ADCC8C" },
          { "GrassShader_1", "#FFFFFF" },
-         { "GrassShader_4", "#FFB9B9" },
-         { "GrassShader_3", "#FFB9B9" }
+         { "GrassShader_3", "#FFB9B9" },
+         { "GrassShader_4", "#FFB9B9" }
          //{ "st_060_bg_field", "#667779" }    
          //"Ground/Material/st_061_bg_field",        
          //"Ground/Material/st_070_bg_field",
