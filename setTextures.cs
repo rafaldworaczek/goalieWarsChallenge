@@ -181,7 +181,8 @@ public class setTextures : MonoBehaviour
             return 0;
         } else
         {
-            snowParticle[0].Play();
+            if (UnityEngine.Random.Range(0, 3) == 1)
+                snowParticle[0].Play();
             return 1;
         }
 
