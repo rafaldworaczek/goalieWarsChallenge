@@ -55,7 +55,7 @@ public class setTextures : MonoBehaviour
          { "st_080_bg_field", "#C3A0B2" },
          { "st_080_bg_field", "#9B9F9A" },*/
          { "GrassShader_2", "#AEB03C" },
-         { "st_060_bg_field", "#92989A" },
+         { "st_060_bg_field", "#ADCC8C" },
          { "GrassShader_1", "#FFFFFF" },
          { "GrassShader_4", "#FFB9B9" },
          { "GrassShader_3", "#FFB9B9" }
@@ -82,8 +82,10 @@ public class setTextures : MonoBehaviour
         strCommon = new StringCommon();
         teams = new Teams(Globals.leagueName);
 
+
         ///it's sport halls
         if (Globals.stadiumNumber != 1 &&
+            Globals.stadiumNumber != 2 &&
             !Globals.PITCHTYPE.Equals("STREET"))               
         {
             initWallsMaterials();
@@ -127,6 +129,7 @@ public class setTextures : MonoBehaviour
     void Update() {
         //it's sport hall
         if (Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2 ||
             Globals.PITCHTYPE.Equals("STREET"))
         {
             return;
