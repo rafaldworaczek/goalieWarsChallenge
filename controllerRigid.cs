@@ -845,7 +845,7 @@ public class controllerRigid : MonoBehaviour
         //stoppageTime = UnityEngine.Random.Range(4, 10);
         stoppageTime = UnityEngine.Random.Range(1, 4);
 
-        //timeOfGameInSec = 10000f;
+        timeOfGameInSec = 10000f;
         //print("TIMEOFGAME " + timeOfGameInSec);
         //animator = GameObject.Find("mainPlayer1").GetComponent<Animator>();
         animator = GetComponent<Animator>();
@@ -7391,18 +7391,30 @@ public class controllerRigid : MonoBehaviour
             }
 
 
+    
 
+              int randMaterial_fans = UnityEngine.Random.Range(0, 13);
+              Material fansMaterial_static;
+              foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
+              {
+                    if (allStadiumPeople.name.Contains("fan_static_"))
+                    {
+                        randMaterial_fans = randMaterial_fans % 14;
+                        if (randMaterial_fans == 8 || randMaterial_fans == 1)
+                        {
+                            randMaterial_fans = randMaterial_fans % 14;
+                            randMaterial_fans = randMaterial_fans % 14;
+                        }
 
-            //todelete
-            //int randMaterial_fans = UnityEngine.Random.Range(0, 13);
-            foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
-            {
-               
-
-
-                if (allStadiumPeople.name.Contains("fan_"))
-                {
-                    if (currentFansActive >= numOfFansActive ||
+                        fansMaterial_static = graphics.getMaterial("stadium/fans/materials/audienceMaterial" + randMaterial_fans.ToString());
+                        randMaterial_fans++;                        
+                        allStadiumPeople.GetComponent<Renderer>().material = fansMaterial_static;
+                        continue;
+                    }
+    
+                    if (allStadiumPeople.name.Contains("fan_"))
+                    {
+                        if (currentFansActive >= numOfFansActive ||
                         isBonusActive ||
                         isTrainingActive)
                     {
