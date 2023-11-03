@@ -2669,10 +2669,23 @@ public class playerControllerMultiplayer : MonoBehaviour
                         stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
                     pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles =
                         new Vector3(0f, 180f, 0f);
-                    //GameObject.Find("shadow1").transform.position = new Vector3(7.8f, 0f, 12f);
+                    //FameObject.Find("shadow1").transform.position = new Vector3(7.8f, 0f, 12f);
                     if (GameObject.Find("shadow1") != null)
+                    {
+                        //GameObject.Find("shadow1").transform.position = new Vector3(2.35f, 7.99f, 6.37f);
+                        //GameObject.Find("shadow1").transform.eulerAngles = new Vector3(90f, 0f, 180f);
                         GameObject.Find("shadow1").SetActive(false);
-                } else {
+                    }
+
+                    if (GameObject.Find("shadow2") != null)
+                    {
+                        //GameObject.Find("shadow2").transform.position = new Vector3(1.132f, 7.99f, 0.95f);
+                        //GameObject.Find("shadow2").transform.eulerAngles = new Vector3(90f, 0f, 180f);
+                        GameObject.Find("shadow2").SetActive(false);
+                    }
+                    //    GameObject.Find("shadow1").SetActive(false);
+                }
+                else {
                     stadiumObjects.transform.eulerAngles = new Vector3(0f, 270f, 0f);
                     pitchBorders.transform.eulerAngles = new Vector3(0f, 180f, 0f);
                     GameObject.Find("groundLight").transform.eulerAngles = new Vector3(50f, 100, 0f);
@@ -2703,7 +2716,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     GameObject.Find("goalUpNet"),
                     goalTransparentNet,
                     0);
-                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 200f, 0f);
+                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 150f, 0f);
                 //}
 
 
@@ -2726,8 +2739,18 @@ public class playerControllerMultiplayer : MonoBehaviour
                 {
                     GameObject.Find("goalUpBallCrossLine").SetActive(false);
                     GameObject.Find("LineGoalUp").SetActive(false);
-                    if (GameObject.Find("shadow2") != null)
-                        GameObject.Find("shadow2").SetActive(false);
+                    if (GameObject.Find("shadow1_nomaster") != null)
+                    {
+                        GameObject.Find("shadow1_nomaster").SetActive(false);
+                    }
+
+                    if (GameObject.Find("shadow2_nomaster") != null)
+                    {
+                        GameObject.Find("shadow2_nomaster").SetActive(false);
+                    }
+
+                    //if (GameObject.Find("shadow2") != null)
+                    //    GameObject.Find("shadow2").SetActive(false);
                 }
 
 
@@ -6151,6 +6174,10 @@ public class playerControllerMultiplayer : MonoBehaviour
         timeofBallFly = Mathf.Max(ShotSpeedMin, timeofBallFly);
 
 
+        //temporary solution
+        timeofBallFly = ShotSpeedMax;
+
+
         shotSpeed = MIN_SHOT_SPEED +
             Mathf.InverseLerp(ShotSpeedMin, ShotSpeedMax, timeofBallFly) * speedMultiplayer;
         shotSpeed = Mathf.Min(118f, shotSpeed);
@@ -9416,8 +9443,8 @@ public class playerControllerMultiplayer : MonoBehaviour
             */
 
         //for beta multiplayer version
-        int winPoints = 20;
-        int tiePoints = 10;
+        int winPoints = 35;
+        int tiePoints = 20;
 
         matchIntroWinCoinsNumText.text = "+" + winPoints.ToString();
         matchIntroTieNumCoinText.text = "+" + tiePoints.ToString();
@@ -11980,8 +12007,31 @@ public class playerControllerMultiplayer : MonoBehaviour
                 + " isBonusActive " + isBonusActive
                 + " isTrainingActive " + isTrainingActive);*/
 
+            int randMaterial_fans = UnityEngine.Random.Range(0, 13);
+            Material fansMaterial_static;
+
             foreach (var allStadiumPeople in FindObjectsOfType(typeof(GameObject)) as GameObject[])
             {
+
+                if (allStadiumPeople.name.Contains("fan_static_"))
+                {
+
+                    if (isBonusActive ||
+                        isTrainingActive)
+                    {
+                        allStadiumPeople.SetActive(false);
+                        continue;
+                    }
+
+                    randMaterial_fans = randMaterial_fans % 14;
+
+
+                    fansMaterial_static = graphics.getMaterial("stadium/fans/materials/audienceMaterial" + randMaterial_fans.ToString());
+                    randMaterial_fans++;
+                    allStadiumPeople.GetComponent<Renderer>().material = fansMaterial_static;
+                    continue;
+                }
+
                 if (allStadiumPeople.name.Contains("fan_"))
                 {
                     if (currentFansActive >= numOfFansActive ||
@@ -15765,8 +15815,9 @@ public class playerControllerMultiplayer : MonoBehaviour
         if (touch.phase == TouchPhase.Moved)
         {
             if (!isTouchBegin ||
-               (isTouchBegin && (touch.fingerId != touchFingerId)))
-                return;
+               (isTouchBegin && (touch.fingerId != touchFingerId)) ||
+               isCpuShotActive)
+               return;
 
             touchCount++;
             shotDirection2D = (touch.position - startPos).normalized;
@@ -15814,11 +15865,11 @@ public class playerControllerMultiplayer : MonoBehaviour
             /*get only one point*/
             if (isCpuShotActive)
             {
-                updateLastGkTouchPos(touch);
-                touchLocked = true;
-                gkTouchDone = true;
-                gkClickHelper.enabled = true;
-                rectTransformGkClickHelper.position = touch.position;
+                //updateLastGkTouchPos(touch);
+                //touchLocked = true;
+                //gkTouchDone = true;
+                //gkClickHelper.enabled = true;
+                //rectTransformGkClickHelper.position = touch.position;
                 return;
             }
             else
@@ -15869,6 +15920,19 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         if (touch.phase == TouchPhase.Ended)
         {
+            if (isCpuShotActive)
+            {
+                updateLastGkTouchPos(touch);
+                touchLocked = true;
+                gkTouchDone = true;
+                gkClickHelper.enabled = true;
+                rectTransformGkClickHelper.position = touch.position;
+                touchFingerId = -1;
+                isTouchBegin = false;
+                return;
+            }
+
+
             if (!isTouchBegin ||
                 (isTouchBegin && (touch.fingerId != touchFingerId)))
                 return;

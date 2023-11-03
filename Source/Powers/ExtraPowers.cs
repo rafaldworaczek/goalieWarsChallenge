@@ -854,7 +854,9 @@ public class ExtraPowers : MonoBehaviour
         if (Globals.stadiumNumber == 1)
             Globals.loadSceneWithBarLoader("gameSceneSportsHall");
         else
+        {
             Globals.loadSceneWithBarLoader("gameScene");
+        }
     }
     
     public void onClickCloseShop()

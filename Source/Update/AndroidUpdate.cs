@@ -10,7 +10,7 @@ public class AndroidUpdate : MonoBehaviour
     // Start is called before the first frame update
     AppUpdateManager appUpdateManager;
     void Start()
-    {
+    {        
         Globals.isMultiplayerUpdate = false;
         if (Globals.isMultiplayer)
         {

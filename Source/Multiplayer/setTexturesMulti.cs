@@ -58,10 +58,15 @@ public class setTexturesMulti : MonoBehaviour
          //"Ground/Material/st_070_bg_field",
          //"Ground/Material/st_071_bg_field",
          ///{ "st_080_bg_field", "#7E7E7E" }
-         { "st_080_bg_field", "#ECE5CF" },
+         /*{ "st_080_bg_field", "#ECE5CF" },
          { "st_060_bg_field", "#92989A" },
          { "st_080_bg_field", "#FFFFFF" }, //very light
-         { "st_080_bg_field", "#FFC2E2" }
+         { "st_080_bg_field", "#FFC2E2" }*/
+         { "GrassShader_2", "#AEB03C" },
+         //{ "st_060_bg_field", "#ADCC8C" },
+         { "GrassShader_1", "#FFFFFF" },
+         { "GrassShader_3", "#FFB9B9" },
+         { "GrassShader_4", "#FFB9B9" }
     };
 
 
