@@ -468,10 +468,10 @@ namespace MenuCustomNS
                 {
                     teams = new LeagueItaly().getTeams();
                 }
-                //else if (leagueName.Equals("POLAND"))
-                //{
-                //    teams = new LeaguePoland().getTeams();
-                //}
+                else if (leagueName.Equals("POLAND"))
+                {
+                    teams = new LeaguePoland().getTeams();
+                }
                 else if (leagueName.Equals("SPAIN"))
                 {
                     teams = new LeagueSpain().getTeams();
