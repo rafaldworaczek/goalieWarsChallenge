@@ -660,8 +660,8 @@ public class controllerRigid : MonoBehaviour
         //print("Globals.numMainMenuOpened " + PlayerPrefs.GetInt("numGameOpen")
         //    + " Globals.numMatchesInThisSession " + Globals.numMatchesInThisSession);
 
-        if ((PlayerPrefs.GetInt("numGameOpen") <= 1) &&
-            (Globals.numMatchesInThisSession <= 1))       
+        if ((PlayerPrefs.GetInt("numGameOpen") <= 2) &&
+            (Globals.numMatchesInThisSession <= 2))       
         {
             Color temp = gkHelperImage.color;
             temp.a = 0.7f;
@@ -845,7 +845,7 @@ public class controllerRigid : MonoBehaviour
         //stoppageTime = UnityEngine.Random.Range(4, 10);
         stoppageTime = UnityEngine.Random.Range(1, 4);
 
-        timeOfGameInSec = 10000f;
+        //timeOfGameInSec = 10000f;
         //print("TIMEOFGAME " + timeOfGameInSec);
         //animator = GameObject.Find("mainPlayer1").GetComponent<Animator>();
         animator = GetComponent<Animator>();
@@ -983,7 +983,7 @@ public class controllerRigid : MonoBehaviour
             if (Input.GetKeyDown("space"))
             {
                 int rand = UnityEngine.Random.Range(0, 100000000);
-                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 2);
+                ScreenCapture.CaptureScreenshot("screenshot/screenshot" + rand.ToString() + ".png", 4);
                 Debug.Log("A screenshot was taken!");
             }
         }
@@ -1402,12 +1402,12 @@ public class controllerRigid : MonoBehaviour
             {
                 return;
             }
-            photo_3DVolley();
+            //photo_3DVolley();
             //photo_save1();
-            //photo_save2();
+            photo_save2();
             //photo_save3();
 
-            //cpuPlayer.fixedUpdate();
+            cpuPlayer.fixedUpdate();
             return;
         }
 
@@ -7397,19 +7397,15 @@ public class controllerRigid : MonoBehaviour
                     if (allStadiumPeople.name.Contains("fan_static_"))
                     {
 
-                    if (isBonusActive ||
-                        isTrainingActive)
-                    {
-                        allStadiumPeople.SetActive(false);
-                        continue;
-                    }
+                        if (isBonusActive ||
+                            isTrainingActive)
+                        {   
+                            allStadiumPeople.SetActive(false);
+                            continue;
+                        }
 
                         randMaterial_fans = randMaterial_fans % 14;
-                        //if (randMaterial_fans == 8 || randMaterial_fans == 1)
-                       // {
-                        //    randMaterial_fans = randMaterial_fans % 14;
-                        //    randMaterial_fans = randMaterial_fans % 14;
-                        //}
+                  
 
                         fansMaterial_static = graphics.getMaterial("stadium/fans/materials/audienceMaterial" + randMaterial_fans.ToString());
                         randMaterial_fans++;                        
