@@ -125,10 +125,10 @@ public class gameSettings : MonoBehaviour
 
 
     private string[] leagueNames;
-    private string[] nonCupNames = { "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN" };
+    private string[] nonCupNames = { "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "POLAND" };
     private string[] cupNames = { "CHAMP CUP", "WORLD CUP", "AMERICA CUP", "EURO CUP" };
     private string[] allLeaguesNames =
-        {  "ENGLAND", "BRAZIL","GERMANY", "ITALY", "SPAIN", "CHAMP CUP", "NATIONALS" };
+        {  "ENGLAND", "BRAZIL","GERMANY", "ITALY", "SPAIN", "POLAND", "CHAMP CUP", "NATIONALS" };
 
     private int levelsIdx = 1;
     private int netLostPackages = 0;
@@ -692,7 +692,7 @@ public class gameSettings : MonoBehaviour
             {
                 if (!Globals.teamBCustomize)
                 {
-                    print("#DBBoutput " + Globals.teamBname);
+                    //print("#DBBoutput " + Globals.teamBname);
                     fullTeamPath = graphicsStandard.getFlagPath(Globals.teamBname);
                     setFlagImage(multiplayerMenuTeamFlag[1], fullTeamPath, 0);
                 }
@@ -2637,7 +2637,7 @@ public class gameSettings : MonoBehaviour
             team = Regex.Replace(team, "\\s+", "");
 
 
-            //print("#DGBNAME team Name " + team.ToLower());
+            print("#DGBNAME team Name " + team.ToLower());
             //print("team path " + team);
             image.texture = Resources.Load<Texture2D>("Flags/" + team.ToLower());
         }

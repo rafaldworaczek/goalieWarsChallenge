@@ -118,7 +118,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Pablo Junior
-                "Tomek Junior:Poland:60:60:U:0:f5_s1_b0_t0_hblack1",
+                "Tomek Junior:Poland:52:50:U:0:f5_s1_b0_t0_hblack1",
                 
                 "shoeblackred|shoered",
                 "gloveblacblue|glovebluewhite"},

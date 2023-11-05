@@ -112,7 +112,7 @@ public class Shop : MonoBehaviour
     public bool IS_TEAM_MANAGEMENT_UPDATE_ENABLED = false;
 
     private string[] leagueNames =
-            { "NATIONAL TEAMS", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "CHAMP CUP" };
+            { "NATIONAL TEAMS", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "POLAND", "CHAMP CUP" };
     private int leagueNamesIdx = 0;
     private TextMeshProUGUI leagueNameText;
     private Teams teams;
