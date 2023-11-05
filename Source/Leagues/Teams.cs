@@ -323,6 +323,8 @@ namespace MenuCustomNS
                     return "SPAIN";
                 case 5:
                     return "CHAMP CUP";
+                case 6:
+                    return "POLAND";
             }
 
             return "BRAZIL";

@@ -155,7 +155,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Alejandro Jr
-                "Kacper Junior:Spain:53:50:U:0:f8_s1_b0_t0_hblack6",
+                "Kacper Junior:Poland:53:50:U:0:f8_s1_b0_t0_hblack6",
                    
                 "shoered|shoeblackred",
                 "glovebluered|gloveblacblue"},
@@ -313,7 +313,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",      
                  //Javier Junior
-                "Szymon Junior:Spain:63:59:U:0:f1_s1_b0_t0_hblack4",
+                "Szymon Junior:Poland:63:59:U:0:f1_s1_b0_t0_hblack4",
                 "shoeblackred|shoered",
                 "gloveblacblue|gloveredblack"},
              //Osasuna
@@ -331,7 +331,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",   
                 //Marcos Junior
-                "Ignacy Junior:Spain:56:54:U:0:f0_s2_b0_t0_hred2",
+                "Ignacy Junior:Poland:56:54:U:0:f0_s2_b0_t0_hred2",
        
                 "shoeblackred|shoered",
                 "gloveredblack|gloveblacblue"},

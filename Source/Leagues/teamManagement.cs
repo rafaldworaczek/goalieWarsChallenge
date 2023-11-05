@@ -261,18 +261,20 @@ public class teamManagement : MonoBehaviour
                 /*don't transfer player to the same team*/
                 //if (team[i][0].Equals(playerTeamName))
                 //print("#DBGTRANSFERLIST INIT TRANSFER " + team[0]);
+                string[] players = team[12].Split('|');
                 if (team[0].Equals(playerTeamName) ||
-                    Globals.isTeamCustomize(team[0]))
+                    Globals.isTeamCustomize(team[0]) ||
+                    players.Length <= MIN_PLAYERS_PER_TEAM)
                     continue;
                
-                string[] players = team[12].Split('|');
                 int randPlayer =
                     UnityEngine.Random.Range(1, players.Length);
-
-                /*print("DBGRANDOMLEAGUE players[randPlayer] len " + players.Length
-                    + " teamName " + team[0]
-                    + " randTeam " + randTeam
-                    + " randPlayer  " + randPlayer);*/
+              
+                //print("DBGRANDOMLEAGUE players[randPlayer] len " + players.Length
+               //     + " teamName " + team[0]
+               //     + " randTeam " + randTeam
+               //     + " randPlayer  " + randPlayer
+               //     + " randomLeague " + randomLeague);
 
                 if (int.Parse(players[randPlayer].Split(':')[5]) == 0 ||
                     players.Length <= MIN_PLAYERS_PER_TEAM)
