@@ -118,7 +118,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Pablo Junior
-                "Tomek Junior:Poland:52:50:U:0:f5_s1_b0_t0_hblack1",
+                "Tomek Junior:Poland:50:48:U:0:f5_s1_b0_t0_hblack1",
                 
                 "shoeblackred|shoered",
                 "gloveblacblue|glovebluewhite"},
@@ -136,7 +136,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",
                 //Martin Junior
-                "Darek Junior:Poland:60:60:U:0:f1_s1_b0_t0_hblack13",
+                "Darek Junior:Poland:54:51:U:0:f1_s1_b0_t0_hblack13",
               
                 "shoeredwhite|shoebluewhite",
                 "gloveredwhite|gloveredwhite"},
@@ -155,7 +155,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Alejandro Jr
-                "Kacper Junior:Spain:60:60:U:0:f8_s1_b0_t0_hblack6",
+                "Kacper Junior:Spain:53:50:U:0:f8_s1_b0_t0_hblack6",
                    
                 "shoered|shoeblackred",
                 "glovebluered|gloveblacblue"},
@@ -173,7 +173,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "white",
                  //Alvaro Junior
-                "Antek Junior:Poland:60:60:U:0:f5_s1_b2_t5_hred4",
+                "Antek Junior:Poland:46:41:U:0:f5_s1_b2_t5_hred4",
                         
                  "shoewhite|shoewhiteblack",
                  "globewhiteblack"},
@@ -191,7 +191,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",
                  //David Junior
-                "Karol Junior:Poland:60:60:U:0:f4_s1_b2_t8_hred3",
+                "Karol Junior:Poland:45:48:U:0:f4_s1_b2_t8_hred3",
               
                 "shoeredwhite|shoeblackred",
                 "gloveredwhite"},
@@ -209,7 +209,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",
                  //Lucas Junior
-                "Mariusz Junior:Poland:60:60:U:0:f5_s1_b2_t5_hred4",
+                "Mariusz Junior:Poland:52:53:U:0:f5_s1_b2_t5_hred4",
            
                 "shoeredwhite|shoeblackred",
                 "gloveredwhite|gloveredblack"},
@@ -227,7 +227,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "white",
                  //Mario Junior
-                "Piotr Junior:Poland:60:60:U:0:f8_s1_b0_t0_hblonde3",
+                "Piotr Junior:Poland:48:50:U:0:f8_s1_b0_t0_hblonde3",
                 "shoeredwhite|shoeblackred",
                 "gloveredwhite|gloveredblack"},
              new string[] {
@@ -244,7 +244,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "yellow",
                  //Diego Junior
-                "Jarek Junior:Poland:60:60:U:0:f8_s1_b0_t0_hred4",
+                "Jarek Junior:Poland:50:50:U:0:f8_s1_b0_t0_hred4",
                               
                 "shoeyellow|shoeblack",
                 "gloveyellow|gloveyellowblack"},
@@ -262,7 +262,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "yellow",
                 //Manuel Junior
-                "Jakub Junior:Poland:60:60:U:0:f2_s1_b2_t8_hblack1",                          
+                "Jakub Junior:Poland:52:53:U:0:f2_s1_b2_t8_hblack1",                          
                 "shoeyellow|shoeblack",
                 "gloveyellowwhite"},
              new string[] {
@@ -279,7 +279,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "green",
                  //Leo Junior
-                "Tymon Junior:Poland:60:60:U:0:f9_s1_b2_t6_hblack2",                              
+                "Tymon Junior:Poland:55:57:U:0:f9_s1_b2_t6_hblack2",                              
                 "shoegreen",
                 "glovegreenwhite"},
              new string[] {
@@ -296,7 +296,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Mateo Junior
-                "Nikodem Junior:Poland:60:60:U:0:f6_s1_b2_t9_hblack3",             
+                "Nikodem Junior:Poland:54:53:U:0:f6_s1_b2_t9_hblack3",             
                 "shoebluewhite",
                 "glovebluewhite"},
              new string[] {
@@ -313,7 +313,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",      
                  //Javier Junior
-                "Szymon Junior:Spain:60:60:U:0:f1_s1_b0_t0_hblack4",
+                "Szymon Junior:Spain:63:59:U:0:f1_s1_b0_t0_hblack4",
                 "shoeblackred|shoered",
                 "gloveblacblue|gloveredblack"},
              //Osasuna
@@ -331,7 +331,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "red",   
                 //Marcos Junior
-                "Ignacy Junior:Spain:60:60:U:0:f0_s2_b0_t0_hred2",
+                "Ignacy Junior:Spain:56:54:U:0:f0_s2_b0_t0_hred2",
        
                 "shoeblackred|shoered",
                 "gloveredblack|gloveblacblue"},
@@ -349,7 +349,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue", 
                  //Alex Junior
-                "Marcel Junior:Poland:60:60:U:0:f7_s3_b2_t6_hblack6",           
+                "Marcel Junior:Poland:52:53:U:0:f7_s3_b2_t6_hblack6",           
                 "shoewhite",
                 "gloveredwhite"},
              new string[] {
@@ -366,7 +366,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue", 
                 //Sergio Junior
-                "Sergio Junior:Poland:60:60:U:0:f4_s4_b2_t10_hred5",
+                "Sergio Junior:Poland:52:51:U:0:f4_s4_b2_t10_hred5",
                 
                 "shoebluewhite|shoeblue",
                 "glovelightbluewhite"},
@@ -385,7 +385,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Marc Junior
-                "Marc Junior:Poland:60:60:U:0:f0_s4_b0_t0_hblack13",
+                "Marc Junior:Poland:58:56:U:0:f0_s4_b0_t0_hblack13",
 
                 "shoebluewhite",
                 "glovebluewhite"},
@@ -404,7 +404,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                 //Carlos Junior
-                "Carlos Junior:Poland:60:60:U:0:f7_s1_b2_t5_hblack11",
+                "Carlos Junior:Poland:47:45:U:0:f7_s1_b2_t5_hblack11",
                 "shoebluewhite",
                 "glovebluewhite"},
             //Betis Sevilla
@@ -422,7 +422,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "green",
                 //Jorge Junior
-                "Jorge Junior:Poland:60:60:U:0:f4_s1_b0_t0_hblack12",
+                "Jorge Junior:Poland:42:41:U:0:f4_s1_b0_t0_hblack12",
                 "shoegreen",
                 "glovegreenwhite"},
              new string[] {
