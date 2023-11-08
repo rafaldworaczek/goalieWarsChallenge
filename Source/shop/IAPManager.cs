@@ -679,9 +679,14 @@ public class IAPManager : MonoBehaviour, IStoreListener
         {
             // Purchasing set-up has not succeeded. Check error for reason. Consider sharing this reason with the user.
             Debug.Log("DBGPurchasing OnInitializeFailed InitializationFailureReason:" + error);
-        }
+       }
 
-        public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
+       public void OnInitializeFailed(InitializationFailureReason error, string test)
+       {
+            Debug.Log("DBGPurchasing OnInitializeFailed InitializationFailureReason:" + error);
+       }
+
+    public PurchaseProcessingResult ProcessPurchase(PurchaseEventArgs args)
         {
         // A consumable product has been purchased by this user.
             if (String.Equals(args.purchasedProduct.definition.id, diamond100, StringComparison.Ordinal))

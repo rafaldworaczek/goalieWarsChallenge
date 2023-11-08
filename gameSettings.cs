@@ -208,7 +208,6 @@ public class gameSettings : MonoBehaviour
 
     void Awake()
     {
-      
 
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         //print("Audio audioManager " + audioManager);
@@ -495,8 +494,8 @@ public class gameSettings : MonoBehaviour
             leagueNames = allLeaguesNames;
         }
 
-        leagueBIdx = 0;
-        currBTeamIdx = 10;
+        leagueBIdx = 5;
+        currBTeamIdx = 3;
          
         //print("#DBGINITA LEAGUE NAME " + leagueNames[leagueAIdx]);
         //print("#DBGINITB LEAGUE NAME " + leagueNames[leagueBIdx]);
@@ -963,6 +962,10 @@ public class gameSettings : MonoBehaviour
         if (Globals.gameType.Equals("FRIENDLY"))
         {
             leagueNames = allLeaguesNames;
+            leagueAIdx = 4;
+            leagueBIdx = 4;
+            currATeamIdx = 0;
+            currBTeamIdx = 3;
         } else if (Globals.gameType.Equals("CUP"))
         {
                 //Array.Clear(leagueNames, 0, leagueNames.Length);
@@ -971,8 +974,9 @@ public class gameSettings : MonoBehaviour
 
                 //print("DBGTOURNAMENT23 LEAGUESNAMES CUP " + leagueNames + " size " + leagueNames.Length);
          } else {
-                //Array.Clear(leagueNames, 0, leagueNames.Length);
-                //Array.Resize<string>(ref leagueNames, nonCupNames.Length);            
+            //Array.Clear(leagueNames, 0, leagueNames.Length);
+            //Array.Resize<string>(ref leagueNames, nonCupNames.Length);
+             
                 leagueNames = nonCupNames;
                 //print("DBGTOURNAMENT23 LEAGUESNAMES NONCUP " + leagueNames + " size " + leagueNames.Length);            
          }
@@ -1516,6 +1520,7 @@ public class gameSettings : MonoBehaviour
             }
         }
 
+        //Debug.Log("DBG1334 init stadium before " + Globals.teamBid);
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
             Globals.stadiumNumber = 0;
@@ -1537,6 +1542,13 @@ public class gameSettings : MonoBehaviour
         } else {
             chooseStadiumCanvas.SetActive(true);
         }
+
+        /*print("#DBG1334 init choose stadiu Globals.teamAleague " 
+    + Globals.playerADesc + " Globals.playerADesc " 
+    + Globals.teamAname + " + Globals.teamAname "
+    + " Globals team B " + Globals.teamBleague
+    + " teamB Name " + Globals.teamBname
+    + " temBIDx " + Globals.teamBid);*/
 
         //if (Globals.coins < 6000)
         //    lockStadiumPanel.SetActive(true);
@@ -2447,8 +2459,12 @@ public class gameSettings : MonoBehaviour
         }
         Globals.gameInGroup = true;
 
-        //print("#SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc " +
-        //    Globals.playerADesc + " Globals.teamAname " + Globals.teamAname);
+        /*print("DBG1334 TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc " 
+            +
+              Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
+             + " Globals team B " + Globals.teamBleague 
+             + " teamB Name " + Globals.teamBname
+             + " temBIDx " + Globals.teamBid);*/
     }
     
     private void updateTeamBGlobalsSettings(int teamIdx)
@@ -2503,8 +2519,8 @@ public class gameSettings : MonoBehaviour
         //    + " Globals.stadiumColorTeamB " + Globals.stadiumColorTeamB);
 
         print("UPDATE1 teamBID");
-        Globals.teamBid = int.Parse(
-            teams.getTeamByIndex(teamIdx)[3]);
+        //Globals.teamBid = int.Parse(
+        //    teams.getTeamByIndex(teamIdx)[3]);
     }
 
     public void setupAllSetttingsToDefault()
@@ -2700,6 +2716,9 @@ public class gameSettings : MonoBehaviour
         Globals.isGameSettingActive = false;
 
 
+        //Debug.Log("Globals.isTrainingActive team Management " + Globals.isTrainingActive);
+
+
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
             Globals.stadiumNumber = 0;
@@ -2739,8 +2758,6 @@ public class gameSettings : MonoBehaviour
      
         Globals.stadiumNumber = idx;
                
-
-
         loadGameScene();
         admobAdsScript.hideBanner();
     }

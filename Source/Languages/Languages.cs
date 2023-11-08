@@ -1860,7 +1860,7 @@ namespace LANGUAGE_NS
                 //EN
                 "Sorry. You must have at least 10 coins to play in this mode. Play Friendly first",
                 //PL
-                "Musisz posiadac co najmniej 10 monet żeby grac w tym trybie. Zagraj Szybki mecz najpierw",
+                "Musisz posiadac co najmniej 10 monet zeby grac w tym trybie. Zagraj Szybki mecz najpierw",
                 //ES
                 "Lo siento. Debes tener al menos 10 monedas para jugar en este modo. Juega amistoso primero",
                 //PT

@@ -36858,7 +36858,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -0.45, y: -0.212}
   m_AnchorMax: {x: 0.23666666, y: 1.188}
-  m_AnchoredPosition: {x: -120, y: 0}
+  m_AnchoredPosition: {x: -119.99988, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &741241802
@@ -86138,7 +86138,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 65f22c17ee7197a4cbdae6642f074d80,
         type: 3}
       propertyPath: m_StaticEditorFlags
-      value: 4294967295
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65f22c17ee7197a4cbdae6642f074d80, type: 3}
