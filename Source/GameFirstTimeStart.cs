@@ -16,11 +16,10 @@ public class GameFirstTimeStart : MonoBehaviour
 
     void Awake()
     {
-        if (!PlayerPrefs.HasKey("PLAYER_NAME_SET") &&
+        /*if (!PlayerPrefs.HasKey("PLAYER_NAME_SET") &&
             (Globals.numGameOpened == 1))           
         {
             namePanel.SetActive(false);
-            //namePanel.SetActive(true);
             PlayerPrefs.SetInt("PLAYER_NAME_SET", 1);
             PlayerPrefs.Save();
 
@@ -29,9 +28,9 @@ public class GameFirstTimeStart : MonoBehaviour
             return;
         }
         else
-        {
+        {*/
             namePanel.SetActive(false);        
-        }
+        //}
     }
 
     /*

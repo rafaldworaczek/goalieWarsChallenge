@@ -122,6 +122,16 @@ public class teamManagement : MonoBehaviour
 
     void Start()
     {
+
+
+        //Debug.Log("Globals.isTrainingActive team Management " + Globals.isTrainingActive);
+  /*      print("#DBG1334 team management #### 1 " + Globals.teamAleague + " Globals.playerADesc "
+ +
+     Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
+    + " Globals team B " + Globals.teamBleague
+    + " teamB Name " + Globals.teamBname
+    + " temBIDx " + Globals.teamBid);*/
+
         playerSellOfferHash = new Dictionary<string, string>();
         audioManager = FindObjectOfType<AudioManager>();
         saveFileName = Globals.savedFileName;
@@ -940,7 +950,17 @@ public class teamManagement : MonoBehaviour
     public void onClickPlay()
     {
         print("Globals.isMultiplayer " + Globals.isMultiplayer);
-       
+
+
+        print("#DBG1334 set management here texture SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc "
+   +
+     Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
+    + " Globals team B " + Globals.teamBleague
+    + " teamB Name " + Globals.teamBname
+    + " temBIDx " + Globals.teamBid);
+
+
+
         //print("DBGPLAYONCLICK TEAM MANAGEMENT 1 CLICK PLAY");
         Globals.recoverOriginalResolution();
         if (!Globals.isMultiplayer)
@@ -956,7 +976,10 @@ public class teamManagement : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("specialShopOffers");
+            if (UnityEngine.Random.Range(0, 3) == 1)
+                Globals.loadSceneWithBarLoader("specialShopOffers");
+            else
+                Globals.loadSceneWithBarLoader("extraPowers");
         }
     }
 

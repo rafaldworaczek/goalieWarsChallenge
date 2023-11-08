@@ -176,7 +176,7 @@ namespace Com.Osystems.GoalieStrikerFootball
             Globals.isMultiplayerMatchNotFound = false;
             Globals.isMultiplayerFriendConActive = false;
 
-            maxWaitTime = UnityEngine.Random.Range(8f, 12f);
+            maxWaitTime = UnityEngine.Random.Range(20f, 25f);
             //maxWaitTime = 1f;
             isEnergyChange = false;
             audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();

@@ -1847,15 +1847,27 @@ namespace LANGUAGE_NS
              //not translated by interpreter!!
              new string[] {
                 //EN
-                "Sorry. You must have at least 50 coins to play online. Play Friendly, Season or Tournament first",
+                "Sorry. You must have at least 10 coins to play online. Play Friendly first",
                 //PL
-                "Musisz posiadac co najmniej 50 monet żeby grac w trybie online. Zagraj Szybki mecz, Turniej lub Sezon najpierw",
+                "Musisz posiadac co najmniej 10 monet żeby grac w trybie online. Zagraj Szybki mecz najpierw",
                 //ES
-                "Debes tener al menos 50 monedas para jugar en línea. Jugar Amistoso, Temporada, o Torneo primero",
+                "Debes tener al menos 10 monedas para jugar en línea. Jugar Amistoso primero",
                 //PT
-                "Você deve ter pelo menos 50 moedas para jogar online. Jogar amistoso, Temporada ou Torneio primeiro",
+                "Você deve ter pelo menos 10 moedas para jogar online. Jogar Amistoso primeiro",
                 "",
                 },
+            new string[] {
+                //EN
+                "Sorry. You must have at least 10 coins to play in this mode. Play Friendly first",
+                //PL
+                "Musisz posiadac co najmniej 10 monet żeby grac w tym trybie. Zagraj Szybki mecz najpierw",
+                //ES
+                "Lo siento. Debes tener al menos 10 monedas para jugar en este modo. Juega amistoso primero",
+                //PT
+                "Desculpe. Você deve ter pelo menos 10 moedas para jogar neste modo. Jogue amigável primeiro",
+                "",
+                },
+
             //not translated by interpreter!!
             new string[] {
                 //EN

@@ -66,7 +66,7 @@ public class MultiplayerMenu : MonoBehaviour
             infoCanvas.SetActive(true);
             infoHeaderText.text = "Oops..";
             infoDescText.text = 
-                Languages.getTranslate("Sorry. You must have at least 10 coins to play online. Play Friendly, Season or Tournament first");
+                Languages.getTranslate("Sorry. You must have at least 10 coins to play online. Play Friendly first");
             infoImage.texture = Resources.Load<Texture2D>("Shop/shopNotificationCoins");
             return;
         }
