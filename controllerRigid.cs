@@ -1402,13 +1402,14 @@ public class controllerRigid : MonoBehaviour
             {
                 return;
             }
+
             //photo_3DVolley();
             //photo_save1();
-            photo_save2();
+            //photo_save2();
             //photo_save3();
 
             cpuPlayer.fixedUpdate();
-            return;
+            //return;
         }
 
         if (Globals.isMultiplayer &&
@@ -5008,20 +5009,20 @@ public class controllerRigid : MonoBehaviour
         float level = (float)Globals.level;
 
         if (Globals.level <= 2)
-            levelFactor = 0.05f + (level * 0.17f);
+            levelFactor = 0.05f + (level * 0.25f);
         else
         {
             if (Globals.level == 3)
             {
-                levelFactor = 0.50f;
+                levelFactor = 0.70f;
             }
             else if (Globals.level == 4)
             {
-                levelFactor = 0.60f;
+                levelFactor = 0.90f;
             }
             else if (Globals.level == 5)
             {
-                levelFactor = 0.70f;
+                levelFactor = 1.1f;
             }
         }
 
