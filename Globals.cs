@@ -20,8 +20,8 @@ namespace GlobalsNS
         public static int MIN_COINS_PLAY_ONLINE = 10;
         public static string multiplayer_lastGameName = String.Empty;
         //GRASS, INDOOR, STREET
+        public static string PITCHTYPE = "INDOOR";
         //public static string PITCHTYPE = "GRASS";
-        public static string PITCHTYPE = "GRASS";
         public static bool promotionShowed = false;
 
         public static bool isAnalyticsEnable = true;
@@ -114,7 +114,7 @@ namespace GlobalsNS
         public static int outstandingEnergyVal = 100;
         public static int MAX_LEAGUES_NUM = 5;
         //MAX_LEAGUES_NUM + 1 (CHAMP CUP) 
-        public static int MAX_PLAYERS_CARD_LEAGUES = 6;
+        public static int MAX_PLAYERS_CARD_LEAGUES = 7;
         public static bool wonFinal = false;
         /*STANDARD*/
         public static bool reviewDisplayed = false;
@@ -268,13 +268,13 @@ namespace GlobalsNS
             { "WORLD CUP", "AMERICA CUP", "EURO CUP", "NATIONALS", "NATIONAL TEAMS" };
 
         public static string[] playerCardLeagues =
-           { "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "CHAMP CUP"};
+           { "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "CHAMP CUP", "POLAND"};
 
         public static string[] allLeaguesNames =
-           { "NATIONALS", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "OTHERS"};
+           { "NATIONALS", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "POLAND", "OTHERS"};
 
         public static string[] flagsFoldersNames =
-            { "NATIONAL", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "CHAMPCUP"};
+            { "NATIONAL", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "CHAMPCUP", "POLAND"};
 
         public static Queue<PurchaseItem> purchasesQueue = new Queue<PurchaseItem>();
         public static Dictionary<string, string> teamLeagueName =

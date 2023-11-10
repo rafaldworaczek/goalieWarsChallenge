@@ -9,6 +9,7 @@ using System.IO;
 using System;
 using LANGUAGE_NS;
 
+
 public class loadMainMenu : MonoBehaviour
 {
     private AudioSource audioSource;
@@ -29,6 +30,12 @@ public class loadMainMenu : MonoBehaviour
             langMenuPanel.SetActive(true);
             return;
         }
+
+        #if UNITY_EDITOR
+            Debug.logger.logEnabled = true;
+        #else
+            Debug.logger.logEnabled = false;
+        #endif
 
         langMenuPanel.SetActive(false);
         Languages.initLangs();

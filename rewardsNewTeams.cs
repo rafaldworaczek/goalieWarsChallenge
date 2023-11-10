@@ -771,7 +771,9 @@ public class rewardsNewTeams : MonoBehaviour
                 StartCoroutine(showTeam());
 
             if (activePrize == 1)
+            {
                 StartCoroutine(showPrize());
+            }
         }
     }
 

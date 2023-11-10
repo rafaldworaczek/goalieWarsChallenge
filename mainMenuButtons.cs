@@ -11,6 +11,7 @@ using UnityEngine.SocialPlatforms;
 using UnityEngine.Analytics;
 using TMPro;
 using Photon.Pun;
+using LANGUAGE_NS;
 
 public class mainMenuButtons : MonoBehaviour
 {
@@ -35,6 +36,11 @@ public class mainMenuButtons : MonoBehaviour
     //public ReviewManagerScript reviewManager;
     private LeagueBackgroundMusic leagueBackgroundMusic;
     public GameObject[] menuButtonsObj;
+    public GameObject infoCanvas;
+    public TextMeshProUGUI infoHeaderText;
+    public TextMeshProUGUI infoDescText;
+    public RawImage infoImage;
+    private int COINS_NEEDED_TO_PLAY = 10;
 
     void Awake()
     {
@@ -44,7 +50,7 @@ public class mainMenuButtons : MonoBehaviour
         }
 
 
-
+        infoCanvas.SetActive(false);
         PhotonNetwork.AutomaticallySyncScene = false;
 
         leagueBackgroundMusic =
@@ -180,6 +186,9 @@ public class mainMenuButtons : MonoBehaviour
 
     public void enterTournamentMenu()
     {
+        if (checkIfEnoughCoinsToPlay())
+            return;
+
         Globals.isMultiplayer = false;
         prepareNewGame();
         Globals.gameType = "CUP";
@@ -203,8 +212,26 @@ public class mainMenuButtons : MonoBehaviour
         Globals.wonFinal = false;
     }
 
+    private bool checkIfEnoughCoinsToPlay()
+    {
+        if (Globals.coins < COINS_NEEDED_TO_PLAY)
+        {
+            infoCanvas.SetActive(true);
+            infoHeaderText.text = "Oops..";
+            infoDescText.text =
+                Languages.getTranslate("Sorry. You must have at least 10 coins to play in this mode. Play Friendly first");
+            infoImage.texture = Resources.Load<Texture2D>("Shop/shopNotificationCoins");
+            return true;
+        }
+
+        return false;
+    }
+
     public void enterSeasonMenu()
     {
+        if (checkIfEnoughCoinsToPlay())
+            return;
+
         Globals.isMultiplayer = false;
         prepareNewGame();
         //showBannerAd();
@@ -415,5 +442,10 @@ public class mainMenuButtons : MonoBehaviour
     public void exitGame()
     {
         Application.Quit();
+    }
+
+    public void onClickCloseInfoCanvas()
+    {
+        infoCanvas.SetActive(false);
     }
 }

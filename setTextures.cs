@@ -86,7 +86,7 @@ public class setTextures : MonoBehaviour
         ///it's sport halls
         if (Globals.stadiumNumber != 1 &&
             Globals.stadiumNumber != 2 &&
-            !Globals.PITCHTYPE.Equals("STREET"))               
+            !Globals.PITCHTYPE.Equals("STREET"))                           
         {
             initWallsMaterials();
             int groundNum = 0;
@@ -109,6 +109,7 @@ public class setTextures : MonoBehaviour
         //print("IndexTEAMB " + Globals.teamBid);
 
         currentTime = lastTimeWallsAdsChanged = Time.time;
+        Debug.Log("set player texture ");
         setPlayersTextures();
     }
 
@@ -134,7 +135,6 @@ public class setTextures : MonoBehaviour
         {
             return;
         }
-
 
         if ((Time.time - lastTimeWallsAdsChanged > wallsAdsChangTime) &&
             !isTrainingActive &&
@@ -394,6 +394,14 @@ public class setTextures : MonoBehaviour
         //print("DBG set player texture " +
         //    " A " + Globals.playerADesc +
         //    " B " + Globals.playerBDesc);
+        /*print("#DBG1334 set texture SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc "
+       +
+         Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
+        + " Globals team B " + Globals.teamBleague
+        + " teamB Name " + Globals.teamBname
+        + " temBIDx " + Globals.teamBid);*/
+
+
 
         //print("DBGFRIENDLY Globals.teamBid setTextures " + Globals.teamBid);
         for (int i = 0; i < MAX_MODELS_PLAYERS; i++)
@@ -419,9 +427,10 @@ public class setTextures : MonoBehaviour
                         playerDesc = Globals.playerBDesc;
                         leagueName = Globals.teamBleague;
                     }
+
                 }
 
-                //print("DBG set player " + playerDesc + " I " + i);
+                //print("DBG set player " + playerDesc + " I " + teamId + " Globals.teamBid " + Globals.teamBid);
 
                 ///if (!isTrainingActive)
                 if (!Globals.onlyTrainingActive)
@@ -472,6 +481,7 @@ public class setTextures : MonoBehaviour
 
     private void updateTrainingSettings()
     {
+        Debug.Log("update training settings " + Globals.onlyTrainingActive);
         if (!Globals.onlyTrainingActive)
             return;
 

@@ -411,8 +411,6 @@ public class Powers : MonoBehaviour
                     mainPlayerLock)
                     return false;
 
-                print("playerPowerLock");
-
                 wallUpRight1.transform.localScale =
                 wallUpLeft2.transform.localScale =
                        new Vector3(4.06f, 1.3f, 0.15f);
