@@ -949,7 +949,7 @@ public class teamManagement : MonoBehaviour
 
     public void onClickPlay()
     {
-        print("Globals.isMultiplayer " + Globals.isMultiplayer);
+        /*print("Globals.isMultiplayer " + Globals.isMultiplayer);
 
 
         print("#DBG1334 set management here texture SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc "
@@ -957,7 +957,7 @@ public class teamManagement : MonoBehaviour
      Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
     + " Globals team B " + Globals.teamBleague
     + " teamB Name " + Globals.teamBname
-    + " temBIDx " + Globals.teamBid);
+    + " temBIDx " + Globals.teamBid);*/
 
 
 
@@ -976,7 +976,7 @@ public class teamManagement : MonoBehaviour
         }
         else
         {
-            if (UnityEngine.Random.Range(0, 3) == 1)
+            if (UnityEngine.Random.Range(0, 3) == 1 || !Globals.PITCHTYPE.Equals("GRASS"))
                 Globals.loadSceneWithBarLoader("specialShopOffers");
             else
                 Globals.loadSceneWithBarLoader("extraPowers");
