@@ -329,7 +329,8 @@ public class Powers : MonoBehaviour
 
     public bool twoExtraGoals(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (Globals.stadiumNumber != 1)
@@ -563,7 +564,8 @@ public class Powers : MonoBehaviour
                                    Vector3 localScale, 
                                    Vector3 realScale)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (Globals.stadiumNumber != 1)
@@ -1286,6 +1288,7 @@ public class Powers : MonoBehaviour
         }
 
 
+
             //powerChoosen[6] = true;
             //powerChoosen[7] = true;
             //powerChoosen[8] = true;
@@ -1321,7 +1324,9 @@ public class Powers : MonoBehaviour
     //silver ball - goal count x3
     public bool goldenBall(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (!isCpu)
@@ -1385,7 +1390,9 @@ public class Powers : MonoBehaviour
 
     public bool enableFlares(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable || 
+            Globals.stadiumNumber == 1 || 
+            Globals.stadiumNumber == 2)
             return false;
 
         if (!isCpu)
@@ -1395,7 +1402,7 @@ public class Powers : MonoBehaviour
                 return false;
 
             //goalDownObstacles[0].SetActive(true);
-
+            
             audioManager.Play("extraPowerEnable");
             audioManager.Commentator_extraPower("com_extraPowerUsed_1");
             //TOCHECK
@@ -1760,7 +1767,9 @@ public class Powers : MonoBehaviour
 
     public bool silverBall(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (!isCpu)
@@ -1827,7 +1836,8 @@ public class Powers : MonoBehaviour
 
     public bool badConditions(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 1)
             return false;
 
         if (!isCpu)
@@ -1966,7 +1976,9 @@ public class Powers : MonoBehaviour
 
     public bool shakeCamera(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (!isCpu)
@@ -2132,7 +2144,9 @@ public class Powers : MonoBehaviour
 
     public bool invisiblePlayer(bool isCpu, int powerIdx, Vector3 arg1, Vector3 arg2)
     {
-        if (!isPowerEnable)
+        if (!isPowerEnable ||
+            Globals.stadiumNumber == 1 ||
+            Globals.stadiumNumber == 2)
             return false;
 
         if (!isCpu)

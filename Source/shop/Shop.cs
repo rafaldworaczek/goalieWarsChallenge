@@ -193,22 +193,29 @@ public class Shop : MonoBehaviour
 
                 if (rewardAdsEventName.Contains("stadium_sportHall"))
                 {
-                    if (Globals.PITCHTYPE.Equals("INDOOR"))
-                        gSettings.onClickChooseStadium(0);
-                    else
-                        gSettings.onClickChooseStadium(1);
-
+                    //if (Globals.PITCHTYPE.Equals("INDOOR"))
+                    //    gSettings.onClickChooseStadium(0);
+                    //else
+                    gSettings.onClickChooseStadium(1);
                     notificationCanvas.SetActive(false);
-                } else if (rewardAdsEventName.Contains("stadium_street")) {
+                }
+                else if (rewardAdsEventName.Contains("stadium_street"))
+                {
                     gSettings.onClickChooseStadium(2);
                     notificationCanvas.SetActive(false);
-                } 
+                }
+                else if (rewardAdsEventName.Contains("stadium_grass"))
+                {
+                    gSettings.onClickChooseStadium(0);
+                    notificationCanvas.SetActive(false);
+                }
                 else if (rewardAdsEventName.Equals("refillEnergy"))
                 {
                     showNotification(
                         new PurchaseItem(
                             "refillEnergy"));
-                } else if (rewardAdsEventName.Equals("coin"))
+                }
+                else if (rewardAdsEventName.Equals("coin"))
                 {
                     updateCurrentCoins(rewardAdsCoinsNumber);
                     showNotification(
