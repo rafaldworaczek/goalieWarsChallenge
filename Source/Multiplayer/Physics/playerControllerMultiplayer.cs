@@ -2430,8 +2430,6 @@ public class playerControllerMultiplayer : MonoBehaviour
                         new Vector3(rpc_rbPos.x, 0f, rpc_rbPos.z);
                         rpc_rbPredictedPos += rpc_rbVelocity * rpc_mainLag;
 
-
-
                         //print("rpc_rbPredictedPos " + rpc_rbPredictedPos + " rpc_rbVelocity " + rpc_rbVelocity
                         //    + " rpc_mainLag " + rpc_mainLag + " rpc_rbPos " + rpc_rbPos);
 
@@ -3325,12 +3323,12 @@ public class playerControllerMultiplayer : MonoBehaviour
         if (!photonView.IsMine &&
             arePeersPlayerSet())
         {
-            float runSpeed = Mathf.Max(Mathf.Abs(rb.velocity.x),
-                                       Mathf.Abs(rb.velocity.z));
+            float runSpeed = Mathf.Max(Mathf.Abs(rpc_rbVelocity.x),
+                                       Mathf.Abs(rpc_rbVelocity.z));
 
      
             runSpeed = Mathf.InverseLerp(0.0f, MAX_RB_CPU_VELOCITY, runSpeed);
-            Debug.Log("Run speed x " + rb.velocity.x + " Z " + rb.velocity.z
+            Debug.Log("Run speed x " + rpc_rbVelocity.x + " Z " + rpc_rbVelocity.z
          + " runSpeed " + runSpeed);
             //if (parentRb.powersScript.isPlayerUpSlowDown())
             //    runSpeed /= 2f;
@@ -4440,6 +4438,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     playerOnBall = false;
                     peerPlayer.playerOnBall = false;
                     peerPlayer.rpc_playerOnBallActive = false;
+
 
                     isBallInGame = false;
                     goalJustScored = false;
