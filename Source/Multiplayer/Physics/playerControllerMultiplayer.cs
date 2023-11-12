@@ -681,8 +681,8 @@ public class playerControllerMultiplayer : MonoBehaviour
             goalNewScore = goalNum;
         }
 
-        Debug.Log("DBGballGoal goalUpdate " + isWaitGoalActiveNewPos + " isMaster " + isMaster
-            + "photonViw " + photonView.IsMine);
+        //Debug.Log("DBGballGoal goalUpdate " + isWaitGoalActiveNewPos + " isMaster " + isMaster
+        //    + "photonViw " + photonView.IsMine);
             //StartCoroutine(wait_isGoal(goalNum, 
             //                           scoreNum));is
         //}
@@ -4418,9 +4418,13 @@ public class playerControllerMultiplayer : MonoBehaviour
                         Globals.score1 = peerPlayer.goalNewScore;
 
                     delayAfterGoal += Time.fixedDeltaTime;
-                    if (!initDisplayEventInfo && (delayAfterGoal >= 0.400f))
+                    //Debug.Log("DBGballGoal initDisplayEventInfo " + initDisplayEventInfo
+                    //    + " delayAfterGoal " + delayAfterGoal);
+                    //one second left to synchronize when delayAfterGoal is 2
+                    if (!initDisplayEventInfo && (delayAfterGoal >= 1.000f))
                     {
                         if (isMaster) {
+                            Debug.Log("DBGballGoal executed ");
                             ballPosAfterOut = getBallPosAfterOut(timeToShotExceeded, isGoalJustScored);
                             photonView.RPC("RPC_ballOutNewPos",
                                             RpcTarget.Others,
