@@ -3328,8 +3328,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
      
             runSpeed = Mathf.InverseLerp(0.0f, MAX_RB_CPU_VELOCITY, runSpeed);
-            Debug.Log("Run speed x " + rpc_rbVelocity.x + " Z " + rpc_rbVelocity.z
-         + " runSpeed " + runSpeed);
+            //Debug.Log("Run speed x " + rpc_rbVelocity.x + " Z " + rpc_rbVelocity.z
+         //+ " runSpeed " + runSpeed);
             //if (parentRb.powersScript.isPlayerUpSlowDown())
             //    runSpeed /= 2f;
             animator.SetFloat("3d_run_turn_speed", 1.2f + (runSpeed / 1.8f));
@@ -8373,7 +8373,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     public Vector3 getBallPosAfterOut(bool timeToShotExceeded, bool ballGoal)
     {
         //bool ballGoal = ball[1].getBallGoalCollisionStatus();
-        Vector3 ballPosPlayer2 = new Vector3(UnityEngine.Random.Range(-10, 10),
+        Vector3 ballPosPlayer2 = new Vector3(UnityEngine.Random.Range(-7, 7),
                                              BALL_NEW_RADIUS,
                                              UnityEngine.Random.Range(5, 10));
         Vector3 ballPosPlayer1 = ballPosPlayer2;
@@ -8386,7 +8386,6 @@ public class playerControllerMultiplayer : MonoBehaviour
             else
                 ball[1].setwhoTouchBallLast(2);
         }
-
 
         Debug.Log("#DBGballGoal " + ballGoal + " peerPlayer.isWaitGoalActiveNewPos " + peerPlayer.isWaitGoalActiveNewPos
             + " isWaitGoalActiveNewPos " + isWaitGoalActiveNewPos);
