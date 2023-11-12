@@ -396,7 +396,8 @@ public class playerControllerMultiplayer : MonoBehaviour
     private float shotSpeed;
     //private float ShotSpeedMax = 1300.0f;
     private float ShotSpeedMax = 900.0f;
-    private float ShotSpeedMin = 480.0f;
+    //private float ShotSpeedMin = 480.0f;
+    private float ShotSpeedMin = 580.0f;
     private Vector3 ballPosAfterOut = Vector3.zero;
     /*private float ShotCurveSpeedMinTime = 650.0f;
     private float ShotCurveSpeedMaxTime = 1500.0f;*/
@@ -660,6 +661,14 @@ public class playerControllerMultiplayer : MonoBehaviour
                         RpcTarget.Others,
                         (byte) RPC_ACK.GOAL_CONFIRM);
 
+        if (isMaster)
+        {
+            ball[1].setwhoTouchBallLast(1);
+        } else
+        {
+            ball[1].setwhoTouchBallLast(2);
+        }
+
         ////////print("##RECEIVED RPC_goalUpdate " + goalNum + " scoreNum " + scoreNum);
         //if (!isWaitGoalActive && 
         //    (Globals.score1 < goalNum))
@@ -671,7 +680,9 @@ public class playerControllerMultiplayer : MonoBehaviour
             goalNewScore = goalNum;
         }
 
-            //StartCoroutine(wait_isGoal(goalNum,
+        Debug.Log("DBGballGoal goalUpdate " + isWaitGoalActiveNewPos + " isMaster " + isMaster
+            + "photonViw " + photonView.IsMine);
+            //StartCoroutine(wait_isGoal(goalNum, 
             //                           scoreNum));is
         //}
     }
@@ -763,6 +774,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                      PhotonMessageInfo info)
     {
         peerPlayer.RPC_setLastTimeUpdate();
+        rpc_playerOnBallActive = false;
 
         //400 ms + lag 
         photonView.RPC("RPC_PACKET_ACK",
@@ -3598,10 +3610,6 @@ public class playerControllerMultiplayer : MonoBehaviour
     {
         //if (photonView.IsMine)
         //    print("DBG342344COL counter isFixedUpdate " + isFixedUpdate);
-
-
-
-
         //print("#DBGLOG Globals.player1MainScript " + Globals.player1MainScript +
         //    " Globals.player2MainScript " + Globals.player2MainScript);
 
@@ -3676,7 +3684,6 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
-
             bool isOnBall = isPlayerOnBall(
                    rbLeftToeBase,
                    rbRightToeBase,
@@ -4419,8 +4426,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                                             ballPosAfterOut);
                                         
                             StartCoroutine(
-                                sendAndACKBallOutNewPos((int)RPC_ACK.BALL_IS_OUT_NEW_POS,
-                                                         ballPosAfterOut));
+                                sendAndACKBallOutNewPos((int) RPC_ACK.BALL_IS_OUT_NEW_POS,
+                                                              ballPosAfterOut));
                                                        
                         }
                         displayEventInfo();
@@ -6177,7 +6184,6 @@ public class playerControllerMultiplayer : MonoBehaviour
         //temporary solution
         timeofBallFly = ShotSpeedMax;
 
-
         shotSpeed = MIN_SHOT_SPEED +
             Mathf.InverseLerp(ShotSpeedMin, ShotSpeedMax, timeofBallFly) * speedMultiplayer;
         shotSpeed = Mathf.Min(118f, shotSpeed);
@@ -6396,8 +6402,13 @@ public class playerControllerMultiplayer : MonoBehaviour
         float runSpeed = playerVelocity;
         runSpeed = Mathf.InverseLerp(0.0f, MAX_PLAYER_SPEED, runSpeed);
 
+        ///float runSpeedVal = Mathf.Clamp((1.15f + Mathf.Abs(runSpeed)), 1.15f, 2.2f);
         float runSpeedVal = Mathf.Clamp((1.15f + Mathf.Abs(runSpeed)), 1.15f, 2.2f);
-        animator.SetFloat("3d_run_speed", runSpeedVal);
+        if (photonView.IsMine)
+            animator.SetFloat("3d_run_speed", runSpeedVal);
+        else
+            animator.SetFloat("3d_run_speed", 1f);
+
 
         //print("runSpeed " + runSpeedVal + " RB VELOCITY " + rb.velocity);
     }
@@ -8375,6 +8386,10 @@ public class playerControllerMultiplayer : MonoBehaviour
                 ball[1].setwhoTouchBallLast(2);
         }
 
+
+        Debug.Log("#DBGballGoal " + ballGoal + " peerPlayer.isWaitGoalActiveNewPos " + peerPlayer.isWaitGoalActiveNewPos
+            + " isWaitGoalActiveNewPos " + isWaitGoalActiveNewPos);
+
         if (ballGoal || peerPlayer.isWaitGoalActiveNewPos)
         {
             peerPlayer.isWaitGoalActiveNewPos = false;
@@ -8387,14 +8402,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 return ballPosPlayer2;
             }
 
-            //if (ball[1].whoScored() == 1)
-            //{
-            //   return ballPosPlayer2;
-            // }
-            // else
-            //{
             return ballPosPlayer1;
-            //}
         }
 
         if (ball[1].whoTouchBallLast() == 1)
@@ -9699,7 +9707,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         playerVelocity = distDiff / Mathf.Max(0.000000000001f, timeDiff);
 
-        //print("PLAYERVELOCITY " + playerVelocity + " timeDiff " + timeDiff + " distDiff " + distDiff);
+        print("PLAYERVELOCITY " + playerVelocity + " timeDiff " + timeDiff + " distDiff " + distDiff
+            + " IsMaster " + isMaster);
 
         //if (!photonView.IsMine)
         //{
@@ -9707,7 +9716,8 @@ public class playerControllerMultiplayer : MonoBehaviour
         //}
 
         playerPrevPos = rb.transform.position;
-        playerPrevPosTime = Time.time;    
+        playerPrevPosTime = Time.time;  
+        
     }
 
     private void updateShotPos()

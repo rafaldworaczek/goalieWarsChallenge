@@ -567,7 +567,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 				}
 				else
 				{
-					//this collider is disabled for !master
+					//this collider is disabled for !master goalDown
 					int rand = Random.Range(1, 3);
 					if (rand == 1 || whoTouchBallLastTime == 1)
 					{
@@ -590,77 +590,16 @@ public class BallMovementMultiplayer : MonoBehaviour
 
 							if ((Time.time - playerMainScript.lastTimeSaveAupdate) < 3.0f)
 								playerMainScript.decSavesStatistics("teamA", 1);
-						//	}/* else
-						/*{
-							Globals.score1++;
-							playerMainScript.photonView.RPC("RPC_goalUpdate",
-															 RpcTarget.Others,
-															 Globals.score1,
-															 2);
-							StartCoroutine(
-								playerMainScript.sendAndACKGoal(1, Globals.score1, 2));
-							for (int i = 0; i < goalUpFlare.Length; i++)
-							{
-								goalUpFlare[i].Play();
-							}
-						}*/
-
-						//if (!isTrainingActive)
-						//{
-
-						//if //((teamHostID == 1 && Globals.playerPlayAway) ||
-						//	(teamHostID == 2 && !Globals.playerPlayAway))
-						//			(teamHostID == 1 && isMaster)
-						//		{
-						audioManager.Play("crowdGoal1");
-						//audioManager.Play("crowdMiss1");
-						//StartCoroutine(playFansChant(1.1f));
-						//	}
-						//		else
-						//		{                               
-						///			audioManager.Play("crowdGoal1");
-						///			StartCoroutine(playFansChant(1.1f));
-						//audioManager.Play("crowdMiss1");
-						//}
-						//}						
+		
+						audioManager.Play("crowdGoal1");						
 					}
 					else
 					{
 						idScoredTeam = 2;
 						playerMainScript.setIsGoalJustScored(true);
 
-						//if (!isTrainingActive)
-						//{
-						//if ((teamHostID == 1 && Globals.playerPlayAway) ||
-						//		(teamHostID == 2 && !Globals.playerPlayAway))
-						///	{
-						//			audioManager.Play("crowdGoal1");
-						//				StartCoroutine(playFansChant(1.1f));
-						//		}
-						//	else
-						///	{
 						audioManager.Play("goallose1");
-						//		}
-						//}
-						//}
-
-						//if (((Time.time - lastTimeSaveAupdate) < 3.0f) &&
-						//		saveAupdate)
-						//	{
-						//		playerMainScript.decSavesStatistics("teamA", 1);
-						//	saveAupdate = false;
-						//	}
-
-						//if (Globals.playerPlayAway)
-						//{
-						//	Globals.score1++;
-						//}
-						//else
-						//{
-
-						//owngoal
-						//if (isMaster)
-					//	{
+			
 							Globals.score2++;
 							playerMainScript.photonView.RPC("RPC_goalUpdate",
 															 RpcTarget.Others,
@@ -674,33 +613,7 @@ public class BallMovementMultiplayer : MonoBehaviour
 							}
 
 							if ((Time.time - playerMainScript.lastTimeSaveAupdate) < 3.0f)
-								playerMainScript.decSavesStatistics("teamA", 1);
-						//}
-						/*else
-						{
-							Globals.score1++;
-							playerMainScript.photonView.RPC("RPC_goalUpdate",
-															 RpcTarget.Others,
-								 							 Globals.score1,
-															 2);
-							for (int i = 0; i < goalUpFlare.Length; i++)
-							{
-								goalUpFlare[i].Play();
-							}
-
-							StartCoroutine(
-								playerMainScript.sendAndACKGoal(1, Globals.score1, 2));
-						}*/
-						//}
-
-						//if (!Globals.isTrainingActive
-						//	)
-						//{
-						//for (int i = 0; i < goalDownFlare.Length; i++)
-						//	{
-						//goalDownFlare[i].Play();
-						//	}
-						//}
+								playerMainScript.decSavesStatistics("teamA", 1);						
 						idScoredTeam = 2;
 					}
 				}

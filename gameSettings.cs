@@ -952,21 +952,22 @@ public class gameSettings : MonoBehaviour
 
     public void setupGameTypeDefaults()
     {
-        leagueAIdx = 1;
-        leagueBIdx = 1;
+        leagueAIdx = 0;
+        leagueBIdx = 0;
         currATeamIdx = 0;
         currBTeamIdx = 10;
 
         //print("DBGTOURNAMENT23 GLOBAL GAMETYEP " + Globals.gameType);
-
-        if (Globals.gameType.Equals("FRIENDLY") && Globals.PITCHTYPE.Equals("GRASS"))
-
+        if (Globals.gameType.Equals("FRIENDLY"))
         {
             leagueNames = allLeaguesNames;
-            leagueAIdx = 4;
-            leagueBIdx = 4;
-            currATeamIdx = 0;
-            currBTeamIdx = 3;
+            if (Globals.PITCHTYPE.Equals("GRASS"))
+            {
+                leagueAIdx = 4;
+                leagueBIdx = 4;
+                currATeamIdx = 0;
+                currBTeamIdx = 3;
+            }
         } else if (Globals.gameType.Equals("CUP"))
         {
                 //Array.Clear(leagueNames, 0, leagueNames.Length);
