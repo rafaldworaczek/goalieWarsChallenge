@@ -569,10 +569,12 @@ public class BallMovementMultiplayer : MonoBehaviour
 				{
 					//this collider is disabled for !master goalDown
 					int rand = Random.Range(1, 3);
-					if (rand == 1 || whoTouchBallLastTime == 1)
+                    playerMainScript.setIsGoalJustScored(true);
+					playerMainScript.setGoalDownJustScored(true);
+
+                    if (rand == 1 || whoTouchBallLastTime == 1)
 					{
 						idScoredTeam = 2;
-						playerMainScript.setIsGoalJustScored(true);
 						//owngoal
 						//if (isMaster)
 						//	{

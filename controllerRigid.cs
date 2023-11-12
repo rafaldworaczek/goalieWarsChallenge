@@ -1403,13 +1403,13 @@ public class controllerRigid : MonoBehaviour
                 return;
             }
 
-            //photo_3DVolley();
+            photo_3DVolley();
             //photo_save1();
             //photo_save2();
             //photo_save3();
 
             cpuPlayer.fixedUpdate();
-            //return;
+            return;
         }
 
         if (Globals.isMultiplayer &&
@@ -2022,9 +2022,6 @@ public class controllerRigid : MonoBehaviour
                 timeofBallFly = timeofBallFly + (timeofBallFly * extraTimeOfBallFly) / (ShotSpeedMin - 20f);
                 timeofBallFly = Mathf.Min(ShotSpeedMax, timeofBallFly);
                 timeofBallFly = Mathf.Max(ShotSpeedMin - 20f, timeofBallFly);
-
-
-
 
 
                 if (shotvariant == SHOTVARIANT.CURVE)
@@ -4317,7 +4314,7 @@ public class controllerRigid : MonoBehaviour
 
 
         bool ballGoal = ball[1].getBallGoalCollisionStatus();
-        Vector3 ballPosPlayer2 = new Vector3(UnityEngine.Random.Range(-10, 10),
+        Vector3 ballPosPlayer2 = new Vector3(UnityEngine.Random.Range(-8, 8),
                                              ballRadius,
                                              UnityEngine.Random.Range(5, 10));
         Vector3 ballPosPlayer1 = ballPosPlayer2;
@@ -12266,6 +12263,8 @@ public class controllerRigid : MonoBehaviour
 
         public void fixedUpdate()
         {
+
+            
             isPlayerStandStill = false;
             //if (!activeBallFound)
             //{
@@ -12283,7 +12282,8 @@ public class controllerRigid : MonoBehaviour
 
             //if (parentRb.getMatchTimeMinute() == 3)
             //{
-            ///    parentRb.powersScript.enableFlares(true,
+            ///    parentRb.powersScript.enableFlares(t
+            ///    rue,
              //                                          (int) POWER.ENABLE_FLARE,
              //                                          Vector3.zero,
              //                                          Vector3.zero);
@@ -13223,8 +13223,6 @@ public class controllerRigid : MonoBehaviour
                                                                 pointToGo.z - cpuPlayerRb.position.z);
 
                                     towardsNewPos = towardsNewPos.normalized;
-
-
 
                                     if (Globals.isMultiplayer &&
                                         goToPosAfterOut &&

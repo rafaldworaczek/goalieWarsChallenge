@@ -650,9 +650,10 @@ public class playerControllerMultiplayer : MonoBehaviour
     private bool updateTextureDone = false;
     private bool updateTextureConfirm = false;
     private bool isGoalJustScored = false;
+    private bool goalDownJustScored = false;
 
     [PunRPC]
-    void RPC_goalUpdate(int goalNum, 
+    void RPC_goalUpdate(int goalNum,
                         int scoreNum)
     {
 
@@ -660,7 +661,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         photonView.RPC("RPC_PACKET_ACK",
                         RpcTarget.Others,
-                        (byte) RPC_ACK.GOAL_CONFIRM);
+                        (byte)RPC_ACK.GOAL_CONFIRM);
 
         if (isMaster)
         {
@@ -683,8 +684,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         //Debug.Log("DBGballGoal goalUpdate " + isWaitGoalActiveNewPos + " isMaster " + isMaster
         //    + "photonViw " + photonView.IsMine);
-            //StartCoroutine(wait_isGoal(goalNum, 
-            //                           scoreNum));is
+        //StartCoroutine(wait_isGoal(goalNum, 
+        //                           scoreNum));is
         //}
     }
 
@@ -754,7 +755,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     }
 
     [PunRPC]
-    void RPC_ballOutNewPos(Vector3 ballAfterOut,                     
+    void RPC_ballOutNewPos(Vector3 ballAfterOut,
                            PhotonMessageInfo info)
     {
         peerPlayer.RPC_setLastTimeUpdate();
@@ -762,7 +763,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         peerPlayer.ballPosAfterOut = ballAfterOut;
         photonView.RPC("RPC_PACKET_ACK",
                         RpcTarget.Others,
-                        (byte) RPC_ACK.BALL_IS_OUT_NEW_POS);
+                        (byte)RPC_ACK.BALL_IS_OUT_NEW_POS);
     }
 
 
@@ -780,7 +781,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //400 ms + lag 
         photonView.RPC("RPC_PACKET_ACK",
                         RpcTarget.Others,
-                        (byte) RPC_ACK.BALL_IS_OUT);
+                        (byte)RPC_ACK.BALL_IS_OUT);
 
         if ((Time.time - lastUpdateBallOut) < 3f)
             return;
@@ -793,7 +794,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 goalNewScore = score;
                 photonView.RPC("RPC_PACKET_ACK",
                                 RpcTarget.Others,
-                                (byte) RPC_ACK.GOAL_CONFIRM);
+                                (byte)RPC_ACK.GOAL_CONFIRM);
             }
         }
 
@@ -802,15 +803,15 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         lastUpdateBallOut = Time.time;
         //peerPlayer.ballPosAfterOut = ballAfterOut;
-        float RPC_afterGoalLag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp)) + 0.4f;
+        float RPC_afterGoalLag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp)) + 0.4f;
         //print("#DBGBALLCHANGEPOS get RPC_afterGoalLag #### " + RPC_afterGoalLag + " ballAfterOut " + ballAfterOut);
         StartCoroutine(wait_isBallOut(RPC_afterGoalLag, true, timeToShotExceeded, isGoalJustScored));
     }
 
 
-    IEnumerator wait_isBallOut(float delay, 
+    IEnumerator wait_isBallOut(float delay,
                                bool isBallOut,
-                               bool timeToShotExceeded, 
+                               bool timeToShotExceeded,
                                bool isGoalJustScored)
     {
 
@@ -828,10 +829,9 @@ public class playerControllerMultiplayer : MonoBehaviour
         peerPlayer.setTimeToShotExceeded(timeToShotExceeded);
         peerPlayer.setIsGoalJustScored(isGoalJustScored);
         peerPlayer.setIsBallOut(true);
-
     }
 
-    public void setTimeToShotExceeded(bool val) 
+    public void setTimeToShotExceeded(bool val)
     {
         timeToShotExceeded = val;
     }
@@ -896,11 +896,11 @@ public class playerControllerMultiplayer : MonoBehaviour
     {
         peerPlayer.RPC_setLastTimeUpdate();
 
-        if (RPC_sequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM] == packageSeqNumber)
+        if (RPC_sequenceNumber[(int)RPC_ACK.GK_PREDICT_CONFIRM] == packageSeqNumber)
             return;
 
         RPC_gkPredictionActive = true;
-        RPC_sequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM] = packageSeqNumber;
+        RPC_sequenceNumber[(int)RPC_ACK.GK_PREDICT_CONFIRM] = packageSeqNumber;
         //if ((Time.time - RPC_lastUpdateTime[(int) RPC_ACK.GK_PREDICT_CONFIRM]) <= 3.0f)
         //{
         //    photonView.RPC("RPC_PACKET_ACK",
@@ -912,9 +912,9 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         photonView.RPC("RPC_PACKET_ACK",
                      RpcTarget.Others,
-                     (byte) RPC_ACK.GK_PREDICT_CONFIRM);
+                     (byte)RPC_ACK.GK_PREDICT_CONFIRM);
 
-        RPC_lastUpdateTime[(int) RPC_ACK.GK_PREDICT_CONFIRM] = Time.time;
+        RPC_lastUpdateTime[(int)RPC_ACK.GK_PREDICT_CONFIRM] = Time.time;
 
         gkOperations = gkOp;
         gkLastCollisionVel = collision;
@@ -1051,14 +1051,14 @@ public class playerControllerMultiplayer : MonoBehaviour
         this.shotvariant = shotvariant;
         this.outShotBallVelocity = outShotBallVelocity;
         this.timeofBallFly = timeOfBallFlyShot;
-        this.preShotCalc_time = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+        this.preShotCalc_time = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
         this.endPos = touchEndPos;
         this.prepareShotJustBeforeShotPos = prepareShotJustBeforeShotPos;
         this.prepareShotJustBeforeShotRot = prepareShotJustBeforeShotRot;
 
         string[] ballPos = ballPositions.Split('|');
         //print("ballPos converted ballPositions " + ballPositions);
-        CultureInfo culture = 
+        CultureInfo culture =
             CultureInfo.GetCultureInfo("en-US");
 
         for (int i = 0; i < ballPos.Length; i++)
@@ -1083,7 +1083,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         prepareShotPosIdx = 0;
         prepareShotMaxIdx = ballPos.Length;
-         
+
         float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
         ballInitPos = outShotStart;
         /*print("SHOT3432X RPCSHOTDBG RPC preShotCalc shotSpeed " + this.shotSpeed
@@ -1150,10 +1150,10 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         peerPlayer.RPC_setLastTimeUpdate();
 
-        rpc_mainLag = Mathf.Abs((float) (PhotonNetwork.Time - info.timestamp));
+        rpc_mainLag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
 
         ///print("DBGSHOT RPC_mAIN UPDATE rpc_rbPos " + rpc_mainLag + " rpc_mainLag ms " + (rpc_mainLag * 100f));
-  
+
         ///print("rpc_mainLag main log " + rpc_mainLag);
         rpc_rbPos = rbPos;
         rpc_rbVelocity = rbVelocity;
@@ -1182,7 +1182,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         rpcMain_updateTime = Time.time;
 
-        if (RPC_sequenceNumber[(int) RPC_ACK.BALL_POS_UPDATE] == packageSeqNumber) {
+        if (RPC_sequenceNumber[(int)RPC_ACK.BALL_POS_UPDATE] == packageSeqNumber) {
             //if (!peerPlayer.getIsBallOut())
             //{
             //print("#DBGBALLPOSITION packageSeqNumber received seq number " + packageSeqNumber + 
@@ -1199,7 +1199,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //     + " mainUpdateType " + mainUpdateType);
 
         if (mainUpdateType.Equals("B"))
-            //isBallOnYourHalf(getPlayerPosition(), rpc_ballPos))
+        //isBallOnYourHalf(getPlayerPosition(), rpc_ballPos))
         {
             if (bufferedBallPosCurrIdxPush == bufferedBallPos.GetLength(0))
                 bufferedBallPosCurrIdxPush = 0;
@@ -1207,7 +1207,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             bufferedBallPos[bufferedBallPosCurrIdxPush, 0] = rpc_ballPos;
             bufferedBallPos[bufferedBallPosCurrIdxPush, 1] = rpc_ballVelocity;
             bufferedBallPos[bufferedBallPosCurrIdxPush, 2] = rpc_ballAngularVelocity;
-            bufferedBallPos[bufferedBallPosCurrIdxPush, 3].x = (float) packetId;
+            bufferedBallPos[bufferedBallPosCurrIdxPush, 3].x = (float)packetId;
 
             if (rpc_isBallOut)
             {
@@ -1235,11 +1235,11 @@ public class playerControllerMultiplayer : MonoBehaviour
             clearBufferBallPos();
         }
 
-            /*else
-            {
-                bufferedBallPosCurrIdxPush = 0;
-                bufferedBallPosCurrIdxPop = 0;
-            }*/
+        /*else
+        {
+            bufferedBallPosCurrIdxPush = 0;
+            bufferedBallPosCurrIdxPop = 0;
+        }*/
 
 
 
@@ -1255,7 +1255,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             peerPlayer.clearAfterBallCollision();
             rpc_isShotActive = false;
         }*/
-        
+
         /*print("#DBGPLA LAG " + rpc_mainLag + " shotActive " + shotActive);
         print("#DBGPLA rbPos " + rbPos + " rbVelocity " + rbVelocity
             + " rbAngularVelocity " + rbAngularVelocity
@@ -1488,7 +1488,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
     private bool RblookAtDirectionGK(Rigidbody rb,
                                      GameObject rotatedRbToBall,
-                                    //Vector3 lookPoint,
+                                     //Vector3 lookPoint,
                                      float stopAngle,
                                      float rotationAngle)
 
@@ -1529,12 +1529,12 @@ public class playerControllerMultiplayer : MonoBehaviour
                             float gkStartSeq,
                             ref Vector3 localGkStartPos)
     {
-        Vector3 collisionOutput= INCORRECT_VECTOR;
+        Vector3 collisionOutput = INCORRECT_VECTOR;
 
         //bool initialization = false;
         int max_test = 3;
         int max_type_test = 1;
-       
+
         //print("#DBGPREDICTCOLLISON PREDICTION STARTED outShotStart " + outShotStart + " " +
         //    " outShotMid " + outShotMid + " outShotEnd " + outShotEnd);
 
@@ -1575,7 +1575,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             ///+ " wallsCollidersTrigger " + GameObject.Find("wallRight3").GetComponent<Collider>().isTrigger
             + " isMine " + photonView.IsMine
           + " isFixedUpdate " + isFixedUpdate);*/
-          //+ " wallsIsTrigger " + GameObject.Find("wallDownRight2").GetComponent<Collider>().isTrigger);
+        //+ " wallsIsTrigger " + GameObject.Find("wallDownRight2").GetComponent<Collider>().isTrigger);
         collisionOutput = PredictCollision.predictionGkCollisionOutput(outShotStart,
                                                                        outShotMid,
                                                                        outShotEnd,
@@ -1673,7 +1673,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         PredictCollision.setBallVelocitySet(false);
 
         //if (gkStartSeq != -1)
-        RPC_sequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM]++;
+        RPC_sequenceNumber[(int)RPC_ACK.GK_PREDICT_CONFIRM]++;
 
         RPC_sendGK_Predict(
                            collisionOutput,
@@ -1687,7 +1687,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                            playerRb.transform.eulerAngles,
                            rotatedRbToBallTmp.transform.position,
                            rotatedRbToBallTmp.transform.eulerAngles,
-                           RPC_sequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM]);
+                           RPC_sequenceNumber[(int)RPC_ACK.GK_PREDICT_CONFIRM]);
 
         StartCoroutine(sendAndACK(0,
                                   collisionOutput,
@@ -1700,11 +1700,11 @@ public class playerControllerMultiplayer : MonoBehaviour
                                   playerRb.transform.eulerAngles,
                                   rotatedRbToBallTmp.transform.position,
                                   rotatedRbToBallTmp.transform.eulerAngles,
-                                  RPC_sequenceNumber[(int) RPC_ACK.GK_PREDICT_CONFIRM]));
+                                  RPC_sequenceNumber[(int)RPC_ACK.GK_PREDICT_CONFIRM]));
     }
 
     public IEnumerator sendAndACK(
-                                  int idx, 
+                                  int idx,
                                   Vector3 collisionOutput,
                                   float collisionPercentTime,
                                   Vector3 ballPosWhenCollision,
@@ -1768,7 +1768,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     public IEnumerator sendAndACKGoal(
                                       int idx,
                                       int goalNum,
-                                      int scoreNum)                             
+                                      int scoreNum)
     {
         for (int i = 0; i <= 50; i++)
         {
@@ -1777,7 +1777,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 ///print("Send RPC_goalUpdate score Ienumerator ");
                 photonView.RPC("RPC_goalUpdate",
                                 RpcTarget.Others,
-                                goalNum, 
+                                goalNum,
                                 scoreNum);
                 yield return null;
             }
@@ -1819,7 +1819,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
     public IEnumerator sendAndACKBallOutNewPos(int idx,
                                                Vector3 ballPosAfterOut)
-                                              
+
     {
         for (int i = 0; i <= 50; i++)
         {
@@ -1828,7 +1828,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 photonView.RPC("RPC_ballOutNewPos",
                                 RpcTarget.Others,
                                 ballPosAfterOut);
-                         
+
                 yield return null;
             }
             else
@@ -1873,7 +1873,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                         isCollisionWithPlayer,
                         rotatedRbPos,
                         rotRbToBall,
-                        packageSeqNumber);                        
+                        packageSeqNumber);
     }
 
     private void gkAnimationPlayPrediction(Rigidbody rbTmp,
@@ -2070,7 +2070,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 predictedAnimDelay += Globals.FIXEDUPDATE_TIME;
 
                 getRotatedRbToBall(//peerPlayer.getBallInit(),
-                          prepareShotPos[0,0],
+                          prepareShotPos[0, 0],
                           rbTmp,
                           ref rotatedRbToBall,
                           //ref getRotatedRbToBallRef(),
@@ -2099,7 +2099,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                                                       outShotEnd,
                                                       true);*/
 
-                Vector3 realHitPlaceLocal3 =  bezierCurvePlaneInterPoint(
+                Vector3 realHitPlaceLocal3 = bezierCurvePlaneInterPoint(
                                                       rotatedRbToBall,
                                                       prepareShotPos,
                                                       0,
@@ -2124,8 +2124,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         //print("DEBUGGK1045 predictedAnimDelay " + predictedAnimDelay);
 
-         //print("#DEBUGGK1045 gkPredict localSpace before OFFSET" + localSpace + " timeToHitZ " + timeToHitZ + " predictedAnimName " 
-         //   + predictedAnimName);
+        //print("#DEBUGGK1045 gkPredict localSpace before OFFSET" + localSpace + " timeToHitZ " + timeToHitZ + " predictedAnimName " 
+        //   + predictedAnimName);
 
         /*Overwrite to default value */
         calculatedTimeToStartPos = 0.227f;
@@ -2214,7 +2214,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 + " gkTimeToCorrectPos " + gkTimeToCorrectPos
                 + " timeToHitZ " + timeToHitZ);*/
         }
-       
+
         if (predictedAnimName.Contains("3D_GK_sidecatch_straight_"))
             localSpace.x = 0f;
 
@@ -2331,7 +2331,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //+ " rotatedRBToBall " + rotatedRbToBall.transform.position
         //+ " rotatedtoBall.EulerAngles " + rotatedRbToBall.transform.eulerAngles
         //+ " realHitPlaceLocal " + realHitPlaceLocal);
-        
+
         //if (Mathf.Abs(realHitPlaceLocal.z) > 0.5f)
         /*if (Mathf.Abs(realHitPlaceLocal.z) > 0.7f)
         {
@@ -2374,7 +2374,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         //print("#DBGK1024_SIMULATE localSpace " + realHitPlaceLocal + " clickedRbRotatedLS " + clickedRbRotatedLS
         //    + " gkTouchPosRotatedRbWS " + gkTouchPosRotatedRbWS
-         //   + " TransformPointUnscaled global " + TransformPointUnscaled(rotatedRbToBall.transform, localSpace));
+        //   + " TransformPointUnscaled global " + TransformPointUnscaled(rotatedRbToBall.transform, localSpace));
 
         localSpace.z = 0;
         //}
@@ -2404,7 +2404,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         //if (!photonView.IsMine)
         //{
 
-      
+
         //print("rpc_rbPredictedPos gkRotationLoops " 
         //    + gkRotationLoops + " ANIM " + !checkIfAnyAnimationPlaying(animator, 1.0f));
 
@@ -2419,28 +2419,28 @@ public class playerControllerMultiplayer : MonoBehaviour
 
             if ((rpc_joystickExtraButtonsIdx != -1) &&
                  !isPlaying(animator, JoystickButtonAnimNames[rpc_joystickExtraButtonsIdx], 1f)) {
-                    animator.Play(JoystickButtonAnimNames[rpc_joystickExtraButtonsIdx]);
-                } else {
-                  //  if (checkIfJoystickExtraButtonsPlaying(animator, 1f) == -1)
-                  //  {
-                        Vector3 direction =
-                            rpc_rbPos - rb.transform.position;
+                animator.Play(JoystickButtonAnimNames[rpc_joystickExtraButtonsIdx]);
+            } else {
+                //  if (checkIfJoystickExtraButtonsPlaying(animator, 1f) == -1)
+                //  {
+                Vector3 direction =
+                    rpc_rbPos - rb.transform.position;
 
-                        Vector3 rpc_rbPredictedPos =
-                        new Vector3(rpc_rbPos.x, 0f, rpc_rbPos.z);
-                        rpc_rbPredictedPos += rpc_rbVelocity * rpc_mainLag;
+                Vector3 rpc_rbPredictedPos =
+                new Vector3(rpc_rbPos.x, 0f, rpc_rbPos.z);
+                rpc_rbPredictedPos += rpc_rbVelocity * rpc_mainLag;
 
-                        //print("rpc_rbPredictedPos " + rpc_rbPredictedPos + " rpc_rbVelocity " + rpc_rbVelocity
-                        //    + " rpc_mainLag " + rpc_mainLag + " rpc_rbPos " + rpc_rbPos);
+                //print("rpc_rbPredictedPos " + rpc_rbPredictedPos + " rpc_rbVelocity " + rpc_rbVelocity
+                //    + " rpc_mainLag " + rpc_mainLag + " rpc_rbPos " + rpc_rbPos);
 
-                        float dist = Vector2.Distance(new Vector2(rb.transform.position.x, rb.transform.position.z),
-                                              new Vector2(rpc_rbPredictedPos.x, rpc_rbPredictedPos.z));
+                float dist = Vector2.Distance(new Vector2(rb.transform.position.x, rb.transform.position.z),
+                                      new Vector2(rpc_rbPredictedPos.x, rpc_rbPredictedPos.z));
 
-                        rb.velocity = Vector3.zero;
-                        rb.transform.position =
-                        Vector3.MoveTowards(rb.transform.position,
-                                            rpc_rbPredictedPos,
-                                            9f * Time.deltaTime);
+                rb.velocity = Vector3.zero;
+                rb.transform.position =
+                Vector3.MoveTowards(rb.transform.position,
+                                    rpc_rbPredictedPos,
+                                    9f * Time.deltaTime);
 
                 if (checkIfJoystickExtraButtonsPlaying(animator, 1f) == -1)
                     RbLookAt(rpc_playerDirection, rb, isMaster);
@@ -2450,7 +2450,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                 {
                     rb.transform.rotation = rpc_rbRotation;
                 }
-                    //}
+                //}
             }
             //rpc_runningSpeed * Time.deltaTime);
 
@@ -2483,7 +2483,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     void Awake()
     {
 
-   
+
 
         prepareShotPos = new Vector3[100, 2];
         //Globals.teamBid = -1;
@@ -2657,9 +2657,9 @@ public class playerControllerMultiplayer : MonoBehaviour
             Material goalTransparent = graphics.getMaterial("Goals/Material/goalTransparent");
             Material goalNonTransparentNet = graphics.getMaterial("Goals/Material/goalNonTransparentNet");
             Material goalTransparentNet = graphics.getMaterial("Goals/Material/goalTransparentNet");
-            Material wallObstaclesTransparent = 
+            Material wallObstaclesTransparent =
                 graphics.getMaterial("powers/obstaclesMaterialTransparent");
-            Material wallObstaclesNonTransparent = 
+            Material wallObstaclesNonTransparent =
                 graphics.getMaterial("powers/obstaclesMaterialNonTransparent");
 
             if (!PhotonNetwork.IsMasterClient)
@@ -2674,9 +2674,9 @@ public class playerControllerMultiplayer : MonoBehaviour
                 if (!Globals.PITCHTYPE.Equals("STREET"))
                 {
                     stadiumObjects.transform.position = new Vector3(4.6f, 7.99f, 0.49f);
-                    standsfences.transform.position = 
+                    standsfences.transform.position =
                         new Vector3(-4.9f, standsfences.transform.position.y, -0.58f);
-                    standsfences.transform.eulerAngles = 
+                    standsfences.transform.eulerAngles =
                         stadiumObjects.transform.eulerAngles = new Vector3(0f, 180f, 0f);
                     pitchBorders.transform.eulerAngles = stadiumObjects.transform.eulerAngles =
                         new Vector3(0f, 180f, 0f);
@@ -2714,20 +2714,20 @@ public class playerControllerMultiplayer : MonoBehaviour
                 if (!Globals.PITCHTYPE.Equals("STREET"))
                 {
                     GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 210f, 0f);
-                    GameObject.Find("LineGoalDown").SetActive(false);                    
-                } 
-                
+                    GameObject.Find("LineGoalDown").SetActive(false);
+                }
+
                 //else
                 //{
-                    graphics.setMaterialElement(
-                    GameObject.Find("goalDownNet"),
-                    goalNonTransparentNet,
-                    0);
-                    graphics.setMaterialElement(
-                    GameObject.Find("goalUpNet"),
-                    goalTransparentNet,
-                    0);
-                    GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 150f, 0f);
+                graphics.setMaterialElement(
+                GameObject.Find("goalDownNet"),
+                goalNonTransparentNet,
+                0);
+                graphics.setMaterialElement(
+                GameObject.Find("goalUpNet"),
+                goalTransparentNet,
+                0);
+                GameObject.Find("DirectionalLight1").transform.eulerAngles = new Vector3(50f, 150f, 0f);
                 //}
 
 
@@ -3082,7 +3082,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         stoppageTime = Globals.stoppageTime;
 
-            //UnityEngine.Random.Range(4, 10);
+        //UnityEngine.Random.Range(4, 10);
 
 
         //timeOfGameInSec = 1000f;
@@ -3107,7 +3107,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                                                               -m_MainCamera.transform.position.z);
                 m_MainCamera.transform.eulerAngles = new Vector3(m_MainCamera.transform.eulerAngles.x,
                                                                  m_MainCamera.transform.eulerAngles.y + 180f,
-                                                                 m_MainCamera.transform.eulerAngles.z);                
+                                                                 m_MainCamera.transform.eulerAngles.z);
             }
         }
 
@@ -3226,7 +3226,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             SIMULATE_SHOT)
         {
             shotActive = true;
-        }        
+        }
         else
         {
             ballRb[activeBall].transform.position = new Vector3(0f, 0.3f, -2f);
@@ -3242,7 +3242,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         ballRb[activeBall].angularVelocity = Vector3.zero;
         ballRb[activeBall].transform.position = new Vector3(0f, 0.3f, -2f);
         //ball[1].setwhoTouchBallLast(1);
-        ballPrevPosition = ballRb[activeBall].transform.position;        
+        ballPrevPosition = ballRb[activeBall].transform.position;
         rpc_ballPos = ballRb[activeBall].transform.position;
         rpc_ballVelocity = Vector3.zero;
         rpc_ballAngularVelocity = Vector3.zero;
@@ -3250,7 +3250,7 @@ public class playerControllerMultiplayer : MonoBehaviour
         rpc_isShotActive = false;
         rpc_mainLag = 0f;
 
-   
+
         /*Collider[] hitColliders = Physics.OverlapSphere(
                     new Vector3(-10f, 0f, -14f),
                     BALL_NEW_RADIUS,
@@ -3326,10 +3326,10 @@ public class playerControllerMultiplayer : MonoBehaviour
             float runSpeed = Mathf.Max(Mathf.Abs(rpc_rbVelocity.x),
                                        Mathf.Abs(rpc_rbVelocity.z));
 
-     
+
             runSpeed = Mathf.InverseLerp(0.0f, MAX_RB_CPU_VELOCITY, runSpeed);
             //Debug.Log("Run speed x " + rpc_rbVelocity.x + " Z " + rpc_rbVelocity.z
-         //+ " runSpeed " + runSpeed);
+            //+ " runSpeed " + runSpeed);
             //if (parentRb.powersScript.isPlayerUpSlowDown())
             //    runSpeed /= 2f;
             animator.SetFloat("3d_run_turn_speed", 1.2f + (runSpeed / 1.8f));
@@ -3347,7 +3347,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             (!arePeersPlayerSet() && !gameEnded) ||
              isGamePaused())
         {
-             return;
+            return;
         }
 
 
@@ -3406,7 +3406,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     if (!Globals.commentatorStr.Equals("NO"))
                         audioManager.Play("com_firstwhistle" + RandWhistleCom.ToString());
                     gameStarted = true;
-    
+
 
                     //print("DBGINTRO gameStarted ### " + gameStarted);
                     lastTimeBallWasOut = Time.time;
@@ -3487,25 +3487,25 @@ public class playerControllerMultiplayer : MonoBehaviour
         {*/
 
 
-            if (photonView.IsMine &&
-                updateGameTime())
+        if (photonView.IsMine &&
+            updateGameTime())
+        {
+            addCoins();
+            audioManager.PlayNoCheck("whisleFinal1");
+            realTime = 0.0f;
+            gameEnded = true;
+            rb.velocity = Vector3.zero;
+            if (Globals.isAnalyticsEnable)
             {
-                addCoins();
-                audioManager.PlayNoCheck("whisleFinal1");
-                realTime = 0.0f;
-                gameEnded = true;
-                rb.velocity = Vector3.zero;
-                if (Globals.isAnalyticsEnable)
-                {
 
-                    Analytics.CustomEvent("Game_Ended", new Dictionary<string, object>
+                Analytics.CustomEvent("Game_Ended", new Dictionary<string, object>
                     {
                         { "level", Globals.level},
                         { "teamAscore", Globals.score1},
                         { "teamBscore", Globals.score2 }
                     });
-                }
             }
+        }
         //}*/
 
         timeLoops++;
@@ -3624,7 +3624,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     }
 
     void FixedUpdate()
-    {   
+    {
         if ((!gameStarted ||
               gameEnded) && photonView.IsMine)
             RPC_setLastTimeUpdate();
@@ -3653,8 +3653,8 @@ public class playerControllerMultiplayer : MonoBehaviour
         if (!arePeersPlayerSet() ||
             (photonView.IsMine && !gameStarted) ||
             (!photonView.IsMine && !peerPlayer.gameStarted))
-             return;
-    
+            return;
+
         //print("#DBGPLAYER photonView "
         //    + photonView.IsMine + " peerPlayer " + peerPlayer + " Globals.peersReady " + Globals.peersReady
         //    + " Globals.player1MainScript " + Globals.player1MainScript
@@ -3868,7 +3868,7 @@ public class playerControllerMultiplayer : MonoBehaviour
             if (!gkNotClickedLocked &&
                 !gkMovesActive &&
                 peerPlayer.getShotActive() &&
-                IsItTooLateToGkDive(peerPlayer.prepareShotPos, 
+                IsItTooLateToGkDive(peerPlayer.prepareShotPos,
                                     peerPlayer.prepareShotMaxIdx))
             {
 
@@ -3948,7 +3948,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     {
 
                         /*BUG SOLVED RACE Condition beetween fixed update and update*/
-                        getRotatedRbToBall(peerPlayer.prepareShotPos[0,0],
+                        getRotatedRbToBall(peerPlayer.prepareShotPos[0, 0],
                                            //peerPlayer.getBallInit(),
                                            getPlayerRb(),
                                            ref getRotatedRbToBallRef(),
@@ -4104,7 +4104,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                                         isGoalJustScored,
                                         Globals.score2);
                         StartCoroutine(
-                            sendAndACKBallOut((int) RPC_ACK.BALL_IS_OUT,
+                            sendAndACKBallOut((int)RPC_ACK.BALL_IS_OUT,
                                                     ballPosAfterOut,
                                                     timeToShotExceeded,
                                                     isGoalJustScored,
@@ -4151,8 +4151,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                             shotActive,
                             isCollisionActive,
                             mainUpdatePacketId++,
-                            RPC_sequenceNumber[(int) RPC_ACK.BALL_POS_UPDATE],
-                            mainUpdateType,                    
+                            RPC_sequenceNumber[(int)RPC_ACK.BALL_POS_UPDATE],
+                            mainUpdateType,
                             checkIfJoystickExtraButtonsPlaying(animator, 1f),
                             isBallOut,
                             playerOnBall);
@@ -4247,20 +4247,20 @@ public class playerControllerMultiplayer : MonoBehaviour
                (gkLastCollisionVel != INCORRECT_VECTOR) &&
                (gkPercentCollisionTime != -1) &&
                (
-                (peerPlayer.getShotPercent() >= gkPercentCollisionTime) ||                
+                (peerPlayer.getShotPercent() >= gkPercentCollisionTime) ||
                 (isCollisionWithPlayer &&
                  (ball[activeBall].getIsPlayerDownCollided() ||
-                  Mathf.Abs(InverseTransformPointUnscaled(rb.transform, 
-                  ballRb[activeBall].transform.position).z) < 0.5f)) 
+                  Mathf.Abs(InverseTransformPointUnscaled(rb.transform,
+                  ballRb[activeBall].transform.position).z) < 0.5f))
                  ||
                  (!isCollisionWithPlayer &&
                   ball[activeBall].getIsWallCollided())
                   //||
                   //(Mathf.Abs(ballRb[activeBall].transform.position.z) >= PITCH_HEIGHT_HALF - 0.6f)
-                  )                                                                                      
                   )
-                //&&
-                //((Time.time - gkCollisionPackageArriveTime) < 2.0f))
+                  )
+            //&&
+            //((Time.time - gkCollisionPackageArriveTime) < 2.0f))
             /*if (peerPlayer.getShotActive() &&
            (gkLastCollisionVel != INCORRECT_VECTOR) &&
            (peerPlayer.getShotPercent() >= gkPercentCollisionTime) &&
@@ -4293,7 +4293,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     else
                         ball[activeBall].setPlayerUpLastGkCollision(Time.time);
 
-                    audioManager.PlayNoCheck("gksave1");      
+                    audioManager.PlayNoCheck("gksave1");
                     audioManager.Commentator_PlayRandomSave(getGkLastDistXCord());
                     if (distX > 4.0f)
                     {
@@ -4380,9 +4380,9 @@ public class playerControllerMultiplayer : MonoBehaviour
                 gkPercentCollisionTime = -1f;
 
                 //it's a goal
-               // if (gkLastCollisionVel == Globals.INCORRECT_VECTOR_2)
-               // {
-               //     setIsGoalJustScored(true);           
+                // if (gkLastCollisionVel == Globals.INCORRECT_VECTOR_2)
+                // {
+                //     setIsGoalJustScored(true);           
 
                 mainUpdateType = "B";
 
@@ -4404,16 +4404,16 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         if (photonView.IsMine)
         {
-            if (isMaster) 
+            if (isMaster)
                 RPC_afterGoalLag = 0f;
 
             if (isBallOut)
             {
-               mainUpdateType = "P";
+                mainUpdateType = "P";
 
-               if (delayAfterGoal <= (RPC_delayAfterGoal - RPC_afterGoalLag))
+                if (delayAfterGoal <= (RPC_delayAfterGoal - RPC_afterGoalLag))
                 //if (delayAfterGoal <= 2.5f)
-               {
+                {
                     if (peerPlayer.isWaitGoalActive)
                         Globals.score1 = peerPlayer.goalNewScore;
 
@@ -4423,18 +4423,21 @@ public class playerControllerMultiplayer : MonoBehaviour
                     //one second left to synchronize when delayAfterGoal is 2
                     if (!initDisplayEventInfo && (delayAfterGoal >= 1.000f))
                     {
-                        if (isMaster) {
+                        if (isMaster)
+                        {
                             Debug.Log("DBGballGoal executed ");
-                            ballPosAfterOut = getBallPosAfterOut(timeToShotExceeded, isGoalJustScored);
+                            //ballPosAfterOut = getBallPosAfterOut(timeToShotExceeded, isGoalJustScored);
+                            ballPosAfterOut = getBallPosAfterOut(timeToShotExceeded, goalDownJustScored);
                             photonView.RPC("RPC_ballOutNewPos",
                                             RpcTarget.Others,
                                             ballPosAfterOut);
-                                        
+
                             StartCoroutine(
-                                sendAndACKBallOutNewPos((int) RPC_ACK.BALL_IS_OUT_NEW_POS,
+                                sendAndACKBallOutNewPos((int)RPC_ACK.BALL_IS_OUT_NEW_POS,
                                                               ballPosAfterOut));
-                                                       
+                            setGoalDownJustScored(false);
                         }
+
                         displayEventInfo();
                         initDisplayEventInfo = true;
                     }
@@ -4518,11 +4521,11 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                         //print("whoTouchBallLast TIMETOSHOTEXCEEDED" + ball.whoTouchBallLast());
                         timeToShot += RPC_afterGoalLag;
-                            //0.0f;
+                        //0.0f;
                     }
-                  
+
                     if (!ballPositionLock)
-                            StartCoroutine(setBallPositionFlash(0.01f));
+                        StartCoroutine(setBallPositionFlash(0.01f));
 
                     preShotActive = false;
                     shotActive = false;
@@ -4764,9 +4767,9 @@ public class playerControllerMultiplayer : MonoBehaviour
                                     Quaternion.Slerp(rb.transform.rotation, lookOnLook, Time.deltaTime * 10.0f);
 
 
-                              //  print("#DBGLOOKPOINT 3 gameStarted " + doesGameStarted() 
-                              //      + " ball[1].transform.position, " +
-                              //      shotDirection3D);
+                                //  print("#DBGLOOKPOINT 3 gameStarted " + doesGameStarted() 
+                                //      + " ball[1].transform.position, " +
+                                //      shotDirection3D);
 
                             }
                             else
@@ -4896,7 +4899,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     prepareShotPos[prepareShotPosIdx, 1].x;
 
                 ////print("DBGSHOT prepareShotPosIdx " + prepareShotPosIdx + " ballPos " 
-               ////     + ballRb[activeBall].transform.position);
+                ////     + ballRb[activeBall].transform.position);
                 prepareShotPosIdx++;
 
                 updateBallDuringShotPos = ballRb[activeBall].transform.position;
@@ -4974,7 +4977,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                     isBallTrailRendererInit = true;
                 }
 
-               
+
 
                 //    isBallTrailRendererInit = true;
                 //}
@@ -4991,6 +4994,12 @@ public class playerControllerMultiplayer : MonoBehaviour
     {
         isGoalJustScored = val;
     }
+
+    public void setGoalDownJustScored(bool val)
+    {
+        goalDownJustScored = val;
+    }
+
     public bool isBallOutPlayingArea()
     {
         return isBallOut;
