@@ -48,6 +48,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     float RPC_delayAfterGoal = 2.0f;
     float RPC_afterGoalLag = 0f;
     private bool animatorIKExecuted = false;
+    private float MAX_RB_CPU_VELOCITY = 12.0f;
 
     private IDictionary<string, float> animationShotAnimSpeed;
 
@@ -3321,6 +3322,24 @@ public class playerControllerMultiplayer : MonoBehaviour
             ref matchInitSavePos,
             false);
 
+        if (!photonView.IsMine &&
+            arePeersPlayerSet())
+        {
+            float runSpeed = Mathf.Max(Mathf.Abs(rb.velocity.x),
+                                       Mathf.Abs(rb.velocity.z));
+
+     
+            runSpeed = Mathf.InverseLerp(0.0f, MAX_RB_CPU_VELOCITY, runSpeed);
+            Debug.Log("Run speed x " + rb.velocity.x + " Z " + rb.velocity.z
+         + " runSpeed " + runSpeed);
+            //if (parentRb.powersScript.isPlayerUpSlowDown())
+            //    runSpeed /= 2f;
+            animator.SetFloat("3d_run_turn_speed", 1.2f + (runSpeed / 1.8f));
+
+            animator.SetFloat("3d_run_speedBack", 0.6f + runSpeed);
+            animator.SetFloat("3d_run_speed", 1f);
+        }
+
         //if (photonView.IsMine)
         //{
 
@@ -3607,24 +3626,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     }
 
     void FixedUpdate()
-    {
-        //if (photonView.IsMine)
-        //    print("DBG342344COL counter isFixedUpdate " + isFixedUpdate);
-        //print("#DBGLOG Globals.player1MainScript " + Globals.player1MainScript +
-        //    " Globals.player2MainScript " + Globals.player2MainScript);
-
-        ///if (!photonView.IsMine)
-        //{
-        //    print("#DBGLOG eulerAngles " + rb.transform.eulerAngles + " gameStared " + gameStarted);
-        ///}
-
-
-        //print("ActiveBall " + activeBall);
-        //print("ballRb[activeBall]POSITION " + ballRb[activeBall].transform.position.ToString("F6"));
-
-        //print("RBVEL " + rb.velocity);
-        //if (isGamePaused())
-        //    return;
+    {   
         if ((!gameStarted ||
               gameEnded) && photonView.IsMine)
             RPC_setLastTimeUpdate();
@@ -4110,6 +4112,7 @@ public class playerControllerMultiplayer : MonoBehaviour
                                                     isGoalJustScored,
                                                     Globals.score2));
                     }
+
                     isBallOut = true;
                 }
             }
@@ -4436,6 +4439,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
                     playerOnBall = false;
                     peerPlayer.playerOnBall = false;
+                    peerPlayer.rpc_playerOnBallActive = false;
+
                     isBallInGame = false;
                     goalJustScored = false;
                     onBall = PlayerOnBall.NEUTRAL;
@@ -6404,10 +6409,8 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         ///float runSpeedVal = Mathf.Clamp((1.15f + Mathf.Abs(runSpeed)), 1.15f, 2.2f);
         float runSpeedVal = Mathf.Clamp((1.15f + Mathf.Abs(runSpeed)), 1.15f, 2.2f);
-        if (photonView.IsMine)
-            animator.SetFloat("3d_run_speed", runSpeedVal);
-        else
-            animator.SetFloat("3d_run_speed", 1f);
+        animator.SetFloat("3d_run_speed", runSpeedVal);
+      
 
 
         //print("runSpeed " + runSpeedVal + " RB VELOCITY " + rb.velocity);
@@ -6422,7 +6425,6 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         runSpeed = Mathf.InverseLerp(0.0f, MAX_PLAYER_SPEED, runSpeed);
         //animator.SetFloat("3d_run_turn_speed", 1.2f);
-
 
         float runSpeedVal = Mathf.Clamp((1.15f + Mathf.Abs(runSpeed / 1.5f)), 1.15f, 1.65f);
         animator.SetFloat("3d_run_turn_speed", runSpeedVal);

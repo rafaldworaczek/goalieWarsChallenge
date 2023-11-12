@@ -11,6 +11,10 @@ public class AndroidUpdate : MonoBehaviour
     AppUpdateManager appUpdateManager;
     void Start()
     {
+        #if UNITY_EDITOR
+            return;
+        #endif
+
         Globals.isMultiplayerUpdate = false;
         if (Globals.isMultiplayer)
         {
