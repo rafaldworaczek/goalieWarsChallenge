@@ -1604,7 +1604,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdb5db743b39717449e35aef5f83fbb9
     m_TableEntryReference:
-      m_KeyId: 3864285540352
+      m_KeyId: 246469725852176384
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -71444,7 +71444,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRAINING
+  m_text: GOALKEEPER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a2157e1f9c4c4d38841fbb92558f587, type: 2}
   m_sharedMaterial: {fileID: -6360588970910393389, guid: 9a2157e1f9c4c4d38841fbb92558f587,
@@ -71538,7 +71538,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdb5db743b39717449e35aef5f83fbb9
     m_TableEntryReference:
-      m_KeyId: 3864285540352
+      m_KeyId: 246469725852176384
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0

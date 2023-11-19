@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -57638,7 +57638,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1579088081}
   m_HandleRect: {fileID: 1579088080}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999994
   m_Size: 0.6666667
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -70651,7 +70651,7 @@ MonoBehaviour:
     m_TableReference:
       m_TableCollectionName: GUID:fdb5db743b39717449e35aef5f83fbb9
     m_TableEntryReference:
-      m_KeyId: 3864285540352
+      m_KeyId: 246469725852176384
       m_Key: 
     m_FallbackState: 0
     m_WaitForCompletion: 0
@@ -70694,7 +70694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: TRAINING
+  m_text: GOALKEEPER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9a2157e1f9c4c4d38841fbb92558f587, type: 2}
   m_sharedMaterial: {fileID: -6360588970910393389, guid: 9a2157e1f9c4c4d38841fbb92558f587,
