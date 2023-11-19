@@ -32,7 +32,7 @@ public class MainGameSettings : MonoBehaviour
     private string[] levels = { "KID", "EASY", "NORMAL", "HARD", "EXPERT" };
     //private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
     private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES" };
-    private string[] trainingModes = { "NO ", "YES" };
+    private string[] trainingModes = { "AUTOMATIC ", "PROFESSIONAL" };
     private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
     private string[] joystickSide = { "LEFT", "RIGHT" };
     private string[] maxTimeToShot = { "8 SECONDS", "10 SECONDS", "15 SECONDS", "20 SECONDS" };
@@ -78,8 +78,9 @@ public class MainGameSettings : MonoBehaviour
             gameTimesIdx = PlayerPrefs.GetInt(savedFileName + "_gameTimesIdx");
             if (gameTimesIdx > 2)
                 gameTimesIdx = 2;
-            //trainingModeIdx = PlayerPrefs.GetInt(savedFileName + "_trainingModeIdx");
-            trainingModeIdx = 0;
+
+            trainingModeIdx = PlayerPrefs.GetInt(savedFileName + "_trainingModeIdx");
+            //trainingModeIdx = 0;
             graphicsSettingsIdx = PlayerPrefs.GetInt(savedFileName + "_graphicsSettingsIdx");
             joystickSideIdx = PlayerPrefs.GetInt(savedFileName + "_joystickSideIdx");
 
@@ -105,6 +106,12 @@ public class MainGameSettings : MonoBehaviour
         {
             Globals.isTrainingActive = false;
         }
+
+        Globals.isTrainingActive = false;
+        if (trainingModeIdx == 1)
+            Globals.PRO_MODE = true;
+        else
+            Globals.PRO_MODE = false;
     }
 
     public void saveGlobalsSettingsToPrefab()

@@ -2260,6 +2260,28 @@ namespace LANGUAGE_NS
                 "Compre a poder do profissional por VAR_0 diamantes",
                 "",
              },
+                new string[] {
+                //EN
+                "AUTOMATIC",
+                //PL
+                "AUTOMATYCZNY",
+                //ES
+                "AUTOMATICA",
+                //PT
+                "AUTOMÁTICO",
+                "",
+             },
+             new string[] {
+                //EN
+                "PROFESSIONAL",
+                //PL
+                "PROFESJONALNY",
+                //ES
+                "PROFESIONAL",
+                //PT
+                "PROFISSIONAL",
+                "",
+             },
 
 
         };        

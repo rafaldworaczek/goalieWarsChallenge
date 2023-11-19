@@ -47,6 +47,7 @@ public class controllerRigid : MonoBehaviour
     private RectTransform joystickBG;
     public GameObject joystickBgGameObject;
     private RectTransform joystickButton;
+    private GameObject joystickButtonGameObject;
     private float joystickScreenOffset;
     private Vector3 specialButtonsScreenOffset;
     private Vector2 specialPowersScreenOffset;
@@ -163,6 +164,8 @@ public class controllerRigid : MonoBehaviour
     Vector3 locVel = Vector3.zero;
     private bool isShootingDirectionSet = false;
     private int touchCount = 0;
+    private bool secondShotLineDone = false;
+    private bool updateTouchEndFinished = false;
     private bool activeShot = false;
     private bool shotLock;
     private int width, height;
@@ -493,8 +496,13 @@ public class controllerRigid : MonoBehaviour
     StringBuilder secondsTime = new StringBuilder("");
     StringBuilder mainTimeStr = new StringBuilder("");
 
+    private bool autoMode_gkRunPosReached = false;
+    private Vector3 autoModGkPos;
+
     void Awake()
     {
+        autoModGkPos = new Vector3(0f, 0f, -PITCH_HEIGHT_HALF + 0.2f);
+
         m_MainCamera = Camera.main;
         cameraComp = m_MainCamera.GetComponent<Camera>();
 
@@ -845,6 +853,7 @@ public class controllerRigid : MonoBehaviour
         //stoppageTime = UnityEngine.Random.Range(4, 10);
         stoppageTime = UnityEngine.Random.Range(1, 4);
 
+        //TODELETE
         //timeOfGameInSec = 10000f;
         //print("TIMEOFGAME " + timeOfGameInSec);
         //animator = GameObject.Find("mainPlayer1").GetComponent<Animator>();
@@ -910,6 +919,8 @@ public class controllerRigid : MonoBehaviour
         {
             if (Globals.PITCHTYPE.Equals("GRASS"))
                 audioManager.Play("training1");
+
+            Globals.PRO_MODE = true;
         }
         else
         {
@@ -1142,6 +1153,8 @@ public class controllerRigid : MonoBehaviour
                     ref matchInitSavePos,
                     false);
 
+        //drawSecondShotHelperLine();
+
         if (!isTrainingActive && !isBonusActive)
         {
             /*Special case when you are winning with high score */
@@ -1205,6 +1218,12 @@ public class controllerRigid : MonoBehaviour
                 updateTouch();
         }
 
+        if (updateTouchEndFinished && !secondShotLineDone)
+        {
+            drawSecondShotHelperLine();
+            secondShotLineDone = true;
+        }
+
         clearTouch();
         if ((numberOfCorrectGKClick >= 5) &&
             !isGkHelperImageRecovered &&
@@ -1259,6 +1278,53 @@ public class controllerRigid : MonoBehaviour
                     ref rotatedRbToBall,
                     gkCornerPoints,
                     isExtraGoals);
+        }
+    }
+
+    void drawSecondShotHelperLine()
+    {
+        //if (!shotActive || !initShot)
+        //    return;
+
+        float currentTime = 0.05f;
+        Vector3 m1, m2, currPos;
+        ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
+        lineColor.a = 0.0f;
+        updateShotPos();
+
+        preShotCalc(curveStartPos3,
+                    curveMidPos3,
+                    curveEndPos3,
+                    endPosOrg,
+                    height,
+                    ballRb[activeBall].transform.position,
+                    shotSpeed,
+                    isLobActive,
+                    ref outShotBallVelocity,
+                    ref outShotStart,
+                    ref outShotMid,
+                    ref outShotEnd,
+                    ref shotvariant,
+                    false);
+        Vector3 prevPos = outShotStart;
+        Debug.Log("TouchCount curveStartPos3 " + outShotStart
+            + " curveMidPos3 " + outShotMid
+            + " curveEndPos3 " + outShotEnd);
+        Material material =
+            graphics.getMaterial("others/Material/second_shot_line");
+
+        while (currentTime < 1.0f)
+        {
+            currentTime += 0.033f;
+            //m1 = Vector3.Lerp(outShotStart, outShotMid, currentTime);
+            //m2 = Vector3.Lerp(outShotMid, outShotEnd, currentTime);
+            //currPos = Vector3.Lerp(m1, m2, currentTime);
+            m1 = Vector3.Lerp(outShotStart, outShotMid, currentTime);
+            m2 = Vector3.Lerp(outShotMid, outShotEnd, currentTime);
+            currPos = Vector3.Lerp(m1, m2, currentTime);
+
+            DrawLine(prevPos, currPos, ref material, lineColor, 0.8f, 0.2f);
+            prevPos = currPos;
         }
     }
 
@@ -1913,6 +1979,9 @@ public class controllerRigid : MonoBehaviour
             touchCount = 0;
             isTouchBegin = false;
 
+
+
+
             /*print("Distance MOVING");
             print("DRAWTIME END " + drawTimeEnd + " DRAWTIME START " + drawTimeStart + " DELTA " + (drawTimeEnd - drawTimeStart));
             print("DRAWTIMEOFBALL TIMEOFBALL " + timeofBallFly);
@@ -2029,6 +2098,15 @@ public class controllerRigid : MonoBehaviour
                     float speedPerc = Mathf.InverseLerp(ShotSpeedMax, ShotSpeedMin, timeofBallFly);
                     setBallShotVel(speedPerc * MAX_SHOT_SPEED_UNITY_UNITS);
                 }
+
+
+                if (!secondShotLineDone)
+                    drawSecondShotHelperLine();
+
+                updateTouchEndFinished = false;
+                secondShotLineDone = false;
+
+                //drawSecondShotHelperLine();
                 //consider players skills
                 //timeofBallFly = timeofBallFly +
                 //    Mathf.Lerp(100f, 0, Mathf.InverseLerp(MIN_SHOT_SPEED, MAX_SHOT_SPEED, shotSpeed));
@@ -2328,6 +2406,7 @@ public class controllerRigid : MonoBehaviour
         return isLobActive;
     }
 
+
     private void playerRun()
     {
         //if (isFixedUpdate > 1)
@@ -2346,7 +2425,29 @@ public class controllerRigid : MonoBehaviour
         //float runSpeed = Mathf.Max(Mathf.Abs(horizontalMovement),
         //                           Mathf.Abs(verticalMovement));
 
+        if (!cpuPlayer.getShotActive() && ballRb[activeBall].transform.position.z < 0f)
+        {
+            autoMode_gkRunPosReached = false;
+            joystickButtonGameObject.SetActive(true);
+        }
+
         playerDirection = new Vector3(horizontalMovement, 0.0f, verticalMovement);
+        //just simulate joystick
+        if (!Globals.PRO_MODE) {
+            if (ballRb[activeBall].transform.position.z > 0f || cpuPlayer.getShotActive())
+            {
+                playerDirection =
+                    (autoModGkPos - new Vector3(rb.transform.position.x, 0f, rb.transform.position.z)).normalized;
+                if (Vector2.Distance(new Vector2(autoModGkPos.x, autoModGkPos.z),
+                                     new Vector2(rb.transform.position.x, rb.transform.position.z)) < 0.2f)
+                    autoMode_gkRunPosReached = true;
+
+                if (autoMode_gkRunPosReached)
+                    playerDirection = Vector3.zero;
+                if (joystickButtonGameObject.activeSelf)
+                    joystickButtonGameObject.SetActive(false);
+            }
+        }
 
         isAnyAnimationPlaying = checkIfAnyAnimationPlaying(animator, 1.0f);
         if (!isAnyAnimationPlaying)
@@ -3420,6 +3521,7 @@ public class controllerRigid : MonoBehaviour
         joystickBgGameObject = GameObject.Find("joystickBG");
         joystickBG = GameObject.Find("joystickBG").GetComponent<RectTransform>();
         joystickButton = GameObject.Find("joystickButton").GetComponent<RectTransform>();
+        joystickButtonGameObject = GameObject.Find("joystickButton");
 
         gkMoveUpButtonRectTrans = GameObject.Find("gkMoveUpButton").GetComponent<RectTransform>();
         gkMoveDownButtonRectTrans = GameObject.Find("gkMoveDownButton").GetComponent<RectTransform>();
@@ -4005,6 +4107,7 @@ public class controllerRigid : MonoBehaviour
         return;
     }
 
+    /*
     private void drawHelperGrid()
     {
         for (int z = -14; z < 14; z++)
@@ -4020,7 +4123,7 @@ public class controllerRigid : MonoBehaviour
 
             }
         }
-    }
+    }*/
 
     private void setupLevelDependentVariables()
     {
@@ -4391,7 +4494,6 @@ public class controllerRigid : MonoBehaviour
                         Vector3 towardsNewPos)
     {
         towardsNewPos = towardsNewPos.normalized;
-
      
         interruptSideAnimation(animator, rb);
         rb.velocity = towardsNewPos * speed;
@@ -7630,7 +7732,33 @@ public class controllerRigid : MonoBehaviour
 
 
     /*NOT MINE CODE */
-    private void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 2.0f, float width = 0.15f)
+    /* private void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 2.0f, float width = 0.15f)
+     {
+         GameObject myLine = new GameObject();
+         myLine.transform.position = start;
+         myLine.AddComponent<LineRenderer>();
+         LineRenderer touchLine = myLine.GetComponent<LineRenderer>();
+         touchLine.SetVertexCount(2);
+         //touchLine.SetColors(color, color);
+         touchLine.material = new Material(Shader.Find("Sprites/Default"));
+         touchLine.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+
+         Color c1 = color;
+         Color c2 = new Color(1, 1, 1, 0.5f);
+         touchLine.SetColors(c2, c2);
+
+         //touchLine.SetWidth(0, 3);
+         touchLine.SetPosition(0, start);
+         touchLine.SetPosition(1, end);
+         touchLine.SetWidth(width, width);
+         touchLine.startWidth = width;
+         touchLine.endWidth = width;
+         //touchLine.useWorldSpace = false;
+         GameObject.Destroy(myLine, duration);
+         //print("DRAWLINE FROM " + start + " END " + end);
+     }*/
+
+    private void DrawLine(Vector3 start, Vector3 end, ref Material material, Color color, float duration = 2.0f, float width = 0.15f)
     {
         //print("VECTORXASD " + start + " end " + end);
         //start.z = -3.0f;
@@ -7640,15 +7768,24 @@ public class controllerRigid : MonoBehaviour
         myLine.AddComponent<LineRenderer>();
         LineRenderer touchLine = myLine.GetComponent<LineRenderer>();
         touchLine.SetVertexCount(2);
+        touchLine.receiveShadows = false;
+        touchLine.castShadows = false;
+
         //touchLine.SetColors(color, color);
-        touchLine.material = new Material(Shader.Find("Sprites/Default"));
-        touchLine.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+        //touchLine.material = new Material(Shader.Find("Sprites/Default"));
+        //touchLine.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
+
+
+        //touchLine.material = new Material(Shader.Find("Standard"));
+        //touchLine.material.SetOverrideTag("RenderType", "Transparent");
+        Debug.Log("drawLine material " + material);
+        touchLine.material = material;
+        // touchLine.material.SetColor("_TintColor", new Color(1, 1, 1, 0.5f));
 
         Color c1 = color;
-        Color c2 = new Color(1, 1, 1, 0.5f);
-        touchLine.SetColors(c2, c2);
+        Color c2 = new Color(0, 0, 1, 0.1f);
+        //touchLine.SetColors(color, color);
 
-        //touchLine.SetWidth(0, 3);
         touchLine.SetPosition(0, start);
         touchLine.SetPosition(1, end);
         touchLine.SetWidth(width, width);
@@ -7656,7 +7793,6 @@ public class controllerRigid : MonoBehaviour
         touchLine.endWidth = width;
         //touchLine.useWorldSpace = false;
         GameObject.Destroy(myLine, duration);
-        //print("DRAWLINE FROM " + start + " END " + end);
     }
 
     /* This functions return coefficients of a and b as a 
@@ -10488,7 +10624,6 @@ public class controllerRigid : MonoBehaviour
                 {
                     lineEndPos = mRay.GetPoint(rayDistance);
                     trailShoot.transform.position = lineEndPos;
-                    //print("TRAILSHOTPOS " + trailShoot.transform.position);
                 }
             }
 
@@ -10500,9 +10635,6 @@ public class controllerRigid : MonoBehaviour
 
             if (midTouchPosIdx < MID_MAX_POS)
                 midTouchPos[midTouchPosIdx++] = touch.position;
-
-            //print("UPDATTOUCH145 MOVED" + touch.position
-            //    + " touchFingerId " + touchFingerId + " ORG TOUCH ID " + touch.fingerId);
         }
 
         if (touch.phase == TouchPhase.Began)
@@ -10553,9 +10685,6 @@ public class controllerRigid : MonoBehaviour
 
             trailShoot = (GameObject)Instantiate(drawPrefabShotTrail, Vector3.zero, Quaternion.identity);
             trailShoot.GetComponent<TrailRenderer>().sortingOrder = 1;
-            //trailShootRenderer.sortingOrder = 1;
-            //trailShoot.transform.rotation = Quaternion.identity;
-            //trailShoot.transform.position = Vector3.zero;
 
             Plane objPlane = new Plane(Camera.main.transform.forward * -1, trailShoot.transform.position);
             Ray mRay = Camera.main.ScreenPointToRay(touch.position);
@@ -10582,15 +10711,9 @@ public class controllerRigid : MonoBehaviour
                 return;
             }
 
-
             if (!isTouchBegin ||
                 (isTouchBegin && (touch.fingerId != touchFingerId)))
                 return;
-
-
-            //print("UPDATTOUCH145 END" + touch.position
-            //+ " touchFingerId " + touchFingerId
-            //+ " ORG TOUCH ID " + touch.fingerId);
 
             endPos = touch.position;
             drawDistance += Vector2.Distance(touch.position, prevMovedPos);
@@ -10599,16 +10722,8 @@ public class controllerRigid : MonoBehaviour
             touchLocked = true;
             touchFingerId = -1;
             isTouchBegin = false;
-
-            //print("LASTTOUCH POS IN WORLDSPACE BEFORE " + gkTouchPosRotatedRbWS);
-            //correctPosIfOutOfPitch(ref gkTouchPosRotatedRbWS);
-
-            //if (correctPosIfOutOfPitch(ref gkTouchPosRotatedRbWS))
-            //{
+            updateTouchEndFinished = true;
             gkTouchDone = true;
-            //}
-
-            //print("DEBUGLASTTOUCHLAKI AFTER CORRECT LAST TOUCH" + gkTouchPosRotatedRbWS);
 
             if (lineStartPos != Vector3.zero)
             {
@@ -10624,7 +10739,6 @@ public class controllerRigid : MonoBehaviour
                 {
                     lineEndPos = mRay.GetPoint(rayDistance);
                     trailShoot.transform.position = lineEndPos;
-                    //print("TRAILSHOTPOS " + trailShoot.transform.position);
                 }
             }
         }
@@ -11180,13 +11294,12 @@ public class controllerRigid : MonoBehaviour
         Vector3 corner1 = position + v3;
         Vector3 corner3 = position - v3;
 
-        DrawLine(corner0, corner2, Color.red);
+        /*DrawLine(corner0, corner2, Color.red);
         DrawLine(corner1, corner3, Color.red);
         DrawLine(corner0, corner1, Color.red);
         DrawLine(corner1, corner2, Color.red);
         DrawLine(corner2, corner3, Color.red);
-        DrawLine(corner3, corner0, Color.red);
-        //DrawLine(position, normal, Color.red);
+        DrawLine(corner3, corner0, Color.red);*/
     }
 
     public Animator getAnimator()

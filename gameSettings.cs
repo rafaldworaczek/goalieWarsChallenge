@@ -115,7 +115,7 @@ public class gameSettings : MonoBehaviour
     private string[] levels = { "KID", "EASY", "NORMAL", "HARD", "EXPERT" };
     //  private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES", "3 MINUTES", "4 MINUTES", "5 MINUTES" };
     private string[] gameTimes = { "30 SECONDS", "1 MINUTE", "2 MINUTES" };
-    private string[] trainingModes = { "NO", "YES" };
+    private string[] trainingModes = { "AUTOMATIC", "PROFESSIONAL" };
     private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
     private string[] joystickSide = { "LEFT", "RIGHT" };
 
@@ -2132,6 +2132,10 @@ public class gameSettings : MonoBehaviour
                 commentatorIdx = PlayerPrefs.GetInt("commentatorIdx", commentatorIdx);
                 maxTimeToShotIdx = PlayerPrefs.GetInt("maxTimeToShotIdx", maxTimeToShotIdx);
             }
+
+            if (PlayerPrefs.HasKey("goalieMode"))
+                trainingModeIdx = PlayerPrefs.GetInt("trainingModeIdx");
+
         }
     }
 
@@ -2208,7 +2212,7 @@ public class gameSettings : MonoBehaviour
         Globals.level = levelsIdx + 1;
         Globals.matchTime = gameTimes[gameTimesIdx];
         Globals.graphicsQuality = graphics[graphicsSettingsIdx];
-        Globals.isTrainingActive = true;
+        //Globals.isTrainingActive = true;
         Globals.joystickSide = joystickSide[joystickSideIdx];
 
         Globals.powersStr = powers[powersIdx];
@@ -2226,7 +2230,15 @@ public class gameSettings : MonoBehaviour
         Globals.gameTimesIdx = gameTimesIdx;
         Globals.graphicsSettingsIdx = graphicsSettingsIdx;
         Globals.joystickSideIdx = joystickSideIdx;
+
+        //traingMode was replaced by goalie automatic mode
         Globals.trainingModeIdx = trainingModeIdx;
+        if (trainingModeIdx == 1)
+            Globals.PRO_MODE = true;
+        else
+            Globals.PRO_MODE = false;
+
+        Globals.isTrainingActive = false;
 
         Globals.powersIdx = powersIdx;
         Globals.maxTimeToShotIdx = maxTimeToShotIdx;
