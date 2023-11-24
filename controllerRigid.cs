@@ -33,6 +33,7 @@ public class controllerRigid : MonoBehaviour
 {
     private Rigidbody rb;
     public GameObject playerUp;
+    public GameObject playerUpGameObject;
     public setTextures setTextureScript;
     public gamePausedMenu gamePausedScript;
     protected Rigidbody[] ballRb;
@@ -498,9 +499,11 @@ public class controllerRigid : MonoBehaviour
 
     private bool autoMode_gkRunPosReached = false;
     private Vector3 autoModGkPos;
+    Material secondShotLineMaterial;
 
     void Awake()
     {
+       
         autoModGkPos = new Vector3(0f, 0f, -PITCH_HEIGHT_HALF + 0.2f);
 
         m_MainCamera = Camera.main;
@@ -510,7 +513,6 @@ public class controllerRigid : MonoBehaviour
         {
             GameObject.Find("leagueBackgroundMusic").GetComponent<LeagueBackgroundMusic>().stop();
         }
-
 
         //print("GETQUALITY RESULTS " + QualitySettings.GetQualityLevel());
         multiplayerSettings();
@@ -783,6 +785,11 @@ public class controllerRigid : MonoBehaviour
         //graphics.getFlagPath(leagueName, Globals.teamAname));
         graphics.setFlagRawImage(teamBflagStatisticsImage,
                                  graphics.getFlagPath(Globals.teamBname));
+
+
+        secondShotLineMaterial =
+               graphics.getMaterial("others/Material/second_shot_line");
+
         //graphics.getFlagPath(leagueName, Globals.teamBname));
 
         teamAStatisticsText.text = Globals.teamAname;
@@ -862,7 +869,7 @@ public class controllerRigid : MonoBehaviour
 
         if (Globals.stadiumNumber == 0)
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                          5.5f,
+                                                          2.5f,
                                                           m_MainCamera.transform.position.z);
         //speed = 9.0f;
 
@@ -919,8 +926,6 @@ public class controllerRigid : MonoBehaviour
         {
             if (Globals.PITCHTYPE.Equals("GRASS"))
                 audioManager.Play("training1");
-
-            Globals.PRO_MODE = true;
         }
         else
         {
@@ -982,10 +987,13 @@ public class controllerRigid : MonoBehaviour
              });
             //Debug.Log("Analytics result " + analyticsResult);
         }
+
+        playerUpGameObject = GameObject.Find("playerUp");
+        playerUpGameObject.transform.position = new Vector3(0f, 0.03f, -100f);
     }
 
     //int deltaIterator = 1;
-   
+
     void Update()
     {
 
@@ -1045,6 +1053,7 @@ public class controllerRigid : MonoBehaviour
 
             if (realTime > 10f)
             {
+                playerUpGameObject.transform.position = new Vector3(0f, 0.03f, 11f);
                 audioManager.PlayNoCheck("whislestart1");
                 int RandWhistleCom = UnityEngine.Random.Range(1, 3);
                 if (!Globals.commentatorStr.Equals("NO"))
@@ -1288,7 +1297,8 @@ public class controllerRigid : MonoBehaviour
 
         float currentTime = 0.05f;
         Vector3 m1, m2, currPos;
-        ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
+         ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
+        //ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
         lineColor.a = 0.0f;
         updateShotPos();
 
@@ -1310,8 +1320,7 @@ public class controllerRigid : MonoBehaviour
         Debug.Log("TouchCount curveStartPos3 " + outShotStart
             + " curveMidPos3 " + outShotMid
             + " curveEndPos3 " + outShotEnd);
-        Material material =
-            graphics.getMaterial("others/Material/second_shot_line");
+
 
         while (currentTime < 1.0f)
         {
@@ -1323,7 +1332,7 @@ public class controllerRigid : MonoBehaviour
             m2 = Vector3.Lerp(outShotMid, outShotEnd, currentTime);
             currPos = Vector3.Lerp(m1, m2, currentTime);
 
-            DrawLine(prevPos, currPos, ref material, lineColor, 0.8f, 0.2f);
+            DrawLine(prevPos, currPos, ref secondShotLineMaterial, lineColor, 0.8f, 0.2f);
             prevPos = currPos;
         }
     }
@@ -1459,6 +1468,17 @@ public class controllerRigid : MonoBehaviour
         }
     }
 
+    // every 2 seconds perform the print()
+    private IEnumerator WaitAndPrint(float waitTime)
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(waitTime);
+            drawSecondShotHelperLine();
+        }
+    }
+
+
     void FixedUpdate()
     {
         
@@ -1477,6 +1497,17 @@ public class controllerRigid : MonoBehaviour
             cpuPlayer.fixedUpdate();
             return;
         }
+
+
+        curveStartPos3 = new Vector3(0, 0, -14f);
+        curveMidPos3 = new Vector3(0, 3f, 0f);
+        curveEndPos3 = new Vector3(0, 0, 14f);
+        endPosOrg = new Vector3(0, 0, 14f);
+
+
+
+        //StartCoroutine(WaitAndPrint(5.0f));
+
 
         if (Globals.isMultiplayer &&
             !PhotonNetwork.IsConnected)
@@ -2425,7 +2456,9 @@ public class controllerRigid : MonoBehaviour
         //float runSpeed = Mathf.Max(Mathf.Abs(horizontalMovement),
         //                           Mathf.Abs(verticalMovement));
 
-        if (!cpuPlayer.getShotActive() && ballRb[activeBall].transform.position.z < 0f)
+        if (!cpuPlayer.getShotActive() && 
+            !cpuPlayer.getPreShotActive())
+        //if (!cpuPlayer.getShotActive() && ballRb[activeBall].transform.position.z < 0f)
         {
             autoMode_gkRunPosReached = false;
             joystickButtonGameObject.SetActive(true);
@@ -2433,8 +2466,10 @@ public class controllerRigid : MonoBehaviour
 
         playerDirection = new Vector3(horizontalMovement, 0.0f, verticalMovement);
         //just simulate joystick
-        if (!Globals.PRO_MODE) {
-            if (ballRb[activeBall].transform.position.z > 0f || cpuPlayer.getShotActive())
+        if (!Globals.PRO_MODE && !isTrainingActive && !isBonusActive) {
+            //if (ballRb[activeBall].transform.position.z > 0f || cpuPlayer.getShotActive())
+            if (cpuPlayer.getShotActive() ||
+                cpuPlayer.getPreShotActive())
             {
                 playerDirection =
                     (autoModGkPos - new Vector3(rb.transform.position.x, 0f, rb.transform.position.z)).normalized;
@@ -3764,7 +3799,6 @@ public class controllerRigid : MonoBehaviour
                             string anim,
                             bool isCpu)
     {
-
 
 
         /*if (checkIfAnyAnimationPlayingContain(animator, 1.0f, "3D_GK_sidecatch") &&
@@ -6251,9 +6285,9 @@ public class controllerRigid : MonoBehaviour
         if (realTime < 0.5f)
         {
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                          m_MainCamera.transform.position.y + (cameraSpeed / 3.4f),
-                                                          m_MainCamera.transform.position.z - 0.001f);
-            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.01f, 0.0f);
+                                                          m_MainCamera.transform.position.y,
+                                                          m_MainCamera.transform.position.z - 0.00001f);
+            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.025f, 0.0f);
 
             return;
         }
@@ -6262,23 +6296,23 @@ public class controllerRigid : MonoBehaviour
         if (realTime > 2.0f && realTime < 7f)
         {
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                          m_MainCamera.transform.position.y + (cameraSpeed / 3.4f),
-                                                          m_MainCamera.transform.position.z - 0.006f);
-            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.04f, 0.0f);
+                                                          m_MainCamera.transform.position.y,
+                                                          m_MainCamera.transform.position.z - 0.00006f);
+            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.02f, 0.0f);
         }
         else if (realTime > 7f)
         {
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                        m_MainCamera.transform.position.y + (cameraSpeed / 3.4f),
-                                                        m_MainCamera.transform.position.z - 0.008f);
-            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.06f, 0.0f);
+                                                        m_MainCamera.transform.position.y,
+                                                        m_MainCamera.transform.position.z - 0.00008f);
+            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.03f, 0.0f);
         }
         else
         {
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                          m_MainCamera.transform.position.y + (cameraSpeed / 3.4f),
-                                                          m_MainCamera.transform.position.z - 0.004f);
-            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.02f, 0.0f);
+                                                          m_MainCamera.transform.position.y,
+                                                          m_MainCamera.transform.position.z - 0.00004f);
+            m_MainCamera.transform.eulerAngles = m_MainCamera.transform.eulerAngles - new Vector3(0.0f, 0.0024f, 0.0f);
         }
     }
 
@@ -7480,14 +7514,18 @@ public class controllerRigid : MonoBehaviour
         {
             int FANS_FLAG_MAX = 3;
             int numOfFansActive = 32;
+            int nunOfStaticFansActive = 100;
             int currentFansActive = 0;
+            int currentStaticFansActive = 0;
             if (Globals.graphicsQuality.Equals("LOW"))
             {
                 numOfFansActive = 23;
+                nunOfStaticFansActive = 50;
             }
             else if (Globals.graphicsQuality.Equals("VERY LOW"))
             {
-                numOfFansActive = 10;
+                numOfFansActive = 0;
+                nunOfStaticFansActive = 0;
             }
   
               int randMaterial_fans = UnityEngine.Random.Range(0, 13);
@@ -7504,9 +7542,16 @@ public class controllerRigid : MonoBehaviour
                             continue;
                         }
 
-                        randMaterial_fans = randMaterial_fans % 14;
-                  
-
+                        if ((Globals.graphicsQuality.Equals("LOW") || Globals.graphicsQuality.Equals("VERY LOW"))
+                            && (currentStaticFansActive >= nunOfStaticFansActive))
+                        {
+                            allStadiumPeople.transform.parent.gameObject.SetActive(false);
+                            continue;
+                        }
+                
+                        currentStaticFansActive++;
+                        randMaterial_fans = randMaterial_fans % 12;
+                 
                         fansMaterial_static = graphics.getMaterial("stadium/fans/materials/audienceMaterial" + randMaterial_fans.ToString());
                         randMaterial_fans++;                        
                         allStadiumPeople.GetComponent<Renderer>().material = fansMaterial_static;
