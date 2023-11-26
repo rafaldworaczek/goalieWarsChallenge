@@ -869,7 +869,7 @@ public class controllerRigid : MonoBehaviour
 
         if (Globals.stadiumNumber == 0)
             m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
-                                                          2.5f,
+                                                          m_MainCamera.transform.position.y,
                                                           m_MainCamera.transform.position.z);
         //speed = 9.0f;
 
