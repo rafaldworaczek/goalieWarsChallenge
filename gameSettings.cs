@@ -78,6 +78,7 @@ public class gameSettings : MonoBehaviour
     public GameObject yesNoMenuPanel;
     public GameObject chooseStadiumCanvas;
     public GameObject chooseStadiumCanvasIndoor;
+    public GameObject chooseStadiumCanvasPaid;
     public Button yesNoMenuNoAnswer;
     public Button yesNoMenuYesAnswer;
     public TextMeshProUGUI yesNoMenuHeaderText;
@@ -1545,6 +1546,13 @@ public class gameSettings : MonoBehaviour
             chooseStadiumCanvas.SetActive(true);
         }
 
+        if (Globals.is_app_paid == true)
+        {
+            chooseStadiumCanvasPaid.SetActive(true);
+            chooseStadiumCanvas.SetActive(false);
+            chooseStadiumCanvasIndoor.SetActive(false);
+        }
+
         /*print("#DBG1334 init choose stadiu Globals.teamAleague " 
     + Globals.playerADesc + " Globals.playerADesc " 
     + Globals.teamAname + " + Globals.teamAname "
@@ -1827,7 +1835,10 @@ public class gameSettings : MonoBehaviour
             else
             {
                 //Globals.isGameSettingActive = false;
-                SceneManager.LoadScene("specialShopOffers");
+                if (!Globals.is_app_paid)
+                    SceneManager.LoadScene("specialShopOffers");
+                else
+                    SceneManager.LoadScene("ExtraPowers");
             }
 
             Globals.isGameSettingActive = true;
@@ -2771,7 +2782,7 @@ public class gameSettings : MonoBehaviour
         //}
      
         Globals.stadiumNumber = idx;
-               
+
         loadGameScene();
         admobAdsScript.hideBanner();
     }
