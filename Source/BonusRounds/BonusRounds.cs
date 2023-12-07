@@ -846,14 +846,22 @@ public class BonusRounds : MonoBehaviour
     }
       
     private void showBonusPanel() {
+
+        if (Globals.is_app_paid)
+        {
+            onClickClose();
+            return;
+        }
+
         bonusPanel.SetActive(true);
         tryAgainButtonText.text = 
             Languages.getTranslate("TRY AGAIN");
 
+        
         tryAgainButton.onClick.RemoveAllListeners();
         tryAgainButton.onClick.AddListener(
-                delegate { onClickWatchRewardAdButton(); });
-
+              delegate { onClickWatchRewardAdButton(); });
+      
         rewardAdsImg.SetActive(true);
         hideTimePanel();
     }

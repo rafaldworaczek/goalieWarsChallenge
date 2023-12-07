@@ -852,7 +852,12 @@ public class ExtraPowers : MonoBehaviour
         loadingCanvas.SetActive(true);
 
         if (Globals.stadiumNumber == 1)
+        {
             Globals.loadSceneWithBarLoader("gameSceneSportsHall");
+        } else if (Globals.stadiumNumber == 2)
+        {
+            Globals.loadSceneWithBarLoader("gameSceneStreet");
+        }
         else
         {
             Globals.loadSceneWithBarLoader("gameScene");

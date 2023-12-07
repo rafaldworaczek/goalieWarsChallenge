@@ -79,15 +79,24 @@ public class reviewScript : MonoBehaviour
         PlayerPrefs.SetInt("appReview_ButtonYesClicked", 1);
         PlayerPrefs.Save();
 
-        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        if (!Globals.is_app_paid)
         {
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieWarsFootbalIndoor");
-        } else if (Globals.PITCHTYPE.Equals("STREET"))
+            if (Globals.PITCHTYPE.Equals("INDOOR"))
+            {
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieWarsFootbalIndoor");
+            }
+            else if (Globals.PITCHTYPE.Equals("STREET"))
+            {
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootballStreet");
+            }
+            else
+            {
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball");
+            }
+        }
+        else
         {
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootballStreet");
-        } else
-        {
-            Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball");
+            Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball2");
         }
 
         panel.SetActive(false);

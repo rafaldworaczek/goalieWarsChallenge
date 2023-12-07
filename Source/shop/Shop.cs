@@ -490,6 +490,10 @@ public class Shop : MonoBehaviour
 
     public void watchRewardAdButton(string eventName)
     {
+        if (Globals.is_app_paid)
+            return;
+
+
         if (Application.isEditor)
         {
             waitingForAdsEvent = true;

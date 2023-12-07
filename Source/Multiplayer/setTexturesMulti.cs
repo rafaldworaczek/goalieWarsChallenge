@@ -21,8 +21,8 @@ public class setTexturesMulti : MonoBehaviour
     private int wallsAdsMaterialIdx = 0;
     //private int wallsAdsMaterialIdx = 3;
     private float wallsAdsChangTime = 10f;
-    private int MAX_WALLS_ADS = 4;
-    private int MAX_GROUNDS = 3;
+    private int MAX_WALLS_ADS = 3;
+    private int MAX_GROUNDS = 2;
     private int MAX_FLARES = 3;
     private Color[] wallsAdsTopMaterialColors;
     public ParticleSystem[] flareParticle;
@@ -64,9 +64,9 @@ public class setTexturesMulti : MonoBehaviour
          { "st_080_bg_field", "#FFC2E2" }*/
          { "GrassShader_2", "#AEB03C" },
          //{ "st_060_bg_field", "#ADCC8C" },
-         { "GrassShader_1", "#FFFFFF" },
-         { "GrassShader_3", "#FFB9B9" },
-         { "GrassShader_4", "#FFB9B9" }
+         //{ "GrassShader_1", "#FFFFFF" },
+         { "GrassShader_3", "#FFB9B9" }
+         //{ "GrassShader_4", "#FFB9B9" }
     };
 
 
@@ -368,20 +368,13 @@ public class setTexturesMulti : MonoBehaviour
     {
         Color color;
         ColorUtility.TryParseHtmlString("#cd1b1b", out color);
-        //color.a = 0.7f;
         wallsAdsTopMaterialColors[0] = color;
 
-        ColorUtility.TryParseHtmlString("#14569c", out color);
-        //color.a = 0.7f;
+        ColorUtility.TryParseHtmlString("#dfb60a", out color);
         wallsAdsTopMaterialColors[1] = color;
 
         ColorUtility.TryParseHtmlString("#cd1b1b", out color);
-        //color.a = 0.7f;
         wallsAdsTopMaterialColors[2] = color;
-
-        ColorUtility.TryParseHtmlString("#dfb60a", out color);
-        //color.a = 0.7f;
-        wallsAdsTopMaterialColors[3] = color;
     }
 
     private void setWallsAdsTexture()
@@ -398,11 +391,11 @@ public class setTexturesMulti : MonoBehaviour
         wallsAdsTexture[0] = graphics.getTexture(
             "wallsAds/banner1");
         wallsAdsTexture[1] = graphics.getTexture(
-            "wallsAds/banner2");
+            "wallsAds/banner4");
         wallsAdsTexture[2] = graphics.getTexture(
             "wallsAds/banner3");
-        wallsAdsTexture[3] = graphics.getTexture(
-            "wallsAds/banner4");
+        //wallsAdsTexture[3] = graphics.getTexture(
+        //    "wallsAds/banner4");
     }
 
     public void setPlayersTextures(GameObject[] playerModels,

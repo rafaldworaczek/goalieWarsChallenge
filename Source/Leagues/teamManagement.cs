@@ -976,7 +976,7 @@ public class teamManagement : MonoBehaviour
         }
         else
         {
-            if (UnityEngine.Random.Range(0, 3) == 1 || !Globals.PITCHTYPE.Equals("GRASS"))
+            if (!Globals.is_app_paid && (UnityEngine.Random.Range(0, 3) == 1 || !Globals.PITCHTYPE.Equals("GRASS")))
                 Globals.loadSceneWithBarLoader("specialShopOffers");
             else
                 Globals.loadSceneWithBarLoader("extraPowers");
@@ -1827,10 +1827,17 @@ public class teamManagement : MonoBehaviour
 
     public void onClickShowRefillEnergyPanel()
     {
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
             refillSelectedPlayerEnergy();
             return;
-        #endif
+#endif
+
+        if (Globals.is_app_paid)
+        {
+            refillSelectedPlayerEnergy();
+            return;
+        }
+
 
         refillEnergyPanel.SetActive(true);
     }

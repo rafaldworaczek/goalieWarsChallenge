@@ -742,6 +742,10 @@ public class controllerRigid : MonoBehaviour
         //string[] flagsNames = new string[] { Regex.Replace(Globals.teamAname, "\\s+", "").ToLower(),
         //                                     Regex.Replace(Globals.teamBname, "\\s+", "").ToLower()};
 
+
+        Debug.Log("Globals.teamAname " + Globals.teamAname + " teamB " + Globals.teamBname);
+
+
         string[] flagsNames = new string[] { Globals.teamAname,
                                              Globals.teamBname};
         RawImage flagGameImage;
@@ -988,8 +992,10 @@ public class controllerRigid : MonoBehaviour
             //Debug.Log("Analytics result " + analyticsResult);
         }
 
-        playerUpGameObject = GameObject.Find("playerUp");
-        playerUpGameObject.transform.position = new Vector3(0f, 0.03f, -100f);
+        //playerUpGameObject = GameObject.Find("playerUp");
+        //Debug.Log("playerUpGameObject " + playerUpGameObject);
+        //if (playerUpGameObject != null)
+        //    playerUpGameObject.transform.position = new Vector3(0f, 0.03f, -100f);
     }
 
     //int deltaIterator = 1;
@@ -1053,7 +1059,7 @@ public class controllerRigid : MonoBehaviour
 
             if (realTime > 10f)
             {
-                playerUpGameObject.transform.position = new Vector3(0f, 0.03f, 11f);
+                playerUp.transform.position = new Vector3(0f, 0.03f, 11f);
                 audioManager.PlayNoCheck("whislestart1");
                 int RandWhistleCom = UnityEngine.Random.Range(1, 3);
                 if (!Globals.commentatorStr.Equals("NO"))
@@ -1489,13 +1495,13 @@ public class controllerRigid : MonoBehaviour
                 return;
             }
 
-            photo_3DVolley();
+            //photo_3DVolley();
             //photo_save1();
             //photo_save2();
             //photo_save3();
 
-            cpuPlayer.fixedUpdate();
-            return;
+            //cpuPlayer.fixedUpdate();
+            //return;
         }
 
 
