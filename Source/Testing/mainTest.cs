@@ -130,6 +130,10 @@ public class mainTest : MonoBehaviour
                 teamName = teamDesc[0];
                 playersDesc = teamDesc[12].Split('|');
 
+                if (teamName.Contains("CUSTOMIZE") ||
+                    teamName.Contains("Customize"))
+                    continue;
+
                 //if (teamAlreadyChecked.ContainsKey(teamName))
                 //    continue;
 
@@ -452,6 +456,11 @@ public class mainTest : MonoBehaviour
                 teamDesc = teams.getTeamByIndex(j);
                 teamName = teamDesc[0];
 
+
+                if (teamName.Contains("CUSTOMIZE") ||
+                    teamName.Contains("Customize"))
+                    continue;
+
                 string defense = teamDesc[1];
                 string attack = teamDesc[2];
                 string index = teamDesc[3];
@@ -711,7 +720,7 @@ public class mainTest : MonoBehaviour
                 string fansFlagName = stadiumColors[2];
 
                 string fansPath =
-                    "stadium/fans_" + fansColor;
+                    "stadium/fans/" + fansColor + "_1";
                 Texture2D texturePeople =
                     graphics.getTexture(fansPath);
                 if (texturePeople == null)
@@ -722,18 +731,21 @@ public class mainTest : MonoBehaviour
                              + " fansPath " + fansPath);
                 }
 
-                string bannerPath =
-                    "stadium/banner_" + bannerColor;
-                Texture2D textureBanner =
-                    graphics.getTexture(bannerPath);
-                if (textureBanner == null)
-                {
-                    print("#DBG_ERROR_TEAMS gloveMaterial cannot be LOADED"
-                    + " teamName " + teamName
-                    + " League " + leagueName
-                    + " bannerPath " + bannerPath);
-                }
 
+                for (int num = 1; num <= 4; num++)
+                {
+                    string bannerPath =
+                        "stadium/wallsFlag/banner_" + bannerColor + "_" + num.ToString();
+                    Texture2D textureBanner =
+                        graphics.getTexture(bannerPath);
+                    if (textureBanner == null)
+                    {
+                        print("#DBG_ERROR_TEAMS banner cannot be LOADED"
+                        + " teamName " + teamName
+                        + " League " + leagueName
+                        + " bannerPath " + bannerPath);
+                    }
+                }
            
                 for (int flagRand = 1; flagRand < 5; flagRand++)
                 {
