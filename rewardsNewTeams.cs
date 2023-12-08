@@ -107,6 +107,9 @@ public class rewardsNewTeams : MonoBehaviour
         unlockedTeamsList = teams.getJustUnlockedTeamsIndexes();
         teams.saveJustUnlockedTeamsToPrefabs();
 
+        if (Globals.is_app_paid == true)
+            unlockedTeamsList.Clear();
+
         if (unlockedTeamsList.Count > 0)
         {
             activePrize = 0;

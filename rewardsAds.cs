@@ -79,6 +79,8 @@ public class rewardsAds : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("STREET"))
             loadSceneName = "gameScene";
 
+
+        Debug.Log("loadSceneName " + loadSceneName);
         //// if (!Globals.cpuGoalSize.Equals("STANDARD"))
         ////  {
         //||
@@ -225,6 +227,9 @@ public class rewardsAds : MonoBehaviour
 
     public void onClickWatchRewardAdButton(string eventName)
     {
+        if (Globals.is_app_paid) return;
+
+
         if (admobAdsScript.showRewardAd()) {
             waitingForAddEvent = true;
             admobCanvas.SetActive(true);

@@ -113,7 +113,7 @@ public class admobAdsScript : MonoBehaviour
 
     private void RequestBanner()
     {    
-        //print("DEBUGADMONB1 banner request");
+        print("DEBUGADMONB1 banner request");
         string adUnitId  = "";
 
 
@@ -550,7 +550,8 @@ public class admobAdsScript : MonoBehaviour
 
     public bool hideBanner()
     {
-        Debug.Log("hide banner");
+        Debug.Log("DEBUGADMONB1 hide banner " + bannerView);
+        //Debug.Log("hide banner");
         if (bannerView != null)
             bannerView.Hide();
 

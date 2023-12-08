@@ -21,8 +21,8 @@ public class setTextures : MonoBehaviour
     private int wallsAdsMaterialIdx = 0;
     //private int wallsAdsMaterialIdx = 3;
     private float wallsAdsChangTime = 10f;
-    private int MAX_WALLS_ADS = 4;
-    private int MAX_GROUNDS = 3;
+    private int MAX_WALLS_ADS = 3;
+    private int MAX_GROUNDS = 2;
     private int MAX_FLARES = 3;
     private Color[] wallsAdsTopMaterialColors;
     public ParticleSystem[] flareParticle;
@@ -56,9 +56,9 @@ public class setTextures : MonoBehaviour
          { "st_080_bg_field", "#9B9F9A" },*/
          { "GrassShader_2", "#AEB03C" },
          //{ "st_060_bg_field", "#ADCC8C" },
-         { "GrassShader_1", "#FFFFFF" },
+         //{ "GrassShader_1", "#FFFFFF" },
          { "GrassShader_3", "#FFB9B9" },
-         { "GrassShader_4", "#FFB9B9" }
+         //{ "GrassShader_4", "#FFB9B9" }
          //{ "st_060_bg_field", "#667779" }    
          //"Ground/Material/st_061_bg_field",        
          //"Ground/Material/st_070_bg_field",
@@ -180,11 +180,12 @@ public class setTextures : MonoBehaviour
         } else if ((randWheather == 3) ||
                    (randWheather == 2))
         {
-            rainParticle[0].Play();
+            if (UnityEngine.Random.Range(0, 3) == 1)
+                rainParticle[0].Play();
             return 0;
         } else
         {
-            if (UnityEngine.Random.Range(0, 3) == 1)
+            if (UnityEngine.Random.Range(0, 5) == 1)
                 snowParticle[0].Play();
             return 1;
         }
@@ -309,8 +310,8 @@ public class setTextures : MonoBehaviour
             randGround = 0;
 
         //prefer first two grasses
-        if (randGround >= 2 && UnityEngine.Random.Range(0, 2) == 1)
-            randGround = UnityEngine.Random.Range(0, 2);
+        if (randGround > 0 && UnityEngine.Random.Range(0, 3) <= 1)
+            randGround = 0;
         //if c)
         //    randGround = 2;
         //TOREMOVE
@@ -351,7 +352,8 @@ public class setTextures : MonoBehaviour
         //color.a = 0.7f;
         wallsAdsTopMaterialColors[0] = color;
 
-        ColorUtility.TryParseHtmlString("#0A174B", out color);
+        ColorUtility.TryParseHtmlString("#dfb60a", out color);
+        //ColorUtility.TryParseHtmlString("#0A174B", out color);
         //color.a = 0.7f;
         wallsAdsTopMaterialColors[1] = color;
 
@@ -359,9 +361,9 @@ public class setTextures : MonoBehaviour
         //color.a = 0.7f;
         wallsAdsTopMaterialColors[2] = color;
 
-        ColorUtility.TryParseHtmlString("#dfb60a", out color);
+        //ColorUtility.TryParseHtmlString("#dfb60a", out color);
         //color.a = 0.7f;
-        wallsAdsTopMaterialColors[3] = color;
+        //wallsAdsTopMaterialColors[3] = color;
     }
 
     private void setWallsAdsTexture()
@@ -378,11 +380,11 @@ public class setTextures : MonoBehaviour
         wallsAdsTexture[0] = graphics.getTexture(
             "wallsAds/banner1");
         wallsAdsTexture[1] = graphics.getTexture(
-            "wallsAds/banner2");
+            "wallsAds/banner4");
         wallsAdsTexture[2] = graphics.getTexture(
             "wallsAds/banner3");
-        wallsAdsTexture[3] = graphics.getTexture(
-            "wallsAds/banner4");
+        //wallsAdsTexture[3] = graphics.getTexture(
+        //    "wallsAds/banner4");
     }
 
     private void setPlayersTextures()

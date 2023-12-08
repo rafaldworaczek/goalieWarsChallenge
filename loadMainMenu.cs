@@ -37,6 +37,9 @@ public class loadMainMenu : MonoBehaviour
             Debug.logger.logEnabled = false;
         #endif
 
+        if (Globals.IS_PHONE_DEBUG)
+            Debug.logger.logEnabled = true;
+
         langMenuPanel.SetActive(false);
         Languages.initLangs();
 
@@ -105,6 +108,14 @@ public class loadMainMenu : MonoBehaviour
             PlayerPrefs.SetInt("numGameOpen", nGameOpen);
             PlayerPrefs.Save();
 
+            Debug.Log("goalieMode " + PlayerPrefs.GetInt("trainingModeIdx"));
+
+            if (!PlayerPrefs.HasKey("goalieMode"))
+            {
+                PlayerPrefs.SetInt("trainingModeIdx", 1);
+                PlayerPrefs.SetInt("goalieMode", 1);
+                PlayerPrefs.Save();
+            }
             teams.addTeamtoPrefabs(0);           
         }
         else /*Game open first time*/
@@ -117,7 +128,7 @@ public class loadMainMenu : MonoBehaviour
 
             //Globals.customizeTeamName = "CUSTOMIZE_TEAM_NOT_CREATED";
             //Globals.customizePlayerName = "CUSTOMIZE_PLAYER_NOT_CREATED";
-
+    
             Globals.coins = 0;
             PlayerPrefs.SetInt("coins", 0);
             PlayerPrefs.Save();            
@@ -128,7 +139,7 @@ public class loadMainMenu : MonoBehaviour
             PlayerPrefs.SetString("ONLINE_USERNAME", Globals.getRandomStr(8));
             PlayerPrefs.Save();
         }
-
+    
         if (PlayerPrefs.HasKey("audioMute"))
         {
             int audioMute = PlayerPrefs.GetInt("audioMute");
@@ -157,6 +168,12 @@ public class loadMainMenu : MonoBehaviour
         else
         {
             Globals.diamonds = 2000;
+            if (Globals.is_app_paid)
+            {
+                Globals.diamonds = 14000;
+                Globals.coins = 10000;
+                PlayerPrefs.SetInt("coins", Globals.coins);
+            }
             PlayerPrefs.SetInt("diamonds", Globals.diamonds);
             PlayerPrefs.Save();
         }

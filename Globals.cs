@@ -16,11 +16,14 @@ namespace GlobalsNS
         public static bool isPhotoModeEnable = false;
         public static int MAX_POWERS = 10;
         public static int MAX_SELECTED = 3;
+        public static bool PRO_MODE = false;
         public static bool adsEnable = true;
+        public static bool is_app_paid = false;
         public static int MIN_COINS_PLAY_ONLINE = 10;
         public static string multiplayer_lastGameName = String.Empty;
         //GRASS, INDOOR, STREET
-        public static string PITCHTYPE = "INDOOR";
+        public static string PITCHTYPE = "GRASS";
+        public static bool IS_PHONE_DEBUG = false;
         //public static string PITCHTYPE = "GRASS";
         public static bool promotionShowed = false;
 
