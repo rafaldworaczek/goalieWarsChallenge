@@ -297,7 +297,7 @@ public class gameSettings : MonoBehaviour
         if (!isMultiplayer)
             disable3DModels();
 
-        //showPromotion();
+        showPromotion();
 
         popUpNoCoins.SetActive(false);
 
@@ -2808,9 +2808,9 @@ public class gameSettings : MonoBehaviour
         }
 
         if (Globals.isMultiplayer ||
-            (Globals.numGameOpened <= 3) ||
-            (PlayerPrefs.HasKey("showRemoveAdsPromo") &&
-            ((Globals.numGameOpened % 3) != 0))) {
+            (Globals.numGameOpened <= 1 && Globals.numMatchesInThisSession <= 2) ||
+            (PlayerPrefs.HasKey("showRemoveAdsPromo") && Globals.numMatchesInThisSession % 3 != 0)) 
+        {
         //if (PlayerPrefs.HasKey("showRemoveAdsPromo")) {
         //    if ((Globals.numGameOpened - PlayerPrefs.GetInt("showRemoveAdsPromo")) <= 5)
             //{
