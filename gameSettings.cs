@@ -297,7 +297,8 @@ public class gameSettings : MonoBehaviour
         if (!isMultiplayer)
             disable3DModels();
 
-        showPromotion();
+        if (!Globals.is_app_paid)
+            showPromotion();
 
         popUpNoCoins.SetActive(false);
 

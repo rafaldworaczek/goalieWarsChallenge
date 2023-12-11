@@ -976,7 +976,7 @@ public class teamManagement : MonoBehaviour
         }
         else
         {
-            if (!Globals.is_app_paid && (UnityEngine.Random.Range(0, 3) == 1 || !Globals.PITCHTYPE.Equals("GRASS")))
+            if (!Globals.is_app_paid && ((Globals.numMatchesInThisSession % 2 == 0) || !Globals.PITCHTYPE.Equals("GRASS")))
                 Globals.loadSceneWithBarLoader("specialShopOffers");
             else
                 Globals.loadSceneWithBarLoader("extraPowers");
