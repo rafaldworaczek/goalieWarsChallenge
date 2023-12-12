@@ -627,7 +627,8 @@ public class controllerRigid : MonoBehaviour
         gkCornerPoints = new Vector3(PITCH_WIDTH_HALF, 0f, -PITCH_HEIGHT_HALF);
         dummyTouchRotatedGO = new GameObject("touchRotatedGO");
 
-        Globals.numMatchesInThisSession++;
+        if (!isBonusActive)
+            Globals.numMatchesInThisSession++;
 
         /*moved to setTextures*/
         //updateTrainingSettings();
@@ -851,7 +852,7 @@ public class controllerRigid : MonoBehaviour
         else
         {
             //timeFactor = 60.0f;
-            timeFactor = 52.0f;
+            timeFactor = 45.0f;
         }
 
         string timeOfGame = Regex.Replace(Globals.matchTime, "[^0-9]", "");
@@ -969,7 +970,6 @@ public class controllerRigid : MonoBehaviour
         matchSavePos = rb.transform.position;
         matchInitSavePos = false;
         //print("maxTimeToShotDBG2 START" + maxTimeToShot);
-
 
         Analytics.enabled = true;
 
@@ -5361,7 +5361,7 @@ public class controllerRigid : MonoBehaviour
         if (!Globals.isMultiplayer)
             return;
 
-        Globals.matchTime = "90 SECONDS";
+        Globals.matchTime = "55 SECONDS";
         Globals.playerPlayAway = false;
         Globals.level = UnityEngine.Random.Range(2, Globals.MAX_LEVEL + 1);
         Globals.isTrainingActive = false;
