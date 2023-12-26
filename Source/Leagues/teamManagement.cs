@@ -976,7 +976,9 @@ public class teamManagement : MonoBehaviour
         }
         else
         {
-            if (!Globals.is_app_paid && ((Globals.numMatchesInThisSession % 2 == 0) || !Globals.PITCHTYPE.Equals("GRASS")))
+
+            //if (!Globals.is_app_paid && ((Globals.numMatchesInThisSession % 2 == 0) || !Globals.PITCHTYPE.Equals("GRASS")))
+            if (!Globals.is_app_paid)
                 Globals.loadSceneWithBarLoader("specialShopOffers");
             else
                 Globals.loadSceneWithBarLoader("extraPowers");

@@ -388,8 +388,8 @@ public class MatchTableMain : MonoBehaviour
     {
         if (admobGameObject != null &&
             admobAdsScript != null &&
-            Globals.adsEnable &&
-            Globals.numMatchesInThisSession > 0)
+            Globals.adsEnable)
+            //Globals.numMatchesInThisSession > 0)
         {
             if (admobAdsScript.showInterstitialAd())
             {

@@ -1497,11 +1497,11 @@ public class controllerRigid : MonoBehaviour
 
             //photo_3DVolley();
             //photo_save1();
-            //photo_save2();
+            photo_save2();
             //photo_save3();
 
-            //cpuPlayer.fixedUpdate();
-            //return;
+            cpuPlayer.fixedUpdate();
+            return;
         }
 
 

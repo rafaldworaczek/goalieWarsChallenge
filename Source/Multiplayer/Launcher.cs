@@ -34,7 +34,7 @@ namespace Com.Osystems.GoalieStrikerFootball
         private AudioManager audioManager;
         private bool isEnergyChange = false;
         public gameSettings GameSettings;
-        private float maxWaitTime = 15f;
+        private float maxWaitTime = 12f;
         private string lastActionType = "random";
         private string lastRoomName = "random";
 

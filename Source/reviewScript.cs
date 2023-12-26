@@ -23,7 +23,7 @@ public class reviewScript : MonoBehaviour
         if (Globals.reviewDisplayed ||
             (Globals.numGameOpened <= 1 && Globals.numMatchesInThisSession <= 2) ||
             (Globals.numGameOpened > 1 && Globals.numMatchesInThisSession != 1) ||
-            (Globals.numGameOpened <= 1 && Globals.numMatchesInThisSession != 3) ||
+            (Globals.numGameOpened <= 1 && Globals.numMatchesInThisSession != 4) ||
             (PlayerPrefs.GetInt("appReview_ButtonYesClicked") != 0) ||
             (PlayerPrefs.GetInt("appReview_DontAskAgainClicked") != 0))
         {
