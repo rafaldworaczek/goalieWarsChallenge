@@ -12,16 +12,12 @@ public class dailyBonus : MonoBehaviour
     public TextMeshProUGUI notificationText;
     public TextMeshProUGUI notificationTextHeader;
     public RawImage notificationImage;
-    public GameObject showPromotion;
-    private bool isShowPromotion = false;
     private TextMeshProUGUI currentCoinsText;
     private TextMeshProUGUI currentDiamondsText;
 
     void Awake()
     {
-        bool isShowPromotion = showPromotion.activeSelf;
         dailyBonusCanvas.SetActive(false);
-        showPromotion.SetActive(false);
     }
 
     void Start()
@@ -29,6 +25,9 @@ public class dailyBonus : MonoBehaviour
         int randBonus = UnityEngine.Random.Range(0, 2);
         int coins = 50;
         int diamond = 50;
+
+        if (!checkIfEnoughTimePassed())
+            return;
 
         notificationTextHeader.text = Languages.getTranslate("Daily Bonus");
         if (randBonus == 0)
@@ -53,13 +52,13 @@ public class dailyBonus : MonoBehaviour
         dailyBonusCanvas.SetActive(true);
         updateGlobalCoinsText();
         updateGlobalDiamondText();
+
+        Globals.dailyBonusShowed = true;
     }
 
     public void onClickClose()
     {
-        dailyBonusCanvas.SetActive(false);
-        if (isShowPromotion)
-            showPromotion.SetActive(true);
+        dailyBonusCanvas.SetActive(false);  
     }
 
     private void updateGlobalCoinsText()
@@ -75,4 +74,30 @@ public class dailyBonus : MonoBehaviour
         if (currentDiamondsText != null )
             currentDiamondsText.text = Globals.diamonds.ToString();
     }
+
+    private bool checkIfEnoughTimePassed()
+    {
+        if (Globals.dailyBonusShowed == true ||
+            Globals.numGameOpened <= 1 ||
+            !PlayerPrefs.HasKey("dailyBonus_epochTime"))            
+            return false;
+
+        //Show daily bonus every 8 hours
+        int prevTimeSeconds = PlayerPrefs.GetInt("dailyBonus_epochTime");
+        int currTimeSeconds = Globals.getEpochTimeInSeconds();
+
+        Debug.Log("#DBGtime prevTimeSeconds " + prevTimeSeconds);
+        Debug.Log("#DBGtime currTimeSeconds " + currTimeSeconds);
+
+        //every 8 hours
+        if (currTimeSeconds - prevTimeSeconds > 28800)
+        {
+            PlayerPrefs.SetInt("dailyBonus_epochTime", currTimeSeconds);
+            return true;
+        }
+
+        return false;
+    }
+
+
 }
