@@ -2282,7 +2282,17 @@ namespace LANGUAGE_NS
                 "PROFISSIONAL",
                 "",
              },
-
+              new string[] {
+                //EN
+                "Daily Bonus",
+                //PL
+                "Bonus Dzienny",
+                //ES
+                "Bonus Diario",
+                //PT
+                "Bonus Diario\r\n",
+                "",
+             },
 
         };        
     }
