@@ -580,7 +580,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "blue",
                  //Marc Junior
-                "Marc Junior:Spain:60:60:U:0:f0_s4_b0_t0_hblack13|" +
+                "Marc Junior:Spain:60:60:U:0:f5_s4_b0_t0_hblack5|" +
 
 
                  //Pacheco Fernando gk
@@ -644,7 +644,7 @@ namespace MenuCustomNS
                  "hair_19",
                  "green",
                 //Jorge Junior
-                "Jorge Junior:Spain:60:60:U:0:f4_s1_b0_t0_hblack12|" +
+                "Jorge Junior:Spain:60:60:U:0:f0_s4_b0_t0_hblack13|" +
                
                 //Bravo Claudio gk
                 "Klaus Brovis:Chile:81:65:L:5000:f5_s4_b0_t0_hblack5|" +
@@ -658,7 +658,7 @@ namespace MenuCustomNS
                 "Kris Talleo:Spain:69:75:L:5600:f9_s1_b0_t0_hblack1|" +
                  //Iglesias Borja att
                 "Berho Ilasiens:Spain:73:84:L:5900:f0_s4_b2_t5_hblack5",
-                "shoegreen",
+                "shoered",
                 "glovegreenwhite"},
              new string[] {
                  "Customize Team",

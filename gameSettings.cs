@@ -489,7 +489,7 @@ public class gameSettings : MonoBehaviour
         {
             leagueNames = nonCupNames;
             leagueAIdx = 0;
-            currATeamIdx = 0;
+            currATeamIdx = 1;
         }
         else
         {
@@ -956,7 +956,7 @@ public class gameSettings : MonoBehaviour
     {
         leagueAIdx = 0;
         leagueBIdx = 0;
-        currATeamIdx = 0;
+        currATeamIdx = 1;
         currBTeamIdx = 10;
 
         //print("DBGTOURNAMENT23 GLOBAL GAMETYEP " + Globals.gameType);
@@ -967,7 +967,7 @@ public class gameSettings : MonoBehaviour
             {
                 leagueAIdx = 4;
                 leagueBIdx = 4;
-                currATeamIdx = 0;
+                currATeamIdx = 1;
                 currBTeamIdx = 3;
             }
         } else if (Globals.gameType.Equals("CUP"))
@@ -2553,7 +2553,7 @@ public class gameSettings : MonoBehaviour
     {
         if (!isMultiplayer)
         {
-            currATeamIdx = 0;
+            currATeamIdx = 1;
             currBTeamIdx = 1;
         }
 
