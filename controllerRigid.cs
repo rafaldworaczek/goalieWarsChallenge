@@ -6615,6 +6615,10 @@ public class controllerRigid : MonoBehaviour
                 /*if no correct towards ball rotation 
                  * was not found (what may happen when you are close to goal) don't rotate them at all*/
                 rotatedRbToBall.transform.eulerAngles = Vector3.zero;
+                //workaround for cpu
+                if (rb.transform.position.z > 0f)
+                    rotatedRbToBall.transform.eulerAngles = new Vector3(0f, 180f, 0f);
+
                 return Vector3.zero;
             }
         }
@@ -6776,6 +6780,28 @@ public class controllerRigid : MonoBehaviour
 
         if (endPosOrg.y < ballRadius)
             endPosOrg.y = ballRadius;
+
+        if (isLobActive && !isCpu)
+        {
+            //Workaround to make it easier for cpu to save lob shoot
+            //if (UnityEngine.Random.Range(0, 5) <= 3)
+            //{
+            //Debug.Log("GKLOGPOSITION before endPosOrg " + endPosOrg);
+                if (endPosOrg.y >= 2.8f && endPosOrg.y <= 3.3f)
+                { 
+                    endPosOrg.y = UnityEngine.Random.Range(2.5f, 2.6f);
+                }
+                else if (endPosOrg.y >= 2.50f && endPosOrg.y < 2.8f)
+                {
+                    endPosOrg.y = UnityEngine.Random.Range(2.4f, 2.5f);
+                }
+            //Debug.Log("GKLOGPOSITION after endPosOrg " + endPosOrg);
+
+            //}
+
+            //if (endPosOrg.y > 2.0f)
+            //    endPosOrg.y = 2.0f;
+        }
 
         /* Shot straight */ /*CHANGE TO 0.5f back */
         if (distMidFromLine <= 1.0f && !isLobActive)
@@ -6976,6 +7002,9 @@ public class controllerRigid : MonoBehaviour
 
             outStartPos = ballInitPos;
             outEndPos = endPosOrg;
+
+  
+
 
             type = SHOTVARIANT.CURVE;
             //if (!isCpu)
@@ -9138,7 +9167,8 @@ public class controllerRigid : MonoBehaviour
         * is out of curve end.
         * This should happen only in a case of lob shot*/
         //Debug.Log("GKLOGPOSITION realHitPosition calculated local " + realHitPlaceLocal
-        //    + " rotatedRb " + rotatedRb.transform.eulerAngles);
+        //       + " rotatedRb " + rotatedRb.transform.eulerAngles
+        //       + " rotatedpos " + rotatedRb.transform.position);
 
         if (Mathf.Abs(realHitPlaceLocal.z) > 0.5f)
         {
@@ -9368,7 +9398,7 @@ public class controllerRigid : MonoBehaviour
                           ballRb[activeBall].transform.position.z - rb.transform.position.z);
 
         Vector3 lobPointToGo = moveOutFromWall(
-                               ballRb[activeBall].transform.position, shotEndPos, 1.2f);
+                               ballRb[activeBall].transform.position, shotEndPos, 0.3f);
 
         float dist = Vector3.Distance(rb.transform.position,
                                       lobPointToGo);
@@ -11937,27 +11967,28 @@ public class controllerRigid : MonoBehaviour
             case 5:
                 //backSpeed = UnityEngine.Random.Range(8.5f, Mathf.Max(8.6f, speed));
                 if (rand != 0)
-                    backSpeed = Mathf.Max(8.5f, speed);
+                    backSpeed = Mathf.Max(8.8f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(7.5f, Mathf.Max(7.6f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.7f, Mathf.Max(7.75f, speed * 0.8f));
+
                 break;
             case 4:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(8.2f, speed);
+                    backSpeed = Mathf.Max(8.5f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(7.4f, Mathf.Max(7.45f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.5f, Mathf.Max(7.55f, speed * 0.8f));
                 break;
             case 3:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(8.0f, speed);
+                    backSpeed = Mathf.Max(8.3f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(7.30f, Mathf.Max(7.4f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.40f, Mathf.Max(7.45f, speed * 0.8f));
                 break;
             case 2:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(7.9f, speed);
+                    backSpeed = Mathf.Max(8.1f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(7.1f, Mathf.Max(7.2f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.3f, Mathf.Max(7.35f, speed * 0.8f));
                 break;
             default:
                 backSpeed = UnityEngine.Random.Range(4.0f, Mathf.Max(4.1f, speed * 0.8f));
