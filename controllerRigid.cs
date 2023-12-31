@@ -1489,7 +1489,7 @@ public class controllerRigid : MonoBehaviour
     {
         
 
-        if (Globals.isPhotoModeEnable) {
+        /*if (Globals.isPhotoModeEnable) {
             if (!gameStarted)
             {
                 return;
@@ -1497,12 +1497,12 @@ public class controllerRigid : MonoBehaviour
 
             //photo_3DVolley();
             //photo_save1();
-            photo_save2();
+            //photo_save2();
             //photo_save3();
 
-            cpuPlayer.fixedUpdate();
-            return;
-        }
+            //cpuPlayer.fixedUpdate();
+            //return;
+        }*/
 
 
         curveStartPos3 = new Vector3(0, 0, -14f);
@@ -5233,7 +5233,8 @@ public class controllerRigid : MonoBehaviour
             !gameStarted ||
             isGamePaused() ||
             (!isGkTrainingActive() && (Globals.isTrainingActive || isBonusActive)) ||
-            cpuPlayer.getShotActive())
+            cpuPlayer.getShotActive() ||
+            playerDirection != Vector3.zero)
             return;
 
         if (isAnimatorPlaying(animator)) return;
@@ -5254,7 +5255,8 @@ public class controllerRigid : MonoBehaviour
             !gameStarted ||
             isGamePaused() ||
             (!isGkTrainingActive() && (Globals.isTrainingActive || isBonusActive)) ||
-            cpuPlayer.getShotActive())
+            cpuPlayer.getShotActive() ||
+            playerDirection != Vector3.zero)
             return;
 
         if (isAnimatorPlaying(animator)) return;
@@ -5273,7 +5275,8 @@ public class controllerRigid : MonoBehaviour
             !gameStarted ||
             isGamePaused() ||
             (!isGkTrainingActive() && (Globals.isTrainingActive || isBonusActive)) ||
-            cpuPlayer.getShotActive())
+            cpuPlayer.getShotActive() ||
+            playerDirection != Vector3.zero)
             return;
 
         //if (isTrainingActive &&
@@ -5298,7 +5301,8 @@ public class controllerRigid : MonoBehaviour
             !gameStarted ||
             isGamePaused() ||
             (!isGkTrainingActive() && (Globals.isTrainingActive || isBonusActive)) ||
-            cpuPlayer.getShotActive())
+            cpuPlayer.getShotActive() ||
+            playerDirection != Vector3.zero)
             return;
 
         //isAnyAnimationPlaying = checkIfAnyAnimationPlaying(animator, 1.0f);
@@ -6619,7 +6623,8 @@ public class controllerRigid : MonoBehaviour
     /*This function try to rotate object to look in direction as close to ball as 
      * possible by checking all points that are on left and right side of ball. 
      * It takes too corner points and check if that points are in a back rotated
-     * object.*/
+     * object.
+     * is that method working ?! */
     public Vector3 calcGkCorrectRotationToBall(Vector3 ballPos,
                                                Rigidbody rb,
                                                ref GameObject rotatedRbToBall,
@@ -6653,7 +6658,6 @@ public class controllerRigid : MonoBehaviour
             {
                 rotateGameObjectTowardPoint(ref rotatedRbToBall, tmpBall, 1.0f);
                 if (!isInFront(rotatedRbToBall, cornerPoint))
-
                 {
                     return tmpBall;
                 }
@@ -8467,6 +8471,8 @@ public class controllerRigid : MonoBehaviour
         }
         else
         {
+
+            //ISCPU
             //if (ballRb[activeBall].transform.position.z > Mathf.Abs(PITCH_HEIGHT_HALF))
             //    return;
 
@@ -8489,20 +8495,28 @@ public class controllerRigid : MonoBehaviour
             //{
 
             if (!isLobActive)
+            {
                 rotatedRbToBall = getRotatedRbToBall(getBallInit(),
                                                      rb,
                                                      ref rotatedRbToBall,
                                                      cornerPoints);
+            }
             else
             {
                 /*if you already found correct position doesn't rotate any longer*/
                 if (!gkLobPointReached)
-                    calcGkCorrectRotationToBall(//ballRb[activeBall].transform.position,
+                {
+                    /*calcGkCorrectRotationToBall(//ballRb[activeBall].transform.position,
                                                 getBallInit(),
                                                 rb,
                                                 ref rotatedRbToBall,
                                                 endPosOrg.x,
-                                                endPosOrg.z);
+                                                endPosOrg.z);*/
+                    rotatedRbToBall = getRotatedRbToBall(getBallInit(),
+                                                rb,
+                                                ref rotatedRbToBall,
+                                                cornerPoints);
+                }
             }
 
             //if (gkLobPointReached)
@@ -8567,7 +8581,7 @@ public class controllerRigid : MonoBehaviour
             if (isLobActive)
             {
                 if (rb.position.z > 9f &&
-                    !isShotOnTarget(endPosOrg, goalSizesCpu * 1.1f))
+                    !isShotOnTarget(endPosOrg, goalSizesCpu * 1.2f))
                 {
                     rb.velocity = Vector3.zero;
                     RblookAtBall(rb, 10f);
@@ -8615,6 +8629,8 @@ public class controllerRigid : MonoBehaviour
                 gkRunPosReached = true;
             }
 
+
+            //Debug.Log("GKLOGPOSITION " + localSpace + " shotvariant " + shotvariant);
             /*print("DEBUG2345ANIMPLAY gkRunPosReached " + gkRunPosReached
                 + " HITPOINT "
                 + hitPointWorld + " TIMEZ " + timeToHitZ
@@ -9121,6 +9137,9 @@ public class controllerRigid : MonoBehaviour
         /*Rb and curve don't intersect. Rb might be rotated such way that intersection points 
         * is out of curve end.
         * This should happen only in a case of lob shot*/
+        //Debug.Log("GKLOGPOSITION realHitPosition calculated local " + realHitPlaceLocal
+        //    + " rotatedRb " + rotatedRb.transform.eulerAngles);
+
         if (Mathf.Abs(realHitPlaceLocal.z) > 0.5f)
         {
             //print("GKDEBUG800ERROR1 NO INTERSECTION FIRS TIME "
@@ -9246,6 +9265,8 @@ public class controllerRigid : MonoBehaviour
                                float speed,
                                float backRunSpeed)
     {
+
+
         bool isGoFotwardToBallActive =
          (isGkTooFarToCatch || (initDistX > 8f && distX > 4f && timeToHitZ > 0.35f));
 
@@ -9254,6 +9275,8 @@ public class controllerRigid : MonoBehaviour
            + " timeToHitZ " + timeToHitZ + " angle " + " rb rotation " + rb.transform.eulerAngles 
            +  " rotatedBall " + rotatedRbToBall.transform.eulerAngles 
            + " "
+           + " ballHitPoint "
+           + ballHitPoint
            + getAngleBeetweenObjects(rb, rotatedRbToBall));*/
 
 
@@ -9391,6 +9414,8 @@ public class controllerRigid : MonoBehaviour
 
         //if (Mathf.Abs(rb.transform.position.z) >= 10.0f)
         backRunSpeed = getBackSpeed(Globals.level, speed);
+        //Debug.Log("GKLOGPOSITION getbackspeed " + backRunSpeed);
+
 
         goBackwardToPoint(rb,
                           animator,
@@ -11918,21 +11943,21 @@ public class controllerRigid : MonoBehaviour
                 break;
             case 4:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(8.0f, speed);
+                    backSpeed = Mathf.Max(8.2f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(7.0f, Mathf.Max(7.1f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.4f, Mathf.Max(7.45f, speed * 0.8f));
                 break;
             case 3:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(7.5f, speed);
+                    backSpeed = Mathf.Max(8.0f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(6.5f, Mathf.Max(6.5f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.30f, Mathf.Max(7.4f, speed * 0.8f));
                 break;
             case 2:
                 if (rand != 0)
-                    backSpeed = Mathf.Max(6.5f, speed);
+                    backSpeed = Mathf.Max(7.9f, speed);
                 else
-                    backSpeed = UnityEngine.Random.Range(6.0f, Mathf.Max(6.1f, speed * 0.8f));
+                    backSpeed = UnityEngine.Random.Range(7.1f, Mathf.Max(7.2f, speed * 0.8f));
                 break;
             default:
                 backSpeed = UnityEngine.Random.Range(4.0f, Mathf.Max(4.1f, speed * 0.8f));
