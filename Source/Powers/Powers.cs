@@ -138,7 +138,7 @@ public class Powers : MonoBehaviour
         playerMainScript = GameObject.Find("playerDown").GetComponent<controllerRigid>();
 
 
-        if (Globals.PITCHTYPE.Equals("STREET") ||
+        if (
             (Globals.stadiumNumber == 2))
             return;
 
@@ -1215,7 +1215,7 @@ public class Powers : MonoBehaviour
     {
         powerChoosen = new bool[MAX_POWERS + 1];
 
-        if (Globals.PITCHTYPE.Equals("STREET") ||
+        if (
             (Globals.stadiumNumber == 2))
         {
             funcList.Add(twoExtraGoals);
@@ -1249,7 +1249,7 @@ public class Powers : MonoBehaviour
 
         if ((Globals.stadiumNumber == 0) &&
             (!Globals.isMultiplayer) &&
-            (!Globals.PITCHTYPE.Equals("STREET")))
+            (Globals.stadiumNumber != 2))
         {
 
             string selectedPowers = PlayerPrefs.GetString("POWERS_SELECTED");
@@ -1271,7 +1271,7 @@ public class Powers : MonoBehaviour
         else
         //its sport hall or multiplayer
         {
-            if (!Globals.PITCHTYPE.Equals("STREET") &&
+            if (
                 (Globals.stadiumNumber != 2))
             {
                 powerChoosen[0] = true;

@@ -17842,7 +17842,7 @@ PrefabInstance:
     - target: {fileID: 2300002, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 334533480cc2f9c4eb9c65448d5cac61, type: 2}
+      objectReference: {fileID: 2100000, guid: 3bcf68eda375bfa4e87f6c0e6ebb1629, type: 2}
     m_RemovedComponents:
     - {fileID: 2300000, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5f74daffa2d3cfe4893a8c4955962556, type: 3}
@@ -25858,6 +25858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerUp: {fileID: 490796200}
+  playerUpGameObject: {fileID: 0}
   setTextureScript: {fileID: 2021328216}
   gamePausedScript: {fileID: 1087921962}
   joystick: {fileID: 374566494}
@@ -72116,7 +72117,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c3a80d8f625070449e7df8f8f5ea2f9, type: 2}
+  - {fileID: 2100000, guid: 19f4ea44024af2a4fa8489c7f87a2235, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79439,7 +79440,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2021328214}
   m_LocalRotation: {x: 0.034866273, y: 0.04359283, z: -0.0015222948, w: 0.9984396}
-  m_LocalPosition: {x: 0, y: 12, z: 9}
+  m_LocalPosition: {x: 0, y: 1, z: -9}
   m_LocalScale: {x: 3.708, y: 3.1255543, z: 3.1255562}
   m_Children: []
   m_Father: {fileID: 0}
@@ -80814,7 +80815,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a992c575f0e7d8b45a1098e3fe0c27d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.81
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a992c575f0e7d8b45a1098e3fe0c27d0, type: 3}
       propertyPath: m_LocalPosition.z

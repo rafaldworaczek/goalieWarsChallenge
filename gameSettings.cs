@@ -78,6 +78,7 @@ public class gameSettings : MonoBehaviour
     public GameObject yesNoMenuPanel;
     public GameObject chooseStadiumCanvas;
     public GameObject chooseStadiumCanvasIndoor;
+    public GameObject chooseStadiumCanvasStreet;
     public GameObject chooseStadiumCanvasPaid;
     public Button yesNoMenuNoAnswer;
     public Button yesNoMenuYesAnswer;
@@ -241,8 +242,9 @@ public class gameSettings : MonoBehaviour
         {
             chooseStadiumCanvas.SetActive(false);
             chooseStadiumCanvasIndoor.SetActive(false);
+            chooseStadiumCanvasStreet.SetActive(false);
         }
-         
+
         Globals.isGameSettingActive = true;
         if (!isMultiplayer)
         {
@@ -1527,9 +1529,10 @@ public class gameSettings : MonoBehaviour
         //Debug.Log("DBG1334 init stadium before " + Globals.teamBid);
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
-            Globals.stadiumNumber = 0;
+            //Globals.stadiumNumber = 0;
             Globals.commentatorStr = "NO";
-            loadGameScene();
+            //loadGameScene();
+            initChooseStadiumCanvas();
         }
         else
             initChooseStadiumCanvas();     
@@ -1544,14 +1547,22 @@ public class gameSettings : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("INDOOR")) {
             chooseStadiumCanvasIndoor.SetActive(true);
         } else {
-            chooseStadiumCanvas.SetActive(true);
+            if (Globals.PITCHTYPE.Equals("GRASS"))
+            {
+                chooseStadiumCanvas.SetActive(true);
+            } else
+            {
+                chooseStadiumCanvasStreet.SetActive(true);
+            }
         }
+
 
         if (Globals.is_app_paid == true)
         {
             chooseStadiumCanvasPaid.SetActive(true);
             chooseStadiumCanvas.SetActive(false);
             chooseStadiumCanvasIndoor.SetActive(false);
+            chooseStadiumCanvasStreet.SetActive(false);
         }
 
         /*print("#DBG1334 init choose stadiu Globals.teamAleague " 
@@ -1817,11 +1828,11 @@ public class gameSettings : MonoBehaviour
     {
         Globals.leagueName = leagueNames[leagueAIdx];
 
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        /*if (Globals.PITCHTYPE.Equals("STREET"))
         {
             Globals.stadiumNumber = 0;
             Globals.commentatorStr = "NO";
-        }
+        }*/
 
         if (Globals.isFriendly)
         {
@@ -2747,9 +2758,10 @@ public class gameSettings : MonoBehaviour
 
         if (Globals.PITCHTYPE.Equals("STREET"))
         {
-            Globals.stadiumNumber = 0;
-            Globals.commentatorStr = "NO";
-            loadGameScene();
+            //Globals.stadiumNumber = 0;
+            //Globals.commentatorStr = "NO";
+            //loadGameScene();
+            initChooseStadiumCanvas();
         }
         else
         {

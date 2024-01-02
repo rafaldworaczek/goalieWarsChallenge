@@ -265,7 +265,14 @@ namespace Com.Osystems.GoalieStrikerFootball
             if (PhotonNetwork.InRoom)
                 PhotonNetwork.LeaveRoom();
 
-            Globals.loadSceneWithBarLoader("gameScene");
+            if (Globals.PITCHTYPE.Equals("STREET"))
+            {
+                Globals.stadiumNumber = 2;
+                Globals.commentatorStr = "NO";
+                Globals.loadSceneWithBarLoader("gameSceneStreet");
+            }
+            else
+                Globals.loadSceneWithBarLoader("gameScene");
         }
 
         public void ConnectToPhoton()

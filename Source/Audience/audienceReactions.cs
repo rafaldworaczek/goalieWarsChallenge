@@ -15,7 +15,7 @@ public class audienceReactions : MonoBehaviour
     private int loopsCounter = 0;
     void Awake()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
 
@@ -24,7 +24,7 @@ public class audienceReactions : MonoBehaviour
 
     void Update()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         loopsCounter++;
@@ -55,7 +55,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playIdle()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -66,7 +66,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playApplause1()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -77,7 +77,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playApplause2()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -88,7 +88,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playCelebration1()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers) {
@@ -98,7 +98,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playCelebration2()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -109,7 +109,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playCelebration3()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -120,7 +120,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playRandomCelebration()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         int rand = 0;
@@ -133,7 +133,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playRandomApplause()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
@@ -146,7 +146,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playOneOfApplause(float playSeconds, float delayOffsetSeconds)
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         if (!lockPlayApplause)
@@ -155,7 +155,7 @@ public class audienceReactions : MonoBehaviour
 
     public void playRandom()
     {
-        if (Globals.PITCHTYPE.Equals("STREET"))
+        if (Globals.stadiumNumber == 2)
             return;
 
         foreach (Animation anim in AudienceMembers)
