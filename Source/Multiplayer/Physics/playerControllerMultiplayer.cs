@@ -39,8 +39,15 @@ public enum RPC_ACK
     BALL_IS_OUT_NEW_POS = 5
 }
 
+
+
 public class playerControllerMultiplayer : MonoBehaviour
 {
+    private Vector3 buffered_ball_vel;
+    private Vector3 buffered_ball_position;
+    private Vector3 buffered_ball_angular_velocity;
+    private bool buffered_ball_update = false;
+
     private bool GK_DEBUG = false;
     private bool GK_DEBUG_INIT = true;
     private bool SIMULATE_SHOT = false;
@@ -1182,7 +1189,7 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         rpcMain_updateTime = Time.time;
 
-        if (RPC_sequenceNumber[(int)RPC_ACK.BALL_POS_UPDATE] == packageSeqNumber) {
+        if (RPC_sequenceNumber[(int) RPC_ACK.BALL_POS_UPDATE] == packageSeqNumber) {
             //if (!peerPlayer.getIsBallOut())
             //{
             //print("#DBGBALLPOSITION packageSeqNumber received seq number " + packageSeqNumber + 
@@ -3669,7 +3676,6 @@ public class playerControllerMultiplayer : MonoBehaviour
         //        + " rb.transform " + rb.transform 
         //        + " ballPos "  + ballRb[activeBall].transform.position);
         //}
-
         updatePlayerVelocity();
         if (!photonView.IsMine)
         {
@@ -3783,6 +3789,10 @@ public class playerControllerMultiplayer : MonoBehaviour
 
         ///rpc_UpdatePos();
 
+
+        Debug.Log("BUFFEREDPOSITION fixedUpdate updateBallPosName " + updateBallPosName +
+        " isMine " + photonView.IsMine);
+
         corectBallPositionOnBall(rb,
                                  animator,
                                  rbRightToeBase,
@@ -3791,6 +3801,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                                  updateBallPos,
                                  updateBallPosName,
                                  false);
+        Debug.Log("BUFFEREDPOSITION AFTER fixedUpdate updateBallPosName " + updateBallPosName +
+                    " isMine " + photonView.IsMine);
 
         //print("###BallPos fixedUpdate 2 " + ballRb[activeBall].transform.position + " photonView " + photonView.IsMine);
 
@@ -5773,6 +5785,15 @@ public class playerControllerMultiplayer : MonoBehaviour
              //   ballRb[activeBall].transform.position);
             isUpdateBallPosActive = true;
             updateBallPosName = "rpcBallUpdate";
+
+            corectBallPositionOnBall(rb,
+                               animator,
+                               rbRightToeBase,
+                               rbRightFoot,
+                               ref isUpdateBallPosActive,
+                               updateBallPos,
+                               updateBallPosName,
+                               false);
             return;
         }
 
@@ -8099,14 +8120,24 @@ public class playerControllerMultiplayer : MonoBehaviour
                         isMaster);
         }
 
-        corectBallPositionOnBall(rb,
-                                 animator,
-                                 rbRightToeBase,
-                                 rbRightFoot,
-                                 ref isUpdateBallPosActive,
-                                 updateBallPos,
-                                 updateBallPosName,
-                                 false);
+        if (updateBallPosName.Equals("rpcBallUpdate") && buffered_ball_update)
+        {
+            ballRb[activeBall].velocity = buffered_ball_vel;
+            ballRb[activeBall].transform.position = buffered_ball_position;
+            ballRb[activeBall].angularVelocity = buffered_ball_angular_velocity;
+            buffered_ball_update = false;
+        }
+        else 
+        {
+            corectBallPositionOnBall(rb,
+                                     animator,
+                                     rbRightToeBase,
+                                     rbRightFoot,
+                                     ref isUpdateBallPosActive,
+                                     updateBallPos,
+                                     updateBallPosName,
+                                     false);
+        }
 
         if (photonView.IsMine)
         {
@@ -10164,13 +10195,21 @@ public class playerControllerMultiplayer : MonoBehaviour
                     if (bufferedBallPosCurrIdxPush != bufferedBallPosCurrIdxPop)
                     {
                         ballRb[activeBall].transform.position = bufferedBallPos[bufferedBallPosCurrIdxPop, 0];
-                        //print("BUFFEREDPOSITION " + bufferedBallPos[bufferedBallPosCurrIdxPop, 0] + " idx " +
-                        //    bufferedBallPos[bufferedBallPosCurrIdxPop, 3].x
-                        //+ " ballRb " + ballRb[activeBall].transform.position);
+                        print("BUFFEREDPOSITION " + bufferedBallPos[bufferedBallPosCurrIdxPop, 0] + " idx " +
+                            bufferedBallPos[bufferedBallPosCurrIdxPop, 3].x
+                        + " ballRb " + ballRb[activeBall].transform.position + " time " + Time.time
+                        + " bufferedBallPosCurrIdxPop " + bufferedBallPosCurrIdxPop
+                        + " bufferedBallPosCurrIdxPush " + bufferedBallPosCurrIdxPush
+                        + " photonView.isMine " + photonView.IsMine);
 
                         ballRb[activeBall].velocity = bufferedBallPos[bufferedBallPosCurrIdxPop, 1];
                         ballRb[activeBall].angularVelocity = bufferedBallPos[bufferedBallPosCurrIdxPop, 2];
                         bufferedBallPosCurrIdxPop++;
+
+                        buffered_ball_vel = ballRb[activeBall].velocity;
+                        buffered_ball_position = ballRb[activeBall].transform.position;
+                        buffered_ball_angular_velocity = ballRb[activeBall].angularVelocity;
+                        buffered_ball_update = true;
                     }
 
                     //print("#DBGBUFFER bufferPop " + ballRb[activeBall].velocity

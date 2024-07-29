@@ -878,7 +878,7 @@ public class ExtraPowers : MonoBehaviour
         admobAdsScript.setAdsClosed(false);
         admobAdsScript.setAdsFailed(false);
         admobAdsScript.setAdsRewardEarn(false);
-        showBanner();
+        //showBanner();
 
         //admobAdsScript.hideBanner();
     }
