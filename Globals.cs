@@ -26,7 +26,7 @@ namespace GlobalsNS
         public static bool IS_PHONE_DEBUG = false;
         //public static string PITCHTYPE = "GRASS";
         public static bool promotionShowed = false;
-
+        public static bool dailyBonusShowed = false;
         public static bool isAnalyticsEnable = true;
         public static bool isMultiplayer = false;
         public static bool isMultiplayerUpdate = false;
@@ -1293,6 +1293,11 @@ namespace GlobalsNS
         {
             Matrix4x4 worldToLocalMatrix = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one).inverse;
             return worldToLocalMatrix.MultiplyPoint3x4(position);
+        }
+
+        public static int getEpochTimeInSeconds()
+        {
+            return (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
         }
     }
 }

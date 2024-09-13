@@ -150,7 +150,7 @@ namespace AudioManagerNS
 
         public void Play(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET") ||
+            if (
                 (Globals.stadiumNumber == 2))
                 return;
 
@@ -181,7 +181,7 @@ namespace AudioManagerNS
 
         public void Play(string name, float volume)
         {
-            if (Globals.PITCHTYPE.Equals("STREET") ||
+            if (
                 (Globals.stadiumNumber == 2))
                 return;
 
@@ -1099,7 +1099,7 @@ namespace AudioManagerNS
 
         public void Stop(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET")||
+            if (
                (Globals.stadiumNumber == 2))
                 return;
 
@@ -1116,7 +1116,7 @@ namespace AudioManagerNS
 
         public bool isPlaying()
         {
-            if (Globals.PITCHTYPE.Equals("STREET") ||
+            if (
                (Globals.stadiumNumber == 2))
                 return false;
 
@@ -1129,7 +1129,7 @@ namespace AudioManagerNS
 
         private bool checkIfAnyCommentatorPlaying()
         {
-            if (Globals.PITCHTYPE.Equals("STREET") ||
+            if (
                (Globals.stadiumNumber == 2))
                 return false;
 
@@ -1145,7 +1145,7 @@ namespace AudioManagerNS
 
         public bool isPlayingByName(string name)
         {
-            if (Globals.PITCHTYPE.Equals("STREET") ||
+            if (
                 (Globals.stadiumNumber == 2))
                 return false;
 
