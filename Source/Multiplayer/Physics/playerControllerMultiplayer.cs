@@ -40,6 +40,24 @@ public enum RPC_ACK
 }
 
 
+public class bufferedBallPosition
+{
+    public Vector3 rpc_ball_position;
+    public Vector3 rpc_ball_velocity;
+    public Vector3 rpc_ball_angular_velocity;
+    public int packed_id;
+    public bool is_ball_out;
+    public float timestamp;
+}
+
+public class bufferedBallPositionComparator : IComparer<bufferedBallPosition>
+{
+    public int Compare(bufferedBallPosition x, bufferedBallPosition y)
+    {
+        // Higher priority should come first
+        return x.packed_id.CompareTo(y.packed_id);
+    }
+}
 
 public class playerControllerMultiplayer : MonoBehaviour
 {
@@ -134,6 +152,7 @@ public class playerControllerMultiplayer : MonoBehaviour
     private float shotPercent;
     private bool initPreShotRPC;
     private Vector3[,] bufferedBallPos = new Vector3[1100, 5];
+//    PriorityQueue<bufferedBallPosition> bufferedBallPositionQueue = new PriorityQueue<bufferedBallPosition>(new bufferedBallPositionComparator());
     private int bufferedBallPosCurrIdxPush = 0;
     private int bufferedBallPosCurrIdxPop = 0;
     private int bufferedBallPosMax = 1100;
@@ -1208,13 +1227,17 @@ public class playerControllerMultiplayer : MonoBehaviour
         if (mainUpdateType.Equals("B"))
         //isBallOnYourHalf(getPlayerPosition(), rpc_ballPos))
         {
+
+            //bufferedBallPosition.Enqueue(new PdfTask(rpc_ballPos, rpc_ballVelocity, rpc_ballAngularVelocity, packetId, rpc_isBallOut, Time.time));
+
+
             if (bufferedBallPosCurrIdxPush == bufferedBallPos.GetLength(0))
                 bufferedBallPosCurrIdxPush = 0;
 
             bufferedBallPos[bufferedBallPosCurrIdxPush, 0] = rpc_ballPos;
             bufferedBallPos[bufferedBallPosCurrIdxPush, 1] = rpc_ballVelocity;
             bufferedBallPos[bufferedBallPosCurrIdxPush, 2] = rpc_ballAngularVelocity;
-            bufferedBallPos[bufferedBallPosCurrIdxPush, 3].x = (float)packetId;
+            bufferedBallPos[bufferedBallPosCurrIdxPush, 3].x = (float) packetId;
 
             if (rpc_isBallOut)
             {
@@ -10229,7 +10252,8 @@ public class playerControllerMultiplayer : MonoBehaviour
                 }
                 else
                 {
-                    if (!rpc_isBallOut &&
+                   //if buffer is empty let the physics do a job
+                   if (!rpc_isBallOut &&
                        ((Time.time - rpcMain_updateTime) < 1.0f))
                     {
                         rpc_ballPredictedPos = rpc_ballPredictedPos + (rpc_ballVelocity * rpc_mainLag);
