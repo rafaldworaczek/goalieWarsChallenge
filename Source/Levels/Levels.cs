@@ -157,25 +157,28 @@ public class Levels : MonoBehaviour
 
     void setLevelSettings()
     {
-        setGlobalLevel(levelNumber);
-        setGlobalStadium(levelNumber);
-
+        //level of the game, skills
+        setLevel();
+        setStadium();
+        setTeams();
 
         switch (levelNumber)
         {
             case 1:
-                updateSettings();
+                setLevelSpecificSettings();
                 break;
             case 2:
+                setLevelSpecificSettings();
                 break;
             case 3:
+                setLevelSpecificSettings();
                 break;
             default:
                 break;
         }
     }
 
-    private void setGlobalStadium(int levelNumber)
+    private void setStadium()
     {
         if (levelNumber <= 3 || levelNumber % 2 == 0 || levelNumber % 3 == 0)
             Globals.stadiumNumber = 0;
@@ -185,9 +188,12 @@ public class Levels : MonoBehaviour
         {
             Globals.stadiumNumber = 2;
         }
+
+        //leave first stadium for now
+        Globals.stadiumNumber = 0;
     }
 
-    private void setGlobalLevel(int levelNumber)
+    private void setLevel()
     {
         if (levelNumber < 5)
             Globals.level = 1;
@@ -201,37 +207,63 @@ public class Levels : MonoBehaviour
             Globals.level = 5;
     }
 
-    private void updateSettings()
+    private string[] getTeam(int levelNumber, int team_idx)
     {
-        Teams teams = new Teams("NATIONALS");
+        string[] leagueNames = { "NATIONALS", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "POLAND", "OTHERS" };
+        string leagueName = leagueNames[levelNumber % leagueNames.Length];
+        Teams teams = new Teams(leagueName);
+
+        int teamRandomInt = levelNumber + 1;
+        if (team_idx == 1)
+            teamRandomInt = levelNumber + 8;
+
+        if (teamRandomInt >= teams.getMaxTeams())
+            teamRandomInt = levelNumber % teams.getMaxTeams();
+
+        if (team_idx == 1)
+        {
+            Globals.teamBid = teamRandomInt;
+            Globals.teamBleague = leagueName;
+        } else
+        {
+            Globals.teamAid = teamRandomInt;
+            Globals.teamAleague = leagueName;
+        }
+
+        Globals.leagueName = leagueName;
+
+        return teams.getTeamByIndex(teamRandomInt);            
+    }
+
+    private void setTeams()
+    {
 
         for (int i = 0; i < 2; i++)
-        {
-            int teamRandomInt =
-                UnityEngine.Random.Range(0, teams.getMaxTeams());
-            string[] randTeam =
-                teams.getTeamByIndex(teamRandomInt);
+        {  
+            string[] randTeam = getTeam(levelNumber, i);
 
             if (i == 0)
             {
                 Globals.teamAname = randTeam[0];
                 //Globals.teamAid = teamRandomInt;
-                Globals.teamAid = teamRandomInt;
                 Globals.stadiumColorTeamA = randTeam[5];
                 Globals.playerADesc = randTeam[12].Split('|')[0];
             }
             else
             {
                 Globals.teamBname = randTeam[0];
-                Globals.teamBid = teamRandomInt;
+                //Globals.teamBid = teamRandomInt;
                 Globals.stadiumColorTeamB = randTeam[5];
                 Globals.playerBDesc = randTeam[12].Split('|')[0];
             }
 
-            teams.swapElements(
-                teamRandomInt, teams.getMaxActiveTeams() - 1);
-        }
+            //teams.swapElements(
+            //    teamRandomInt, teams.getMaxActiveTeams() - 1);
+        }    
+    }
 
+    private void setLevelSpecificSettings()
+    {
         /*Traning hardcoded values*/
         Globals.teamAcumulativeStrength = 160;
         Globals.teamBcumulativeStrength = 140;
@@ -244,11 +276,6 @@ public class Levels : MonoBehaviour
 
         Globals.matchTime = "60 SECONDS";
 
-        Globals.level = 3;
-
-        Globals.teamAleague = "WORLD CUP";
-        Globals.teamBleague = "WORLD CUP";
-
         Globals.score1 = 0;
         Globals.score2 = 1;
 
@@ -259,6 +286,7 @@ public class Levels : MonoBehaviour
 
     private void setMainSettings()
     {
+        Globals.playerPlayAway = false;
         Globals.isMultiplayer = false;
         Globals.isLevelMode = true;
         Globals.isTrainingActive = false;
