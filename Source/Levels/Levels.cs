@@ -157,10 +157,13 @@ public class Levels : MonoBehaviour
 
     void setLevelSettings()
     {
+        setGlobalLevel(levelNumber);
+        setGlobalStadium(levelNumber);
+
+
         switch (levelNumber)
         {
             case 1:
-                Globals.stadiumNumber = 0;
                 updateSettings();
                 break;
             case 2:
@@ -171,6 +174,33 @@ public class Levels : MonoBehaviour
                 break;
         }
     }
+
+    private void setGlobalStadium(int levelNumber)
+    {
+        if (levelNumber <= 3 || levelNumber % 2 == 0 || levelNumber % 3 == 0)
+            Globals.stadiumNumber = 0;
+        else if (levelNumber % 5 == 0)
+            Globals.stadiumNumber = 1;
+        else
+        {
+            Globals.stadiumNumber = 2;
+        }
+    }
+
+    private void setGlobalLevel(int levelNumber)
+    {
+        if (levelNumber < 5)
+            Globals.level = 1;
+        else if (levelNumber < 15)
+            Globals.level = 2;
+        else if (levelNumber < 30)
+            Globals.level = 3;
+        else if (levelNumber < 50)
+            Globals.level = 4;
+        else
+            Globals.level = 5;
+    }
+
     private void updateSettings()
     {
         Teams teams = new Teams("NATIONALS");
