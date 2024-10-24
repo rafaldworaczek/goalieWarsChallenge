@@ -1,14 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using graphicsCommonNS;
 using GlobalsNS;
-using LANGUAGE_NS;
-using UnityEngine.SceneManagement;
+using MenuCustomNS;
+using AudioManagerNS;
 using TMPro;
 using UnityEngine.UI;
-using Com.Osystems.GoalieStrikerFootball;
-using Photon.Pun;
-using System.Globalization;
 
 public class Levels : MonoBehaviour
 {
@@ -21,11 +19,20 @@ public class Levels : MonoBehaviour
     public TextMeshProUGUI levelNumberText;
     private LeagueBackgroundMusic leagueBackgroundMusic;
     public GameObject loadingCanvas;
+    private int levelNumber = 1;
+    private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
+    private string[] joystickSide = { "LEFT", "RIGHT" };
+
 
     void Awake()
     {
-        levelNumberText.text = Globals.levelNumber;
+        levelNumberText.text = Globals.levelNumber.ToString();
+        levelNumber = Globals.levelNumber;
+
+        setMainSettings();
+        setLevelSettings();
         Time.timeScale = 1f;
+
         Globals.isMultiplayer = false;
         Globals.isBonusActive = false;
         Globals.isTrainingActive = false;
@@ -34,20 +41,12 @@ public class Levels : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("STREET"))
             Globals.commentatorStr = "NO";
 
-        if (PhotonNetwork.InRoom)
-            PhotonNetwork.LeaveRoom();
-
         #if !UNITY_EDITOR
         adInit();
         showInterstitialAd();
         #endif
 
         updateTreasure();
-
-        //TODELETE
-        //Languages.initLangs();
-        //TODELETE
-        //Globals.initTeamLeagueNameHash();
     }
 
     void Start()
@@ -127,7 +126,6 @@ public class Levels : MonoBehaviour
   
     public void onClickExit()
     {
-        PhotonNetwork.LeaveRoom();
         Globals.loadSceneWithBarLoader("menu");
     }
 
@@ -157,6 +155,101 @@ public class Levels : MonoBehaviour
         }
     }
 
+    void setLevelSettings()
+    {
+        switch (levelNumber)
+        {
+            case 1:
+                Globals.stadiumNumber = 3;
+                updateSettings();
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            default:
+                break;
+        }
+    }
+    private void updateSettings()
+    {
+        Teams teams = new Teams("NATIONALS");
+
+        for (int i = 0; i < 2; i++)
+        {
+            int teamRandomInt =
+                UnityEngine.Random.Range(0, teams.getMaxTeams());
+            string[] randTeam =
+                teams.getTeamByIndex(teamRandomInt);
+
+            if (i == 0)
+            {
+                Globals.teamAname = randTeam[0];
+                //Globals.teamAid = teamRandomInt;
+                Globals.teamAid = teamRandomInt;
+                Globals.stadiumColorTeamA = randTeam[5];
+                Globals.playerADesc = randTeam[12].Split('|')[0];
+            }
+            else
+            {
+                Globals.teamBname = randTeam[0];
+                Globals.teamBid = teamRandomInt;
+                Globals.stadiumColorTeamB = randTeam[5];
+                Globals.playerBDesc = randTeam[12].Split('|')[0];
+            }
+
+            teams.swapElements(
+                teamRandomInt, teams.getMaxActiveTeams() - 1);
+        }
+
+        /*Traning hardcoded values*/
+        Globals.teamAcumulativeStrength = 160;
+        Globals.teamBcumulativeStrength = 140;
+
+        Globals.teamAGkStrength = 90;
+        Globals.teamBGkStrength = 70;
+
+        Globals.teamAAttackStrength = 70;
+        Globals.teamBAttackStrength = 70;
+
+        Globals.matchTime = "2000 minutes";
+        Globals.maxTimeToShotStr = "5000";
+
+        Globals.level = 3;
+
+        Globals.teamAleague = "WORLD CUP";
+        Globals.teamBleague = "WORLD CUP";
+    }
+
+    private void setMainSettings()
+    {
+        int graphicsSettingsIdx = 2;
+        int joystickSideIdx = 0;
+
+        //gameMainCanvas.SetActive(false);
+        //leaderBoardReportQuestion.SetActive(false);
+
+        if (PlayerPrefs.HasKey("gameSettingsSave"))
+        {
+            graphicsSettingsIdx = PlayerPrefs.GetInt("graphicsSettingsIdx");
+            joystickSideIdx = PlayerPrefs.GetInt("joystickSideIdx");
+        }
+
+        Globals.graphicsQuality = getGraphicStringByIndex(graphicsSettingsIdx);
+
+        Globals.joystickSide = getJoystickSideStringByIndex(joystickSideIdx);
+
+    }
+
+    public string getGraphicStringByIndex(int graphicsSettingsIdx)
+    {
+        return graphics[graphicsSettingsIdx];
+    }
+
+    public string getJoystickSideStringByIndex(int joystickSideIdx)
+    {
+        return joystickSide[joystickSideIdx];
+    }
 
     /*
     public void showInfoCanvas(string headerText, 
