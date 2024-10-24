@@ -22,10 +22,12 @@ public class Levels : MonoBehaviour
     private int levelNumber = 1;
     private string[] graphics = { "VERY LOW", "LOW", "STANDARD", "HIGH", "VERY HIGH" };
     private string[] joystickSide = { "LEFT", "RIGHT" };
-
+    public GameObject infoCanvas;
 
     void Awake()
     {
+        infoCanvas.SetActive(false);
+
         adInit();
         showInterstitialAd();
         
@@ -159,6 +161,7 @@ public class Levels : MonoBehaviour
     {
         //level of the game, skills
         setLevel();
+        setTeamStrength();
         setStadium();
         setTeams();
 
@@ -195,17 +198,61 @@ public class Levels : MonoBehaviour
 
     private void setLevel()
     {
+        Globals.score1 = 0;
+        Globals.score2 = 0;
+        int relativeLevelNumber = levelNumber % 10;
+        if (relativeLevelNumber >= 5)
+        {
+            Globals.score2 = 1;
+        }
+        
         if (levelNumber < 5)
+        {
             Globals.level = 1;
-        else if (levelNumber < 15)
+        }
+        else if (levelNumber < 10)
+        {
             Globals.level = 2;
-        else if (levelNumber < 30)
+        }
+        else if (levelNumber < 20)
+        {
             Globals.level = 3;
-        else if (levelNumber < 50)
+        }
+        else if (levelNumber < 30)
+        {
             Globals.level = 4;
-        else
+        }
+        else if (levelNumber < 40)
+        {
             Globals.level = 5;
+        }        
+        else
+        {
+
+        }
+
+      
+
     }
+
+    private void setTeamStrength()
+    {
+        int relativeLevelNumber = levelNumber  % 10;
+        if (relativeLevelNumber == 0)
+            relativeLevelNumber = 1;
+
+        int teamASteangth = 85 - (relativeLevelNumber * 5);
+        int teamBSteangth = 40 + (relativeLevelNumber * 4) + (Globals.level * 6);
+
+        Globals.teamAGkStrength = Mathf.Clamp(teamASteangth, 40, 97);
+        Globals.teamAAttackStrength = Mathf.Clamp(teamASteangth, 40, 97);
+        Globals.teamAcumulativeStrength = Globals.teamAGkStrength + Globals.teamAAttackStrength;
+
+        Globals.teamBGkStrength = Mathf.Clamp(teamBSteangth, 40, 97);
+        Globals.teamBAttackStrength = Mathf.Clamp(teamBSteangth, 40, 97);
+        Globals.teamBcumulativeStrength = Globals.teamBGkStrength + Globals.teamBAttackStrength;
+    }
+
 
     private string[] getTeam(int levelNumber, int team_idx)
     {
@@ -250,7 +297,7 @@ public class Levels : MonoBehaviour
                 Globals.playerADesc = randTeam[12].Split('|')[0];
             }
             else
-            {
+            {              
                 Globals.teamBname = randTeam[0];
                 //Globals.teamBid = teamRandomInt;
                 Globals.stadiumColorTeamB = randTeam[5];
@@ -265,21 +312,20 @@ public class Levels : MonoBehaviour
     private void setLevelSpecificSettings()
     {
         /*Traning hardcoded values*/
-        Globals.teamAcumulativeStrength = 160;
-        Globals.teamBcumulativeStrength = 140;
+        //Globals.teamAcumulativeStrength = 160;
+        //Globals.teamBcumulativeStrength = 140;
 
-        Globals.teamAGkStrength = 90;
-        Globals.teamBGkStrength = 70;
+        //Globals.teamAGkStrength = 90;
+        //Globals.teamBGkStrength = 70;
 
-        Globals.teamAAttackStrength = 70;
-        Globals.teamBAttackStrength = 70;
+        //Globals.teamAAttackStrength = 70;
+        //Globals.teamBAttackStrength = 70;
 
         Globals.matchTime = "60 SECONDS";
 
-        Globals.score1 = 0;
-        Globals.score2 = 1;
+   
 
-        Globals.maxTimeToShotStr = "8";
+        Globals.maxTimeToShotStr = "7";
         //IT's in seconds
         Globals.levelModeTimeOffset = 30.0f;
     }
@@ -292,6 +338,8 @@ public class Levels : MonoBehaviour
         Globals.isTrainingActive = false;
         Globals.onlyTrainingActive = false;
         Globals.wonFinal = false;
+        if (levelNumber > 5)
+            Globals.PRO_MODE = true;
 
         int graphicsSettingsIdx = 2;
         int joystickSideIdx = 0;
@@ -341,6 +389,16 @@ public class Levels : MonoBehaviour
     public string getJoystickSideStringByIndex(int joystickSideIdx)
     {
         return joystickSide[joystickSideIdx];
+    }
+
+    public void onClickShowInfoCanvas()
+    {
+        infoCanvas.SetActive(true);
+    }
+
+    public void onClickCloseInfoCanvas()
+    {
+        infoCanvas.SetActive(false);
     }
 
     /*
