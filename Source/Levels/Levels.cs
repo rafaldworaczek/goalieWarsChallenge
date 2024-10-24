@@ -26,6 +26,9 @@ public class Levels : MonoBehaviour
 
     void Awake()
     {
+        adInit();
+        showInterstitialAd();
+        
         levelNumberText.text = Globals.levelNumber.ToString();
         levelNumber = Globals.levelNumber;
 
@@ -41,10 +44,7 @@ public class Levels : MonoBehaviour
         if (Globals.PITCHTYPE.Equals("STREET"))
             Globals.commentatorStr = "NO";
 
-        #if !UNITY_EDITOR
-        adInit();
-        showInterstitialAd();
-        #endif
+   
 
         updateTreasure();
     }
@@ -160,7 +160,7 @@ public class Levels : MonoBehaviour
         switch (levelNumber)
         {
             case 1:
-                Globals.stadiumNumber = 3;
+                Globals.stadiumNumber = 0;
                 updateSettings();
                 break;
             case 2:
@@ -212,17 +212,29 @@ public class Levels : MonoBehaviour
         Globals.teamAAttackStrength = 70;
         Globals.teamBAttackStrength = 70;
 
-        Globals.matchTime = "2000 minutes";
-        Globals.maxTimeToShotStr = "5000";
+        Globals.matchTime = "60 SECONDS";
 
         Globals.level = 3;
 
         Globals.teamAleague = "WORLD CUP";
         Globals.teamBleague = "WORLD CUP";
+
+        Globals.score1 = 0;
+        Globals.score2 = 1;
+
+        Globals.maxTimeToShotStr = "8";
+        //IT's in seconds
+        Globals.levelModeTimeOffset = 30.0f;
     }
 
     private void setMainSettings()
     {
+        Globals.isMultiplayer = false;
+        Globals.isLevelMode = true;
+        Globals.isTrainingActive = false;
+        Globals.onlyTrainingActive = false;
+        Globals.wonFinal = false;
+
         int graphicsSettingsIdx = 2;
         int joystickSideIdx = 0;
 
@@ -235,10 +247,32 @@ public class Levels : MonoBehaviour
             joystickSideIdx = PlayerPrefs.GetInt("joystickSideIdx");
         }
 
-        Globals.graphicsQuality = getGraphicStringByIndex(graphicsSettingsIdx);
+        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        {
+            Globals.stadiumNumber = 1;
+        }
 
-        Globals.joystickSide = getJoystickSideStringByIndex(joystickSideIdx);
+        Globals.graphicsQuality =
+            getGraphicStringByIndex(graphicsSettingsIdx);
 
+        Globals.joystickSide =
+            getJoystickSideStringByIndex(joystickSideIdx);
+
+ 
+        admobAdsScript.hideBanner();
+
+        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        {
+            Globals.stadiumNumber = 1;
+            Globals.loadSceneWithBarLoader("gameSceneSportsHall");
+        }
+
+        if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            Globals.stadiumNumber = 2;
+            Globals.commentatorStr = "NO";
+            Globals.loadSceneWithBarLoader("gameSceneStreet");
+        }
     }
 
     public string getGraphicStringByIndex(int graphicsSettingsIdx)

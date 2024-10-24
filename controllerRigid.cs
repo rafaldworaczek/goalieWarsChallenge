@@ -503,7 +503,11 @@ public class controllerRigid : MonoBehaviour
 
     void Awake()
     {
-       
+        if (!Globals.isLevelMode)
+            currentTimeOfGame = 0;
+        else
+            currentTimeOfGame = Globals.levelModeTimeOffset;
+
         autoModGkPos = new Vector3(0f, 0f, -PITCH_HEIGHT_HALF + 0.2f);
 
         m_MainCamera = Camera.main;
@@ -702,8 +706,13 @@ public class controllerRigid : MonoBehaviour
         tmpRotatedRbToBall = new GameObject();
         tmpRotGO = new GameObject();
 
-        Globals.score1 = 0;
-        Globals.score2 = 0;
+
+        if (!Globals.isLevelMode)
+        {
+            Globals.score1 = 0;
+            Globals.score2 = 0;
+        }
+
         score1Text = GameObject.Find("scoreText_1").GetComponent<TextMeshProUGUI>();
         score2Text = GameObject.Find("scoreText_2").GetComponent<TextMeshProUGUI>();
 
@@ -851,7 +860,7 @@ public class controllerRigid : MonoBehaviour
         else
         {
             //timeFactor = 60.0f;
-            timeFactor = 45.0f;
+            timeFactor = 38.0f;
         }
 
         string timeOfGame = Regex.Replace(Globals.matchTime, "[^0-9]", "");
@@ -904,7 +913,6 @@ public class controllerRigid : MonoBehaviour
 
         audioManager = FindObjectOfType<AudioManager>();
         touchLocked = false;
-
 
         for (int i = 1; i <= NUMBER_OF_BALLS; i++)
             ballRb[i].maxAngularVelocity = 1000.0f;
@@ -959,14 +967,17 @@ public class controllerRigid : MonoBehaviour
             ballRb[activeBall].transform.position = new Vector3(0, 0, -2);
         }
 
-        if (isTrainingActive || isBonusActive)
+        if (isTrainingActive || isBonusActive || Globals.isLevelMode)
         {
             gameStarted = true;
             initCameraMatchStartPos();
+            if (Globals.isLevelMode)
+                activateCanvasElements();
+
             //activateCanvasElements();
             ballRb[activeBall].transform.position = new Vector3(0, 0, -4);
         }
-
+           
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         prevRbPos = rb.transform.position;
@@ -6285,7 +6296,7 @@ public class controllerRigid : MonoBehaviour
     private void cameraMovementIntro()
     {
         //float cameraSpeed = 0.005f;
-        float cameraSpeed = 0.010f;
+        float cameraSpeed = 0.007f;
         /*m_MainCamera.transform.position = new Vector3(m_MainCamera.transform.position.x,
                                                           m_MainCamera.transform.position.y + (cameraSpeed / 3.0f),
                                                           m_MainCamera.transform.position.z - 0.006f);
@@ -7482,7 +7493,7 @@ public class controllerRigid : MonoBehaviour
             teamColorChoosen = Globals.stadiumColorTeamB;
         //teamColorChoosen = Globals.stadiumColorTeamB;
 
-        //print("#DBGFANSCOLOR " + teamColorChoosen);
+        print("#DBGFANSCOLOR " + teamColorChoosen);
 
         string[] stadiumColors = teamColorChoosen.Split('|');
 
