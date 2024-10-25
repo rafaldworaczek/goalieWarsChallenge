@@ -1353,6 +1353,7 @@ public class controllerRigid : MonoBehaviour
                     gkCornerPoints,
                     isExtraGoals);
         }
+        
     }
 
     void drawSecondShotHelperLine()
@@ -1546,8 +1547,6 @@ public class controllerRigid : MonoBehaviour
 
     void FixedUpdate()
     {
-
-
         /*if (Globals.isPhotoModeEnable) {
             if (!gameStarted)
             {
@@ -3272,6 +3271,7 @@ public class controllerRigid : MonoBehaviour
         //refereeBackground.SetActive(true);
         if (isTrainingActive)
             traningPanel.SetActive(true);
+
     }
 
     public IEnumerator prepShotDelay(float delay)

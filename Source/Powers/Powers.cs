@@ -160,6 +160,20 @@ public class Powers : MonoBehaviour
             wallDownRightGround1 = GameObject.Find("wallDownRightGround1");
             wallDownRightGround2 = GameObject.Find("wallDownRightGround2");
         }
+
+        if (Globals.isLevelMode)
+        {
+            if (Globals.levelNumber % 3 == 0 || (((Globals.levelNumber % 10) > 5) && ((Globals.levelNumber % 5) == 0)))
+                powerButtons[0].SetActive(false);
+
+            if (Globals.levelNumber % 6 == 0 || (Globals.levelNumber % 10) > 8 || Globals.levelNumber % 4 == 0)
+            {
+                powerButtons[1].SetActive(false);
+            }
+
+            if (Globals.levelNumber % 9 == 0 || Globals.levelNumber % 4 == 0 || (Globals.levelNumber % 10) > 7)
+                powerButtons[2].SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -1275,7 +1289,7 @@ public class Powers : MonoBehaviour
                 (Globals.stadiumNumber != 2))
             {
                 powerChoosen[0] = true;
-                powerChoosen[1] = true;
+                powerChoosen[1] = true;               
                 powerChoosen[5] = true;
             } else
             {

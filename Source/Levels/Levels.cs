@@ -179,7 +179,9 @@ public class Levels : MonoBehaviour
         }
 
         //leave first stadium for now
-        //Globals.stadiumNumber = 2;
+        //Globals.stadiumNumber = 0;
+        if (Globals.stadiumNumber < 2)
+            Globals.commentatorStr = "YES";
     }
 
     private void setLevel()
@@ -200,35 +202,37 @@ public class Levels : MonoBehaviour
         Globals.score2 = rand_score;
 
         int relativeLevelNumber = levelNumber % 10;
-        if (relativeLevelNumber >= 5)
-        {
-            Globals.score2++;
-        }
+  
         
-        if (levelNumber < 5)
+        if (levelNumber < 10)
         {
             Globals.level = 1;
         }
-        else if (levelNumber < 10)
+        else if (levelNumber < 20)
         {
             Globals.level = 2;
         }
-        else if (levelNumber < 20)
+        else if (levelNumber < 30)
         {
             Globals.level = 3;
         }
-        else if (levelNumber < 30)
+        else if (levelNumber < 40)
         {
             Globals.level = 4;
         }
-        else if (levelNumber < 40)
+        else if (levelNumber < 50)
         {
             Globals.level = 5;
         }        
         else
         {
+            Globals.level = 5;
+        }
 
-        }     
+        if (relativeLevelNumber >= 5 && Globals.level > 1)
+        {
+            Globals.score2++;
+        }
     }
 
     private void setTeamStrength()
