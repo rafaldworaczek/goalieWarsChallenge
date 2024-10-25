@@ -69,6 +69,8 @@ public class training : MonoBehaviour
     public GameObject admobCanvas;
     public GameObject pauseCanvas;
     public gamePausedMenu GamePauseScript;
+    private int numberOfLevelsDone = 1;
+
     private string[] trainingDialogMessages =
         {
          //0
@@ -925,7 +927,7 @@ public class training : MonoBehaviour
         runPaused = false;
         touchPaused = false;
        
-        StartCoroutine(shotTraningAfterDone(trainingTaskIdx, 60f));
+        StartCoroutine(shotTraningAfterDone(trainingTaskIdx, 50f));
 
         //StartCoroutine(shotTraningAfterDone(trainingTaskIdx, 120f));
 
@@ -1004,18 +1006,13 @@ public class training : MonoBehaviour
     {
         coroutineLocked = true;
 
-
         if (Globals.adsEnable)
         {
             if (admobAdsScript.showInterstitialAd())
             {
                 admobCanvas.SetActive(true);
                 waitingForInterstitialAddEvent = true;
-            }
-            //else
-            //{
-            //    rewardAdsNextCanvasButtonGameObj.SetActive(true);
-            //}
+            }    
         }
 
         while (waitingForInterstitialAddEvent)
@@ -1054,10 +1051,25 @@ public class training : MonoBehaviour
         coroutineLocked = false;
         timeToFinishLevel = 0f;
         nextTaskButtonOnClick = false;
+
+        if (Globals.adsEnable)
+        {
+            if (admobAdsScript.showInterstitialAd())
+            {
+                admobCanvas.SetActive(true);
+                waitingForInterstitialAddEvent = true;
+            }
+        }
+
+        while (waitingForInterstitialAddEvent)
+            yield return new WaitForSeconds(0.5f);
+
     }
 
     IEnumerator levelDone(int index, float delayTime)
     {
+        numberOfLevelsDone++;
+
         coroutineLocked = true;
         touchPaused = true;
         yield return new WaitForSeconds(delayTime);
@@ -1212,14 +1224,50 @@ public class training : MonoBehaviour
         }
 
         return Vector3.zero;
-    } 
+    }
+
+
+    IEnumerator trainingEnd()
+    {
+
+        if (!Globals.onlyTrainingActive && Globals.adsEnable)
+        {
+            if (admobAdsScript.showInterstitialAd())
+            {
+                admobCanvas.SetActive(true);
+                waitingForInterstitialAddEvent = true;
+            }
+        }
+
+        while (waitingForInterstitialAddEvent)
+            yield return new WaitForSeconds(0.5f);
+
+        if (Globals.onlyTrainingActive)
+        {
+            //SceneManager.LoadScene("menu");
+            Globals.loadSceneWithBarLoader("menu");
+            yield break;
+            //return false;
+        }
+
+        if (Globals.isFriendly)
+            SceneManager.LoadScene("gameLoader");
+            //Globals.loadSceneWithBarLoader("gameLoader");
+        else
+        {
+            //Globals.loadSceneWithBarLoader("Leagues");
+            SceneManager.LoadScene("Leagues");
+        }
+    }
 
     private bool endOfTraining()
     {
         Globals.recoverOriginalResolution();
         Globals.isTrainingActive = false;
 
-        if (Globals.onlyTrainingActive)
+        StartCoroutine(trainingEnd());
+
+        /*if (Globals.onlyTrainingActive)
         {
             SceneManager.LoadScene("menu");
             return false;
@@ -1230,7 +1278,7 @@ public class training : MonoBehaviour
         else
         {
             SceneManager.LoadScene("Leagues");
-        }
+        }*/
 
         return false;
     }
