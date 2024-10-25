@@ -26310,7 +26310,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 894549080}
         m_TargetAssemblyTypeName: controllerRigid, Assembly-CSharp
         m_MethodName: matchEndedOnClick
         m_Mode: 1

@@ -183,9 +183,9 @@ public class Levels : MonoBehaviour
 
     private void setStadium()
     {
-        if (levelNumber <= 3 || levelNumber % 2 == 0 || levelNumber % 3 == 0)
+        if (levelNumber == 1 || levelNumber % 2 == 0 || levelNumber % 7 == 0)
             Globals.stadiumNumber = 0;
-        else if (levelNumber % 5 == 0)
+        else if (levelNumber % 5 == 0 || levelNumber % 9 == 0)
             Globals.stadiumNumber = 1;
         else
         {
@@ -193,17 +193,30 @@ public class Levels : MonoBehaviour
         }
 
         //leave first stadium for now
-        Globals.stadiumNumber = 0;
+        //Globals.stadiumNumber = 2;
     }
 
     private void setLevel()
     {
-        Globals.score1 = 0;
-        Globals.score2 = 0;
+        int rand_score = levelNumber % 6;
+        if (levelNumber % 3 == 0)
+            rand_score = 2;
+        else if (levelNumber % 4 == 0)
+            rand_score = 5;
+        else if (levelNumber % 5 == 0)
+            rand_score = 1;
+        else if (levelNumber % 6 == 0)
+            rand_score = 4;
+        else if (levelNumber % 7 == 0)
+            rand_score = 3;
+        
+        Globals.score1 = rand_score;
+        Globals.score2 = rand_score;
+
         int relativeLevelNumber = levelNumber % 10;
         if (relativeLevelNumber >= 5)
         {
-            Globals.score2 = 1;
+            Globals.score2++;
         }
         
         if (levelNumber < 5)
@@ -229,10 +242,7 @@ public class Levels : MonoBehaviour
         else
         {
 
-        }
-
-      
-
+        }     
     }
 
     private void setTeamStrength()
@@ -323,11 +333,9 @@ public class Levels : MonoBehaviour
 
         Globals.matchTime = "60 SECONDS";
 
-   
-
         Globals.maxTimeToShotStr = "7";
         //IT's in seconds
-        Globals.levelModeTimeOffset = 30.0f;
+        Globals.levelModeTimeOffset = 30.0f + (levelNumber % 8);
     }
 
     private void setMainSettings()

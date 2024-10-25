@@ -2293,6 +2293,28 @@ namespace LANGUAGE_NS
                 "Bonus Diario\r\n",
                 "",
              },
+             new string[] {
+                //EN
+                "Congratulations! Level completed",
+                //PL
+                "Gratulacje!. Poziom ukonczony\r\n",
+                //ES
+                "Felicitaciones! Nivel completado",
+                //PT
+                "Parabens! Nivel concluido\r\n\r\n",
+                "",
+             },
+             new string[] {
+                //EN
+                "Level failed. Try again",
+                //PL
+                "Poziom nieukonczony. Sprobuj ponownie\r\n",
+                //ES
+                "Nivel fallido. Intentalo de nuevo",
+                //PT
+                "Nivel falhou. Tente novamente\r\n",
+                "",
+             },
 
         };        
     }
