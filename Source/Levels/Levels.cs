@@ -164,21 +164,7 @@ public class Levels : MonoBehaviour
         setTeamStrength();
         setStadium();
         setTeams();
-
-        switch (levelNumber)
-        {
-            case 1:
-                setLevelSpecificSettings();
-                break;
-            case 2:
-                setLevelSpecificSettings();
-                break;
-            case 3:
-                setLevelSpecificSettings();
-                break;
-            default:
-                break;
-        }
+        setLevelSpecificSettings();
     }
 
     private void setStadium()

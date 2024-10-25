@@ -507,6 +507,7 @@ public class controllerRigid : MonoBehaviour
     public GameObject levelEndPanel;
     public TextMeshProUGUI levelEndHeaderText;
     public RawImage levelEndImage;
+    private bool showlevelEndPanelDone = false;
 
     void Awake()
     {
@@ -996,13 +997,15 @@ public class controllerRigid : MonoBehaviour
                 if (levelNumber % 3 == 0 || levelNumber % 5 == 0)
                     level_pos_offset_x = -level_pos_offset_x;
 
-                rb.transform.position = new Vector3(level_pos_offset_x * 1.3f, 0, Mathf.Clamp(-12.5f + level_pos_offset * 1.3f, -4f, 12.5f));
+                rb.transform.position = new Vector3(level_pos_offset_x * 1.3f, 0, Mathf.Clamp(-12.5f + level_pos_offset * 1.3f, -12.5f, -4.0f));
+                //Debug.Log("#rbtransformposition " + rb.transform.position + " levelNuymber " + Globals.levelNumber + " value " + (-12.5f + level_pos_offset * 1.3f));
+                cpuPlayer.setRbPosition(new Vector3(-level_pos_offset_x * 0.8f, 0f, Mathf.Clamp(level_pos_offset * 3, 3f, 12.5f)));
+
                 if (levelNumber % 2 == 0 || levelNumber % 5 == 0)
-                    ballRb[activeBall].transform.position = new Vector3(level_pos_offset_x * 1.1f, 0, Mathf.Clamp(-level_pos_offset * 1.3f, -1f, -10f));
+                    ballRb[activeBall].transform.position = new Vector3(level_pos_offset_x * 1.1f, 0, Mathf.Clamp(-level_pos_offset * 1.3f, -10f, -1f));
                 else
                     ballRb[activeBall].transform.position = new Vector3(level_pos_offset_x * 1.1f, 0, Mathf.Clamp(level_pos_offset * 1.3f, 1f, 10f));
 
-                cpuPlayer.setRbPosition(new Vector3(-level_pos_offset_x * 0.8f, 0f, Mathf.Clamp(level_pos_offset * 3, 3f, 12.5f)));
 
             }
         }
@@ -1084,7 +1087,10 @@ public class controllerRigid : MonoBehaviour
                 displayStatisticsPanel();
             else
             {
-                StartCoroutine(showLevelEndPanel(2.5f));
+                if (!showlevelEndPanelDone)
+                    StartCoroutine(showLevelEndPanel(2.5f));
+                showlevelEndPanelDone = true;
+
             }
 
             gamEndAnimations();
@@ -1123,7 +1129,11 @@ public class controllerRigid : MonoBehaviour
                 int chantRandom = UnityEngine.Random.Range(3, 5);
                 if (!gameStartedInit)
                 {
-                    audioManager.Play("fanschant" + chantRandom.ToString(), 0.26f);
+                    if (!Globals.isLevelMode)
+                        audioManager.Play("fanschant" + chantRandom.ToString(), 0.26f);
+                    else
+                        audioManager.Play("fanschant" + chantRandom.ToString(), 0.26f);
+
                     int randIntrCom = UnityEngine.Random.Range(1, 4);
                     if (!Globals.commentatorStr.Equals("NO"))
                         audioManager.Play("com_intro" + randIntrCom.ToString());
@@ -2357,7 +2367,7 @@ public class controllerRigid : MonoBehaviour
     }
 
     IEnumerator showLevelEndPanel(float delayTime)
-    {
+    { 
         if (Globals.score1 > Globals.score2)
         {
             levelEndImage.texture =
@@ -2371,6 +2381,8 @@ public class controllerRigid : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delayTime);
+        if (Globals.score1 > Globals.score2)
+            audioManager.Play("levelcompleted");
         levelEndPanel.SetActive(true);
     }
 
@@ -12135,7 +12147,7 @@ public class controllerRigid : MonoBehaviour
             Globals.isBonusActive = false;
         }
 
-        if (Globals.isMultiplayer)
+        if (Globals.isMultiplayer || Globals.isLevelMode)
         {
             Globals.isBonusActive = false;
             isBonusActive = false;
