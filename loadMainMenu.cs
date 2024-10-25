@@ -32,13 +32,13 @@ public class loadMainMenu : MonoBehaviour
         }
 
         #if UNITY_EDITOR
-            Debug.logger.logEnabled = true;
+            Debug.unityLogger.logEnabled = true;
         #else
-            Debug.logger.logEnabled = false;
+            Debug.unityLogger.logEnabled = false;
         #endif
 
         if (Globals.IS_PHONE_DEBUG)
-            Debug.logger.logEnabled = true;
+            Debug.unityLogger.logEnabled = true;
 
         langMenuPanel.SetActive(false);
         Languages.initLangs();
@@ -134,12 +134,29 @@ public class loadMainMenu : MonoBehaviour
             PlayerPrefs.Save();            
         }
 
+        if (!PlayerPrefs.HasKey("dailyBonus_epochTime"))
+        {
+            PlayerPrefs.SetInt("dailyBonus_epochTime", Globals.getEpochTimeInSeconds());
+            PlayerPrefs.Save();
+        }
+
         if (!PlayerPrefs.HasKey("ONLINE_USERNAME"))
         {
             PlayerPrefs.SetString("ONLINE_USERNAME", Globals.getRandomStr(8));
             PlayerPrefs.Save();
         }
-    
+
+        if (PlayerPrefs.HasKey("levelNumber"))
+        {
+            int levelNumber = PlayerPrefs.GetInt("levelNumber");
+            Globals.levelNumber = levelNumber;
+        }
+        else
+        {
+            PlayerPrefs.SetInt("levelNumber", 1);
+            Globals.levelNumber = 1;
+        }
+
         if (PlayerPrefs.HasKey("audioMute"))
         {
             int audioMute = PlayerPrefs.GetInt("audioMute");

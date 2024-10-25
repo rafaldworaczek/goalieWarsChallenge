@@ -112,6 +112,8 @@ public class LeaderBoard : MonoBehaviour
         //if (!PlayerPrefs.HasKey("leaderBoardPermissionsDone"))
         //    return;
 
+        Debug.Log("##addscore " + score);
+
         #if UNITY_ANDROID
         ReportScore(score, defaultLeaderboardID);
         #endif

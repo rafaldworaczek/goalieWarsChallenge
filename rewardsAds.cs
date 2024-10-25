@@ -76,8 +76,8 @@ public class rewardsAds : MonoBehaviour
          if (Globals.stadiumNumber == 2)
             loadSceneName ="gameSceneStreet";
 
-        if (Globals.PITCHTYPE.Equals("STREET"))
-            loadSceneName = "gameScene";
+        //if (Globals.PITCHTYPE.Equals("STREET"))
+        //    loadSceneName = "gameScene";
 
 
         Debug.Log("loadSceneName " + loadSceneName);

@@ -5439,10 +5439,13 @@ public class controllerRigid : MonoBehaviour
 
     private void levelsSettings()
     {
-        Globals.playerPlayAway = false;
-        Globals.isTrainingActive = false;
-        Globals.isBonusActive = false;
-        Globals.onlyTrainingActive = false;
+        if (Globals.isLevelMode)
+        {
+            Globals.playerPlayAway = false;
+            Globals.isTrainingActive = false;
+            Globals.isBonusActive = false;
+            Globals.onlyTrainingActive = false;
+        }
     }
 
     private void multiplayerSettings()

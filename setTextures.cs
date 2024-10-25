@@ -80,8 +80,8 @@ public class setTextures : MonoBehaviour
         lastTimeParticleStop = -1000f;
         graphics = new GraphicsCommon();
         strCommon = new StringCommon();
-        teams = new Teams(Globals.leagueName);
 
+        teams = new Teams(Globals.leagueName);
 
         ///it's sport halls
         if (Globals.stadiumNumber != 1 &&
@@ -96,7 +96,7 @@ public class setTextures : MonoBehaviour
             else
             {
                 groundNum = 0;
-                rainParticle[0].Play();
+                //rainParticle[0].Play();
             }
             intGroundMaterials(groundNum);
 
@@ -109,7 +109,6 @@ public class setTextures : MonoBehaviour
         //print("IndexTEAMB " + Globals.teamBid);
 
         currentTime = lastTimeWallsAdsChanged = Time.time;
-        Debug.Log("set player texture ");
         setPlayersTextures();
     }
 
@@ -309,9 +308,18 @@ public class setTextures : MonoBehaviour
             Globals.numMatchesInThisSession < 2)
             randGround = 0;
 
-        //prefer first two grasses
-        if (randGround > 0 && UnityEngine.Random.Range(0, 3) <= 1)
+        //prefer first grass
+        if (randGround > 0 && UnityEngine.Random.Range(0, 3) < 1)
             randGround = 0;
+
+        if (Globals.isLevelMode)
+        {
+            if (Globals.levelNumber % 2 == 1)
+                randGround = 0;
+            else
+                randGround = 1;
+        }
+
         //if c)
         //    randGround = 2;
         //TOREMOVE
@@ -396,12 +404,12 @@ public class setTextures : MonoBehaviour
         //print("DBG set player texture " +
         //    " A " + Globals.playerADesc +
         //    " B " + Globals.playerBDesc);
-        /*print("#DBG1334 set texture SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc "
+        print("#DBG1334 set texture SAVE TEAMALEAGUE " + Globals.teamAleague + " Globals.playerADesc "
        +
          Globals.playerADesc + " Globals.teamAname " + Globals.teamAname
         + " Globals team B " + Globals.teamBleague
         + " teamB Name " + Globals.teamBname
-        + " temBIDx " + Globals.teamBid);*/
+        + " temBIDx " + Globals.teamBid);
 
 
 
@@ -483,7 +491,6 @@ public class setTextures : MonoBehaviour
 
     private void updateTrainingSettings()
     {
-        Debug.Log("update training settings " + Globals.onlyTrainingActive);
         if (!Globals.onlyTrainingActive)
             return;
 

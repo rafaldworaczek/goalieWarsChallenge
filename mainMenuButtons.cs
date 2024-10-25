@@ -80,14 +80,14 @@ public class mainMenuButtons : MonoBehaviour
                 waitingForAddEvent = true;
             } else
             {
-                showBannerAd();
+                //showBannerAd();
             }
             admobAdsScript.setAdsClosed(false);
             admobAdsScript.setAdsFailed(false);
         }
         else
         {
-            showBannerAd();
+            //showBannerAd();
         }
 
         menuPointsText.text = Globals.coins.ToString();
@@ -152,7 +152,7 @@ public class mainMenuButtons : MonoBehaviour
             admobAdsScript.setAdsClosed(false);
             admobAdsScript.setAdsFailed(false);
             audioClip.Play();
-            showBannerAd();
+            //showBannerAd();
         }
     }
 
@@ -168,6 +168,8 @@ public class mainMenuButtons : MonoBehaviour
     public void playFriendly()
     {
         Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
+
         prepareNewGame();
         Globals.gameType = "FRIENDLY";
         //showBannerAd();
@@ -182,6 +184,7 @@ public class mainMenuButtons : MonoBehaviour
         Globals.isLeague = false;
         Globals.onlyTrainingActive = false;
         Globals.wonFinal = false;
+        Globals.isLevelMode = false;
     }
 
     public void enterTournamentMenu()
@@ -190,6 +193,8 @@ public class mainMenuButtons : MonoBehaviour
             return;
 
         Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
+
         prepareNewGame();
         Globals.gameType = "CUP";
         //showBannerAd();
@@ -233,6 +238,7 @@ public class mainMenuButtons : MonoBehaviour
             return;
 
         Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
         prepareNewGame();
         //showBannerAd();
         Globals.gameType = "LEAGUE";
@@ -271,6 +277,8 @@ public class mainMenuButtons : MonoBehaviour
     public void playTraning()
     {
         Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
+
         int graphicsSettingsIdx = 2;
         int joystickSideIdx = 0;
 
@@ -308,6 +316,14 @@ public class mainMenuButtons : MonoBehaviour
             return;
         }
 
+        if (Globals.PITCHTYPE.Equals("STREET"))
+        {
+            Globals.stadiumNumber = 2;
+            Globals.commentatorStr = "NO";
+            Globals.loadSceneWithBarLoader("gameSceneStreet");
+            return;
+        }
+
         Globals.loaderBarSceneName = "gameScene";
         SceneManager.LoadScene("gameLoader");
     }
@@ -315,16 +331,30 @@ public class mainMenuButtons : MonoBehaviour
     public void onClickCustomize()
     {
         Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
+        Globals.levelModeTimeOffset = 0;
+
         admobAdsScript.hideBanner();
 
         Globals.loadSceneWithBarLoader("customize");
     }
 
+    public void onClickLevelsMenu()
+    {
+        Globals.isMultiplayer = false;
+        Globals.isLevelMode = false;
+
+        admobAdsScript.hideBanner();
+
+        Globals.loadSceneWithBarLoader("LevelsMenu");
+    }
 
     public void onClickOnlineMultiplayer()
     {
         Globals.isMultiplayer = true;
         Globals.isMultiplayerUpdate = false;
+        Globals.isLevelMode = false;
+
         if (Globals.PITCHTYPE.Equals("STREET"))
             Globals.commentatorStr = "NO";
         else
@@ -429,7 +459,7 @@ public class mainMenuButtons : MonoBehaviour
 
     public void mainGameSettingsButton()
     {
-        showBannerAd();
+        //showBannerAd();
         gameSettingsCanvas.SetActive(false);
         friendlyCanvas.SetActive(false);
         tournamentCanvas.SetActive(false);

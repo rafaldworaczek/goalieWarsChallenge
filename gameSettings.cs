@@ -2802,7 +2802,7 @@ public class gameSettings : MonoBehaviour
 
     public void showMainMenu()
     {
-        showBanner();
+        //showBanner();
 
         gameSettingsCanvas.SetActive(false);
         friendlyCanvas.SetActive(false);

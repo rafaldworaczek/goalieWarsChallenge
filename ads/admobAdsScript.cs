@@ -27,7 +27,7 @@ public class admobAdsScript : MonoBehaviour
             Globals.adsEnable = false;
         }
 
-        lastTimeInterstetialDisplay = 0f;
+        lastTimeInterstetialDisplay = -30f;
 
         init();
         RequestRewardedAd();
@@ -495,11 +495,18 @@ public class admobAdsScript : MonoBehaviour
         return true;
     }
 
+    public bool isInterstitialAdReady()
+    {
+        if (this.interstitial.IsLoaded())
+            return true;
+        return false;
+    }
+
     public bool showInterstitialAd()
     {
         //was for to 05.01.2023
         if (!Globals.adsEnable ||
-            ((Time.time - lastTimeInterstetialDisplay) < 7f))
+            ((Time.time - lastTimeInterstetialDisplay) < 4f))
             return false;
 
         //print("ADSINTERSTITAL " + this.interstitial.IsLoaded());
@@ -632,5 +639,4 @@ public class admobAdsScript : MonoBehaviour
     {
         return adsFailedLoad;
     }
-
 }

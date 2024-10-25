@@ -35,7 +35,13 @@ namespace GlobalsNS
         public static string cpuGoalSize = "STANDARD";
         public static bool teamBlocked = true;
         public static bool audioMute = false;
-        
+
+
+        //Levels
+        public static int levelNumber = 1;
+        public static bool isLevelMode = false;
+        public static float levelModeTimeOffset = 0;
+
         public static string multiplayerSaveName = "multiplayer";
         public static float BALL_NEW_RADIUS = 0.2585f;
         public static float stoppageTime = 0f;
