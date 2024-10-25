@@ -20,6 +20,9 @@ using AudioManagerNS;
 using Photon.Pun;
 using System.Text;
 
+using LANGUAGE_NS;
+
+
 /*TOCOMMENT*/
 //using UnityEngine.Profiling;
 
@@ -127,7 +130,7 @@ public class controllerRigid : MonoBehaviour
     private GameObject teamBballPossessionText;
     private Vector3 extraShotVec = Vector3.zero;
     private GameObject stadiumPeople;
-    private GameObject stadium;    
+    private GameObject stadium;
     public gkMoveUpButton gkMoveUpButton;
     public gkMoveDownButton gkMoveDownButton;
     public gkSideRightButton gkSideRightButton;
@@ -501,12 +504,19 @@ public class controllerRigid : MonoBehaviour
     private Vector3 autoModGkPos;
     Material secondShotLineMaterial;
 
+    public GameObject levelEndPanel;
+    public TextMeshProUGUI levelEndHeaderText;
+    public RawImage levelEndImage;
+
     void Awake()
     {
         if (!Globals.isLevelMode)
             currentTimeOfGame = 0;
         else
             currentTimeOfGame = Globals.levelModeTimeOffset;
+
+        if (levelEndPanel != null)
+            levelEndPanel.SetActive(false);
 
         autoModGkPos = new Vector3(0f, 0f, -PITCH_HEIGHT_HALF + 0.2f);
 
@@ -520,6 +530,7 @@ public class controllerRigid : MonoBehaviour
 
         //print("GETQUALITY RESULTS " + QualitySettings.GetQualityLevel());
         multiplayerSettings();
+        levelsSettings();
 
         numberOfCorrectGkclickLastTimeUpdate = Time.time;
 
@@ -610,7 +621,7 @@ public class controllerRigid : MonoBehaviour
             maxTimeToShot =
                 float.Parse(Regex.Replace(Globals.maxTimeToShotStr, @"[^\d]", ""));
 
-            if (Globals.level == Globals.MIN_LEVEL)
+            if (Globals.level == Globals.MIN_LEVEL && !Globals.isLevelMode)
                 maxTimeToShot = 20;
         }
 
@@ -669,14 +680,14 @@ public class controllerRigid : MonoBehaviour
         gkHelperImage = GameObject.Find("gkHelper").GetComponent<RawImage>();
 
         //gkHelperImageOutlineTexture= new Texture();
-        gkHelperImageOutlineTexture = 
+        gkHelperImageOutlineTexture =
             Resources.Load<Texture2D>("GkImages/circle-inside-outline");
 
         //print("Globals.numMainMenuOpened " + PlayerPrefs.GetInt("numGameOpen")
         //    + " Globals.numMatchesInThisSession " + Globals.numMatchesInThisSession);
 
         if ((PlayerPrefs.GetInt("numGameOpen") <= 2) &&
-            (Globals.numMatchesInThisSession <= 2))       
+            (Globals.numMatchesInThisSession <= 2))
         {
             Color temp = gkHelperImage.color;
             temp.a = 0.7f;
@@ -698,7 +709,7 @@ public class controllerRigid : MonoBehaviour
         //playerUpRigidBody = GameObject.Find("playerUp").GetComponent<PlayerUpRigidBody>();
         //MarkerBasic = GameObject.Find("Marker.Basic");
         //MarkerBasic.SetActive(false);
-        
+
         setJoystickPosition();
         setSpecialButtonsPosition();
 
@@ -867,7 +878,7 @@ public class controllerRigid : MonoBehaviour
         timeOfGameInSec = float.Parse(timeOfGame) * timeFactor;
         //if (Globals.matchTime.Contains("MINUTES"))
         //{
-            
+
         //}
 
         //stoppageTime = UnityEngine.Random.Range(4, 10);
@@ -951,7 +962,7 @@ public class controllerRigid : MonoBehaviour
             else
                 audioManager.Play("fanschantBackground2", 0.3f);
             //if (Globals.stadiumNumber == 1)
-                audienceReactionsScript.playApplause1();
+            audienceReactionsScript.playApplause1();
         }
 
         deactivateCanvasElements();
@@ -975,9 +986,27 @@ public class controllerRigid : MonoBehaviour
                 activateCanvasElements();
 
             //activateCanvasElements();
+            
             ballRb[activeBall].transform.position = new Vector3(0, 0, -4);
+            if (Globals.isLevelMode)
+            {
+                int levelNumber = Globals.levelNumber;
+                int level_pos_offset = levelNumber % 5;
+                float level_pos_offset_x = level_pos_offset;
+                if (levelNumber % 3 == 0 || levelNumber % 5 == 0)
+                    level_pos_offset_x = -level_pos_offset_x;
+
+                rb.transform.position = new Vector3(level_pos_offset_x * 1.3f, 0, Mathf.Clamp(-12.5f + level_pos_offset * 1.3f, -4f, 12.5f));
+                if (levelNumber % 2 == 0 || levelNumber % 5 == 0)
+                    ballRb[activeBall].transform.position = new Vector3(level_pos_offset_x * 1.1f, 0, Mathf.Clamp(-level_pos_offset * 1.3f, -1f, -10f));
+                else
+                    ballRb[activeBall].transform.position = new Vector3(level_pos_offset_x * 1.1f, 0, Mathf.Clamp(level_pos_offset * 1.3f, 1f, 10f));
+
+                cpuPlayer.setRbPosition(new Vector3(-level_pos_offset_x * 0.8f, 0f, Mathf.Clamp(level_pos_offset * 3, 3f, 12.5f)));
+
+            }
         }
-           
+
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         prevRbPos = rb.transform.position;
@@ -1044,14 +1073,20 @@ public class controllerRigid : MonoBehaviour
         clearGeneralInformtionText();
 
 
-        if (!isTrainingActive && !isBonusActive) 
+        if (!isTrainingActive && !isBonusActive)
             updateFlagsPositions();
 
         realTime += Time.deltaTime;
         if (gameEnded)
         {
             rb.velocity = Vector3.zero;
-            displayStatisticsPanel();
+            if (!Globals.isLevelMode)
+                displayStatisticsPanel();
+            else
+            {
+                StartCoroutine(showLevelEndPanel(2.5f));
+            }
+
             gamEndAnimations();
             if (realTime < 1f && Globals.score1 >= Globals.score2)
                 if (!isTrainingActive && !isBonusActive)
@@ -1059,7 +1094,7 @@ public class controllerRigid : MonoBehaviour
                     audioManager.Play("crowdOvation1Short");
 
                     ///if (Globals.stadiumNumber == 1)
-                        audienceReactionsScript.playCelebration1();
+                    audienceReactionsScript.playCelebration1();
                 }
             return;
         }
@@ -1083,7 +1118,7 @@ public class controllerRigid : MonoBehaviour
             }
 
             float matchIntroPanelFillAmount = (realTime - 1.0f) / 2.0f;
-            if (realTime >= 1.0f && realTime < 3.0f)
+            if ((realTime >= 1.0f && realTime < 3.0f) || Globals.isLevelMode)
             {
                 int chantRandom = UnityEngine.Random.Range(3, 5);
                 if (!gameStartedInit)
@@ -1094,10 +1129,10 @@ public class controllerRigid : MonoBehaviour
                         audioManager.Play("com_intro" + randIntrCom.ToString());
                 }
                 //if (Globals.stadiumNumber == 1)
-               // {
-               //     if (chantRandom == 3) audienceReactionsScript.playApplause2();
+                // {
+                //     if (chantRandom == 3) audienceReactionsScript.playApplause2();
                 //    if (chantRandom == 4) audienceReactionsScript.playCelebration2();
-               // }
+                // }
 
                 gameStartedInit = true;
                 matchIntroPanel.SetActive(true);
@@ -1208,9 +1243,9 @@ public class controllerRigid : MonoBehaviour
                     audioManager.Play("fanschant" + randChant.ToString(), 0.30f);
                     //if (Globals.stadiumNumber == 1)
                     //{
-                        if (randChant == 3) audienceReactionsScript.playOneOfApplause(10f, 1.8f);
-                        if (randChant == 4) audienceReactionsScript.playCelebration2();
-                        //audioManager.Commentator_FantasticFansAtmosphere();
+                    if (randChant == 3) audienceReactionsScript.playOneOfApplause(10f, 1.8f);
+                    if (randChant == 4) audienceReactionsScript.playCelebration2();
+                    //audioManager.Commentator_FantasticFansAtmosphere();
                     //}
                 }
             }
@@ -1317,7 +1352,7 @@ public class controllerRigid : MonoBehaviour
 
         float currentTime = 0.05f;
         Vector3 m1, m2, currPos;
-         ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
+        ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
         //ColorUtility.TryParseHtmlString("#89CFF0", out Color lineColor);
         lineColor.a = 0.0f;
         updateShotPos();
@@ -1359,7 +1394,7 @@ public class controllerRigid : MonoBehaviour
 
     private void photo_3DVolley()
     {
-        ballRb [activeBall].transform.position = new Vector3(0f, 1.5f, -4f);
+        ballRb[activeBall].transform.position = new Vector3(0f, 1.5f, -4f);
         if (!isPlaying(animator, "3D_volley", 1f))
         {
             animator.speed = 0.001f;
@@ -1369,8 +1404,8 @@ public class controllerRigid : MonoBehaviour
             ballRb[activeBall].velocity = Vector3.zero;
 
             RblookAtDirection(rb, new Vector3(0f, 0f, 14f) - rb.transform.position, 100f);
-            RblookAtDirection(cpuPlayer.getPlayerRb(), 
-                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position, 
+            RblookAtDirection(cpuPlayer.getPlayerRb(),
+                              rb.transform.position - cpuPlayer.getPlayerRb().transform.position,
                               100f);
         }
     }
@@ -1501,7 +1536,7 @@ public class controllerRigid : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+
 
         /*if (Globals.isPhotoModeEnable) {
             if (!gameStarted)
@@ -1546,7 +1581,7 @@ public class controllerRigid : MonoBehaviour
 
         //string name = nameAnimationPlaying(animator, 1.0f);
         //bool isBackRunPlaying = isPlaying(animator, "3D_back_run_cpu", 1.0f);
-       /// bool isRunPlaying = isPlaying(animator, "3D_run", 1.00f);
+        /// bool isRunPlaying = isPlaying(animator, "3D_run", 1.00f);
 
         /*if (name == string.Empty)
         {
@@ -1616,14 +1651,14 @@ public class controllerRigid : MonoBehaviour
 
         isFixedUpdate++;
 
-          /*matchTarget(animator,
-                    rb,
-                    ref gkStartPos,
-                    gkTimeToCorrectPos,
-                    stepSideAnimOffset,
-                    ref matchSavePos,
-                    ref matchInitSavePos,
-                    false);*/
+        /*matchTarget(animator,
+                  rb,
+                  ref gkStartPos,
+                  gkTimeToCorrectPos,
+                  stepSideAnimOffset,
+                  ref matchSavePos,
+                  ref matchInitSavePos,
+                  false);*/
 
         // cameraMovement(false);
 
@@ -1972,7 +2007,7 @@ public class controllerRigid : MonoBehaviour
                     {
                         if (ballRb[activeBall].transform.position.z > 0.0f)
                         {
-                            if (powersScript.getIsPlayerUpInvisible() || 
+                            if (powersScript.getIsPlayerUpInvisible() ||
                                 powersScript.getIsFlareDownEnable())
                             {
                                 lookPoint =
@@ -2089,9 +2124,9 @@ public class controllerRigid : MonoBehaviour
                     Mathf.InverseLerp(ShotSpeedMin, ShotSpeedMax, timeofBallFly) * speedMultiplayer;
                 if (Globals.isMultiplayer)
                     shotSpeed = Mathf.Min(118f, shotSpeed);
-                
+
                 passedShotFlyTime = 0.0f;
-               
+
                 matchStatistics.setShot("teamA");
                 //print("GET SHOT " + matchStatistics.getShot("teamA"));
 
@@ -2319,6 +2354,24 @@ public class controllerRigid : MonoBehaviour
 
         fadeColor.a = 0.0f;
         flashBackgroundImage.color = fadeColor;
+    }
+
+    IEnumerator showLevelEndPanel(float delayTime)
+    {
+        if (Globals.score1 > Globals.score2)
+        {
+            levelEndImage.texture =
+                    Resources.Load<Texture2D>("error/ok");
+            levelEndHeaderText.text = Languages.getTranslate("Congratulations! Level completed");
+        } else
+        {
+            levelEndHeaderText.text = Languages.getTranslate("Level failed. Try again");
+            levelEndImage.texture =
+                Resources.Load<Texture2D>("error/error");
+        }
+
+        yield return new WaitForSeconds(delayTime);
+        levelEndPanel.SetActive(true);
     }
 
     IEnumerator setBallPositionFlash(float delayTime)
@@ -5372,6 +5425,14 @@ public class controllerRigid : MonoBehaviour
         return false;
     }
 
+    private void levelsSettings()
+    {
+        Globals.playerPlayAway = false;
+        Globals.isTrainingActive = false;
+        Globals.isBonusActive = false;
+        Globals.onlyTrainingActive = false;
+    }
+
     private void multiplayerSettings()
     {
         if (!Globals.isMultiplayer)
@@ -7493,14 +7554,11 @@ public class controllerRigid : MonoBehaviour
             teamColorChoosen = Globals.stadiumColorTeamB;
         //teamColorChoosen = Globals.stadiumColorTeamB;
 
-        print("#DBGFANSCOLOR " + teamColorChoosen);
-
         string[] stadiumColors = teamColorChoosen.Split('|');
 
         string fansColor = stadiumColors[0];
         string bannerColor = stadiumColors[1];
         string fansFlagName = stadiumColors[2];
-
 
         /*if (Globals.stadiumNumber == 0)
         {
@@ -10333,6 +10391,17 @@ public class controllerRigid : MonoBehaviour
         {
             Globals.dontCheckOnlineUpdate = false;
             Globals.loadSceneWithBarLoader("multiplayerMenu");
+            return;
+        }
+
+        if (Globals.isLevelMode)
+        {
+            if (Globals.score1 > Globals.score2)
+            {
+                Globals.levelNumber++;
+                PlayerPrefs.SetInt("levelNumber", Globals.levelNumber);
+            }
+            Globals.loadSceneWithBarLoader("levelsMenu");
             return;
         }
 
@@ -14834,6 +14903,11 @@ public class controllerRigid : MonoBehaviour
         public Vector3 getRbPosition()
         {
             return cpuPlayerRb.transform.position;
+        }
+
+        public void setRbPosition(Vector3 pos)
+        {
+            cpuPlayerRb.transform.position = pos;
         }
 
         public Transform getRbTransform()
