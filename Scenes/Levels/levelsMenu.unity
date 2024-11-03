@@ -2714,7 +2714,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1aa2d6cd9f46adb4582347c7290eda2a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0e9e2e69f760cbe4f9ff4aa673d509b1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3933,7 +3933,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &559381175
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5554,7 +5554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &904927318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9703,7 +9703,6 @@ MonoBehaviour:
   tournamentShopCoinDiamondIconText: {fileID: 0}
   tournamentCoinsDiamondMainImg: {fileID: 0}
   tournamentCoinsDiamondMainText: {fileID: 0}
-  shopScript: {fileID: 0}
   lockStadiumPanel: {fileID: 0}
 --- !u!224 &1800194391
 RectTransform:
@@ -9909,7 +9908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.9137255, b: 0.9137255, a: 1}
+  m_Color: {r: 0.82858664, g: 0.8458644, b: 0.990566, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -10785,7 +10784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2047978474
 RectTransform:
   m_ObjectHideFlags: 0
