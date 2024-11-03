@@ -16,8 +16,8 @@ using AudioManagerNS;
 public class Shop : MonoBehaviour
 {
     public GameObject shopPromotionCanvas;
-    private int MAIN_MENU_MAX_BUTTONS = 4;
-    private int COINS_MAX_BUTTONS = 10;
+    private int MAIN_MENU_MAX_BUTTONS = 1;
+    private int COINS_MAX_BUTTONS = 1;
     private int DIAMONDS_MAX_BUTTONS = 10;
     private int SKILLS_MAX_BUTTONS = 4;
 
@@ -149,19 +149,20 @@ public class Shop : MonoBehaviour
 
     void Start()
     {
-        setupDefaults(); 
+        //setupDefaults(); 
         admobCanvas.SetActive(false);
-        promotionCodesDict = new Dictionary<string, string>();
-        inputCodeValue.onEndEdit.AddListener(delegate { confirmInputCode(); });
-        initPromotionCodes();
-        promotionPanel.SetActive(false);
-        rewardAdInit();
+        //promotionCodesDict = new Dictionary<string, string>();
+        //inputCodeValue.onEndEdit.AddListener(delegate { confirmInputCode(); });
+        //initPromotionCodes();
+        //promotionPanel.SetActive(false);
+        //rewardAdInit();
 
-        AnalyticsResult analyticsResult =
+        /*AnalyticsResult analyticsResult =
              Analytics.CustomEvent("Shop", new Dictionary<string, object>
         {
                     { "Shop_entered", Globals.numGameOpened},
-        });
+        });*/
+        shopCanvas.SetActive(false);
 
         return;
     }
@@ -702,8 +703,8 @@ public class Shop : MonoBehaviour
         //print("DBGPurchasing UPDATE AFTER BUYING");
         fillTeam(currATeamIdx);
         
-        updateGlobalCoinsText();
-        updateGlobalDiamondText();
+        //updateGlobalCoinsText();
+        //updateGlobalDiamondText();
         //updateRelatedScripts("standard");
     }
 
@@ -942,7 +943,7 @@ public class Shop : MonoBehaviour
             }
 
             /*FREE Reward ads*/
-            if (buttonIdx == 1)
+            /*if (buttonIdx == 1)
             {
                 buttonCoinsPrice[buttonIdx].text = "FREE";
                 continue;
@@ -950,7 +951,7 @@ public class Shop : MonoBehaviour
 
             //print("buttonCoinsPrice[buttonIdx] " + buttonIdx + " OBJECT " + buttonCoinsPrice[buttonIdx]);
             buttonCoinsPrice[buttonIdx].text = 
-                IAPManager.instance.getPriceByHash("coin" + coinsValues[buttonIdx - 2].ToString());
+                IAPManager.instance.getPriceByHash("coin" + coinsValues[buttonIdx - 2].ToString());*/
         }
     }
 
@@ -1344,7 +1345,7 @@ public class Shop : MonoBehaviour
 
         shopHeaderText = GameObject.Find("shopHeaderText").GetComponent<TextMeshProUGUI>();
 
-        playerSkillsDefenseBar = 
+       /* playerSkillsDefenseBar = 
             GameObject.Find("shopSkillsPlayerDefenseSkillsBar").GetComponent<Image>();
         playerSkillsDefenseText =
             GameObject.Find("shopSkillsPlayerSkillsDefenseText").GetComponent<Text>();
@@ -1365,11 +1366,12 @@ public class Shop : MonoBehaviour
 
         skillsModel = GameObject.Find("shopSkillsModel");
         skillsModelHair = GameObject.Find("shopSkillsModelHair");
-        
+        */
+
         admobCanvas = GameObject.Find("admobCanvas");
         admobCanvas.SetActive(false);
 
-        inputCodeValue = GameObject.Find("promoInputField").GetComponent<InputField>();
+        //inputCodeValue = GameObject.Find("promoInputField").GetComponent<InputField>();
 
         for (int i = 1; i <= COINS_MAX_BUTTONS; i++)
         {            
@@ -1377,15 +1379,16 @@ public class Shop : MonoBehaviour
                 GameObject.Find("buttonCoinsPrice" + i.ToString()).GetComponent<Text>();
         }
 
+        /*
         for (int i = 1; i <= DIAMONDS_MAX_BUTTONS; i++)
         {
             //buttonCoinsPrice[i-1] = 
             //    GameObject.Find("buttonCoinsPrice" + i.ToString()).GetComponent<TextMeshProUGUI>();
             buttonDiamondsPrice[i - 1] =
                 GameObject.Find("buttonDiamondsPrice" + i.ToString()).GetComponent<Text>();
-        }
+        }*/
 
-        for (int i = 1; i <= SKILLS_MAX_BUTTONS; i++)
+        /*for (int i = 1; i <= SKILLS_MAX_BUTTONS; i++)
         {
 
             skillsButtonGO[i - 1] =
@@ -1411,7 +1414,7 @@ public class Shop : MonoBehaviour
                  GameObject.Find("playerCardSkillsCountryFlag" + i.ToString()).GetComponent<RawImage>();
             playerCardSkillsDiamondImg[i-1] =
                  GameObject.Find("playerCardSkillsDiamondImg" + i.ToString()).GetComponent<RawImage>(); 
-        }
+        }*/
 
 
         for (int i = 1; i <= MAIN_MENU_MAX_BUTTONS; i++)
@@ -1422,17 +1425,19 @@ public class Shop : MonoBehaviour
                 GameObject.Find("shopMainButtonText" + i.ToString()).GetComponent<TextMeshProUGUI>();
         }
 
-        leagueNameText = 
-            GameObject.Find("shopLeagueNameText").GetComponent<TextMeshProUGUI>();
+        //leagueNameText = 
+        //    GameObject.Find("shopLeagueNameText").GetComponent<TextMeshProUGUI>();
 
-        initBuyPlayerCardReferences();
-        initUnlockedPlayerCardReferences();
+        //initBuyPlayerCardReferences();
+        //initUnlockedPlayerCardReferences();
 
         if (Globals.adsEnable)
         {
             admobGameObject = GameObject.Find("admobAdsGameObject");
             admobAdsScript = admobGameObject.GetComponent<admobAdsScript>();
         }
+
+        notificationCanvas.SetActive(false);
     }
 
     public void teamAFlagPrevPointerDown()
@@ -1505,7 +1510,7 @@ public class Shop : MonoBehaviour
         if (admobAdsScript != null)
             admobAdsScript.hideBanner();
         shopCanvas.SetActive(true);
-        updateTreasure();
+        //updateTreasure();
     }
 
     public void closeShopPanel()
@@ -1517,15 +1522,16 @@ public class Shop : MonoBehaviour
     {
         fillCoinsOffersButton();
 
-        disableFocusApartFrom(0);
+        //disableFocusApartFrom(0);
         if (admobAdsScript != null)
             admobAdsScript.hideBanner();
+
         showShopPanel();
         coinsPanel.SetActive(true);
-        teamSkillsPanel.SetActive(false);
-        promoPanel.SetActive(false);
-        diamondsPanel.SetActive(false);
-        shopHeaderText.text = Languages.getTranslate("Coins");
+        //teamSkillsPanel.SetActive(false);
+        //promoPanel.SetActive(false);
+        //diamondsPanel.SetActive(false);
+        shopHeaderText.text = Languages.getTranslate("Shop");
     }
 
     public void showDiamondsPanel()

@@ -2315,6 +2315,17 @@ namespace LANGUAGE_NS
                 "Nivel falhou. Tente novamente\r\n",
                 "",
              },
+             new string[] {
+                //EN
+                "Shop",
+                //PL
+                "Sklep",
+                //ES
+                "Comercio",
+                //PT
+                "Comprar\r\n",
+                "",
+             },
 
         };        
     }
