@@ -316,6 +316,7 @@ public class setTextures : MonoBehaviour
         {
             if (Globals.levelNumber % 2 == 1)
                 randGround = 0;
+            //bug for now
             else
                 randGround = 1;
         }

@@ -154,8 +154,8 @@ public class rewardsAds : MonoBehaviour
                 {
                     Globals.addCoins(20);
                     Globals.addDiamonds(20);
-                    showNotification(
-                        new PurchaseItem("coinplusdiamonds", 20));
+                    //showNotification(
+                    //    new PurchaseItem("coinplusdiamonds", 20));
                 }
 
                 if (lastRewardAdsEventName.Equals("spinroulette"))
@@ -172,8 +172,8 @@ public class rewardsAds : MonoBehaviour
             }
             else
             {
-                showNotification(
-                  new PurchaseItem("adsfailed"));
+                //showNotification(
+                //  new PurchaseItem("adsfailed"));
             }
     
             admobAdsScript.setAdsFailed(false);
@@ -193,13 +193,13 @@ public class rewardsAds : MonoBehaviour
             rewardAdsNextCanvasButtonGameObj.SetActive(true);
         }
 
-        if (Globals.purchasesQueue.Count > 0 &&
+        /*if (Globals.purchasesQueue.Count > 0 &&
            !shopNotificationCanvas.activeSelf)
         {          
             shopNotificationCanvas.SetActive(true);
             showNotification(
                 Globals.purchasesQueue.Dequeue());
-        }   
+        }   */
     }
   
     private void adInit()
@@ -258,7 +258,7 @@ public class rewardsAds : MonoBehaviour
 
     private bool showPromotion()
     {        
-        string diamond10000Price =
+        /*string diamond10000Price =
             IAPManager.instance.getPriceByHash("diamond10000");
 
         if (string.IsNullOrEmpty(diamond10000Price))
@@ -269,7 +269,7 @@ public class rewardsAds : MonoBehaviour
 
         shopPromotionCanvas.SetActive(true);
         shopPromotionBuyButtonText.text = diamond10000Price;
-
+        */
         return true;
     }
 
@@ -321,7 +321,7 @@ public class rewardsAds : MonoBehaviour
 
     public void onClick10000diamonds()
     {
-        IAPManager.instance.buyDiamond10000();
+        //IAPManager.instance.buyDiamond10000();
     }
 
     /*
@@ -346,6 +346,7 @@ public class rewardsAds : MonoBehaviour
         shopNotificationCanvas.SetActive(false);
     }
 
+    /*
     public void showNotification(PurchaseItem item)
     {
         string type = item.name;
@@ -400,6 +401,7 @@ public class rewardsAds : MonoBehaviour
             Globals.addCoins(2000);
         }
     }
+    */
 
     public void onClickShopPromotionClose()
     {

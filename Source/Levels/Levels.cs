@@ -26,7 +26,12 @@ public class Levels : MonoBehaviour
 
     void Awake()
     {
-        infoCanvas.SetActive(false);
+        admobCanvas.SetActive(false);
+
+        if (Globals.numGameOpened <= 3 && Globals.numMatchesInThisSession <= 2)
+            infoCanvas.SetActive(true);
+        else
+            infoCanvas.SetActive(false);
 
         adInit();
         showInterstitialAd();
@@ -48,7 +53,7 @@ public class Levels : MonoBehaviour
 
    
 
-        updateTreasure();
+        //updateTreasure();
     }
 
     void Start()
@@ -182,6 +187,7 @@ public class Levels : MonoBehaviour
         //Globals.stadiumNumber = 0;
         if (Globals.stadiumNumber < 2)
             Globals.commentatorStr = "YES";
+        //Globals.stadiumNumber = 1;
     }
 
     private void setLevel()
@@ -201,26 +207,26 @@ public class Levels : MonoBehaviour
         Globals.score1 = rand_score;
         Globals.score2 = rand_score;
 
-        int relativeLevelNumber = levelNumber % 10;
+        int relativeLevelNumber = levelNumber % 20;
   
         
-        if (levelNumber < 10)
+        if (levelNumber < 20)
         {
             Globals.level = 1;
         }
-        else if (levelNumber < 20)
+        else if (levelNumber < 40)
         {
             Globals.level = 2;
         }
-        else if (levelNumber < 30)
+        else if (levelNumber < 60)
         {
             Globals.level = 3;
         }
-        else if (levelNumber < 40)
+        else if (levelNumber < 80)
         {
             Globals.level = 4;
         }
-        else if (levelNumber < 50)
+        else if (levelNumber < 100)
         {
             Globals.level = 5;
         }        
@@ -325,7 +331,14 @@ public class Levels : MonoBehaviour
 
         Globals.maxTimeToShotStr = "7";
         //IT's in seconds
-        Globals.levelModeTimeOffset = 30.0f + (levelNumber % 8);
+        if (Globals.level <= 1)
+        {
+            Globals.levelModeTimeOffset = 25.0f + (levelNumber % 8);
+        }
+        else
+        {
+            Globals.levelModeTimeOffset = 30.0f + (levelNumber % 8);
+        }
     }
 
     private void setMainSettings()
@@ -351,13 +364,14 @@ public class Levels : MonoBehaviour
             joystickSideIdx = PlayerPrefs.GetInt("joystickSideIdx");
         }
 
-        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        /*if (Globals.PITCHTYPE.Equals("INDOOR"))
         {
             Globals.stadiumNumber = 1;
-        }
+        }*/
 
-        Globals.graphicsQuality =
-            getGraphicStringByIndex(graphicsSettingsIdx);
+        //Globals.graphicsQuality =
+        //    getGraphicStringByIndex(graphicsSettingsIdx);
+        Globals.graphicsQuality = "STANDARD";
 
         Globals.joystickSide =
             getJoystickSideStringByIndex(joystickSideIdx);
@@ -365,7 +379,7 @@ public class Levels : MonoBehaviour
  
         admobAdsScript.hideBanner();
 
-        if (Globals.PITCHTYPE.Equals("INDOOR"))
+        /*if (Globals.PITCHTYPE.Equals("INDOOR"))
         {
             Globals.stadiumNumber = 1;
             Globals.loadSceneWithBarLoader("gameSceneSportsHall");
@@ -376,7 +390,7 @@ public class Levels : MonoBehaviour
             Globals.stadiumNumber = 2;
             Globals.commentatorStr = "NO";
             Globals.loadSceneWithBarLoader("gameSceneStreet");
-        }
+        }*/
     }
 
     public string getGraphicStringByIndex(int graphicsSettingsIdx)

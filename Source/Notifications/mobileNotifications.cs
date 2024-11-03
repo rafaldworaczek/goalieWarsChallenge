@@ -27,7 +27,7 @@ public class mobileNotifications : MonoBehaviour
         }
         else
         {
-            notification1.Title = "Goalie Wars Football Online";
+            notification1.Title = "Goalie Wars Football Challenge";
         }
 
         notification1.Text = "Ready to win the next match?";
@@ -45,7 +45,7 @@ public class mobileNotifications : MonoBehaviour
             notification2.Title = "Goalie Wars Football Street";
         }
         else
-            notification2.Title = "Goalie Wars Football Online";
+            notification2.Title = "Goalie Wars Football Challenge";
 
         notification2.Text = "Ready to win the next match?";
         notification2.FireTime = System.DateTime.Now.AddDays(1);
@@ -61,7 +61,7 @@ public class mobileNotifications : MonoBehaviour
             notification3.Title = "Goalie Wars Football Street";
         }
         else
-            notification3.Title = "Goalie Wars Football Online";
+            notification3.Title = "Goalie Wars Football Challenge";
 
         notification3.Text = "Ready to win the next match?";
         notification3.FireTime = System.DateTime.Now.AddDays(5);
@@ -76,7 +76,7 @@ public class mobileNotifications : MonoBehaviour
             notification4.Title = "Goalie Wars Football Street";
         }
         else
-            notification4.Title = "Goalie Wars Football Online";
+            notification4.Title = "Goalie Wars Football Challenge";
 
         notification4.Text = "Ready to win the next match?";
         notification4.FireTime = System.DateTime.Now.AddDays(10);
@@ -91,7 +91,7 @@ public class mobileNotifications : MonoBehaviour
             notification5.Title = "Goalie Wars Football Street";
         }
         else
-            notification5.Title = "Goalie Wars Football Online";
+            notification5.Title = "Goalie Wars Football Challenge";
 
         notification5.Text = "Ready to win the next match?";
         notification5.FireTime = System.DateTime.Now.AddDays(20);
@@ -107,7 +107,7 @@ public class mobileNotifications : MonoBehaviour
             notification6.Title = "Goalie Wars Football Street";
         }
         else
-            notification6.Title = "Goalie Wars Football Online";
+            notification6.Title = "Goalie Wars Football Challenge";
 
         notification6.Text = "Ready to win the next match?";
         notification6.FireTime = System.DateTime.Now.AddDays(40);
@@ -122,7 +122,7 @@ public class mobileNotifications : MonoBehaviour
             notification7.Title = "Goalie Wars Football Street";
         }
         else
-            notification7.Title = "Goalie Wars Football Online";
+            notification7.Title = "Goalie Wars Football Challenge";
 
         notification7.Text = "Ready to win the next match?";
         notification7.FireTime = System.DateTime.Now.AddDays(80);

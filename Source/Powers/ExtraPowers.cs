@@ -33,7 +33,7 @@ public class ExtraPowers : MonoBehaviour
     public GameObject shopPanel;
     private GameObject selectionPlrHelperPanel;
     public GameObject shopCanvas;
-    public Shop shopScript;
+    //public Shop shopScript;
     private TextMeshProUGUI infoPanelText;
 
     private Teams orgTeams;
@@ -612,10 +612,10 @@ public class ExtraPowers : MonoBehaviour
                 buyPlayerCardYesButtonText.text =
                     Languages.getTranslate("SHOP");
 
-                buyPlayerCardYesButton.onClick.AddListener(
-                              delegate {
-                                  shopScript.showDiamondsPanel();
-                              });
+                //buyPlayerCardYesButton.onClick.AddListener(
+                //              delegate {
+                //                  shopScript.showDiamondsPanel();
+                //              });
                 /*show shop canvas*/
             } else
             {

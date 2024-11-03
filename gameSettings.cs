@@ -196,7 +196,7 @@ public class gameSettings : MonoBehaviour
     public TextMeshProUGUI tournamentShopCoinDiamondIconText;
     public RawImage tournamentCoinsDiamondMainImg;
     public TextMeshProUGUI tournamentCoinsDiamondMainText;
-    public Shop shopScript;
+    //public Shop shopScript;
     public GameObject lockStadiumPanel;
     private AudioManager audioManager;
 
@@ -238,18 +238,18 @@ public class gameSettings : MonoBehaviour
             //Globals.gameType = "FRIENDLY";
         }
 
-        if (!isMultiplayer)
-        {
-            chooseStadiumCanvas.SetActive(false);
-            chooseStadiumCanvasIndoor.SetActive(false);
-            chooseStadiumCanvasStreet.SetActive(false);
-        }
+    //    if (!isMultiplayer)
+   //     {
+//            chooseStadiumCanvas.SetActive(false);
+//            chooseStadiumCanvasIndoor.SetActive(false);
+//            chooseStadiumCanvasStreet.SetActive(false);
+ //       }
 
         Globals.isGameSettingActive = true;
-        if (!isMultiplayer)
-        {
-            initReferences();
-        }
+        //if (!isMultiplayer)
+        //{
+        //    initReferences();
+        //}
         
         init();        
         init3dModels();
@@ -282,7 +282,7 @@ public class gameSettings : MonoBehaviour
             //print("APIANDROIDVERSION " + apiLevel);
         }
 
-        yesNoMenuPanel.SetActive(false);
+        //yesNoMenuPanel.SetActive(false);
         noInternetCanvas.SetActive(false);
         //internetConnectivity =
         //    GameObject.Find("checkInternetConnection").GetComponent<InternetConnection>();
@@ -296,13 +296,13 @@ public class gameSettings : MonoBehaviour
         
         mainGameSettingsCanvas.SetActive(false);
         setupAllSetttingsToDefault();
-        if (!isMultiplayer)
-            disable3DModels();
+        //if (!isMultiplayer)
+        //    disable3DModels();
 
-        if (!Globals.is_app_paid)
-            showPromotion();
+        //if (!Globals.is_app_paid)
+        //    showPromotion();
 
-        popUpNoCoins.SetActive(false);
+        //popUpNoCoins.SetActive(false);
 
 
         //print("Globals.teamAAttackStrength Start 1 isMultiplayer 1 " + isMultiplayer);
@@ -517,8 +517,8 @@ public class gameSettings : MonoBehaviour
 
         if (!isMultiplayer)
         {
-            initGameSaves();
-            updateTreasuresText();
+            //initGameSaves();
+            //updateTreasuresText();
         }
     }
 
@@ -632,7 +632,7 @@ public class gameSettings : MonoBehaviour
 
     public void setupTeamDefaults()
     {
-        updateTreasuresText();
+        //updateTreasuresText();
 
         if (teamAname == null)
             return;
@@ -1370,6 +1370,7 @@ public class gameSettings : MonoBehaviour
         shopPromotionCanvas.SetActive(false);
     }
 
+    /*
     public void onClickShopSkillsButton()
     {
         shopScript.showTeamsSkillsPanel();
@@ -1383,6 +1384,7 @@ public class gameSettings : MonoBehaviour
             shopScript.showCoinsPanel();
 
     }
+    */
 
     private void updateShopOffer(string leagueName)
     {
@@ -1511,7 +1513,7 @@ public class gameSettings : MonoBehaviour
                 mainMenuCanvas.SetActive(false);
                 friendlyCanvas.SetActive(false);
                 tournamentCanvas.SetActive(false);
-                gameSettingsCanvas.SetActive(true);
+                //gameSettingsCanvas.SetActive(true);
 
                 if ((Globals.numGameOpen <= 1) &&
                     !Globals.isMultiplayer) {
@@ -1604,7 +1606,7 @@ public class gameSettings : MonoBehaviour
                                savedGamesFileName,
                                leagueName,
                                teamName);
-        initGameSaves();
+        //initGameSaves();
         yesNoMenuPanel.SetActive(false);
     }
 
@@ -2196,12 +2198,13 @@ public class gameSettings : MonoBehaviour
     public void GameSettingsPrevCanvas()
     {
         ////showBanner();
-        gameSettingsCanvas.SetActive(false);
-        friendlyCanvas.SetActive(false);
-        tournamentCanvas.SetActive(false);
-        trainingCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        //gameSettingsCanvas.SetActive(false);
+        //friendlyCanvas.SetActive(false);
+        //tournamentCanvas.SetActive(false);
+        //trainingCanvas.SetActive(false);
+        //mainMenuCanvas.SetActive(true);
         saveSettingsToGlobals();
+        mainGameSettingsCanvas.SetActive(false);
     }
 
     public string getGraphicStringByIndex(int graphicsSettingsIdx)
@@ -2576,6 +2579,7 @@ public class gameSettings : MonoBehaviour
 
     private void init3dModels()
     {
+        /*
         if (!isMultiplayer)
         {
             friendlyModelTeamA = GameObject.Find("friendlyTeamAModel");
@@ -2594,6 +2598,7 @@ public class gameSettings : MonoBehaviour
             multiplayerModelHair[0] = GameObject.Find("multiTeamAModelHair");
             multiplayerModelHair[1] = GameObject.Find("multiTeamBModelHair");
         }
+        */
 
         /*graphicsStandard.setPlayerTextures(
             friendlyModelTeamA, friendlyModelTeamAhair, currATeamIdx);
@@ -2602,7 +2607,7 @@ public class gameSettings : MonoBehaviour
                friendlyModelTeamB, friendlyModelTeamBhair, currBTeamIdx);
      
         graphicsStandard.setPlayerTextures(
-             tournamentModelTeamA, tournamentModelTeamAhair, currATeamIdx);*/
+             tournamentModelTeamA, tournamentModelTeamAhair, currATeamIdx);
 
         string playerSkinHairDescA =
                 teamsA.getPlayerDescByIndex(currATeamIdx, 0);
@@ -2641,6 +2646,7 @@ public class gameSettings : MonoBehaviour
                 false,
                 false,
                 teamsA);
+        */
     }
 
     private void setFlagImage(RawImage image, string team)
@@ -2804,12 +2810,12 @@ public class gameSettings : MonoBehaviour
     {
         //showBanner();
 
-        gameSettingsCanvas.SetActive(false);
-        friendlyCanvas.SetActive(false);
-        tournamentCanvas.SetActive(false);
-        trainingCanvas.SetActive(false);
+        //gameSettingsCanvas.SetActive(false);
+        //friendlyCanvas.SetActive(false);
+        //tournamentCanvas.SetActive(false);
+        //trainingCanvas.SetActive(false);
         mainGameSettingsCanvas.SetActive(false);
-        mainMenuCanvas.SetActive(true);
+        //mainMenuCanvas.SetActive(true);
     }
 
     private bool showPromotion()
@@ -2835,17 +2841,17 @@ public class gameSettings : MonoBehaviour
         PlayerPrefs.SetInt("showRemoveAdsPromo", Globals.numGameOpened);
         PlayerPrefs.Save();
 
-        string removeAdsPrice =
-            IAPManager.instance.getPriceByHash("removeAds");
+        //string removeAdsPrice =
+        //    IAPManager.instance.getPriceByHash("removeAds");
 
-        if (string.IsNullOrEmpty(removeAdsPrice))
-        {
-            shopPromotionCanvas.SetActive(false);
-            return false;
-        }
+        //if (string.IsNullOrEmpty(removeAdsPrice))
+        //{
+        //    shopPromotionCanvas.SetActive(false);
+        ///    return false;
+        //}
 
-        shopPromotionCanvas.SetActive(true);
-        shopPromotionBuyButtonText.text = removeAdsPrice;
+        //shopPromotionCanvas.SetActive(true);
+        //shopPromotionBuyButtonText.text = removeAdsPrice;
 
         return true;
     }
@@ -2855,10 +2861,10 @@ public class gameSettings : MonoBehaviour
         stadiumRewardAds.SetActive(true);
 
         stadiumChooseRewardAdsButton.onClick.RemoveAllListeners();
-        stadiumChooseRewardAdsButton.onClick.AddListener(
-                   delegate {
-                       shopScript.watchRewardAdButton(eventAction);
-                   });
+        //stadiumChooseRewardAdsButton.onClick.AddListener(
+        //           delegate {
+        //               shopScript.watchRewardAdButton(eventAction);
+        //           });
         Debug.Log("button click " + eventAction);
     }
 

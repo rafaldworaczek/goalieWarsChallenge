@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Google.Play.AppUpdate;
@@ -71,3 +71,4 @@ public class AndroidUpdate : MonoBehaviour
     }
    
 }
+*/

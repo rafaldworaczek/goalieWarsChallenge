@@ -163,15 +163,15 @@ public class Powers : MonoBehaviour
 
         if (Globals.isLevelMode)
         {
-            if (Globals.levelNumber % 3 == 0 || (((Globals.levelNumber % 10) > 5) && ((Globals.levelNumber % 5) == 0)))
+            if (Globals.levelNumber % 3 == 0 || (((Globals.levelNumber % 20) > 7) && ((Globals.levelNumber % 5) == 0)))
                 powerButtons[0].SetActive(false);
 
-            if (Globals.levelNumber % 6 == 0 || (Globals.levelNumber % 10) > 8 || Globals.levelNumber % 4 == 0)
+            if (Globals.levelNumber % 6 == 0 || (Globals.levelNumber % 20) > 12 || Globals.levelNumber % 4 == 0)
             {
                 powerButtons[1].SetActive(false);
             }
 
-            if (Globals.levelNumber % 9 == 0 || Globals.levelNumber % 4 == 0 || (Globals.levelNumber % 10) > 7)
+            if (Globals.levelNumber % 9 == 0 || Globals.levelNumber % 4 == 0 || (Globals.levelNumber % 15) > 11)
                 powerButtons[2].SetActive(false);
         }
     }

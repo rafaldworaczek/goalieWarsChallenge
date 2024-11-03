@@ -658,7 +658,7 @@ public class controllerRigid : MonoBehaviour
         //rateScreenHeight = Globals.OrignalScreenHeight / (float) (Screen.height);
 
         //print("RESOLUTIONS SETUP WIDTH "
-        //    + Screen.width + "x" + Screen.height);
+        //        + Screen.width + "x" + Screen.height);
 
         setupLevelDependentVariables();
         midTouchPos = new Vector2[MID_MAX_POS];
@@ -7563,6 +7563,8 @@ public class controllerRigid : MonoBehaviour
         if (Globals.stadiumNumber == 2)
             return;
 
+
+        Debug.Log("updateistraingactive " + isTrainingActive);
         //int teamColorChoosen = Globals.stadiumColorTeamA;
         string teamColorChoosen = Globals.stadiumColorTeamA;
         if (teamHostID == 2)
@@ -7658,7 +7660,8 @@ public class controllerRigid : MonoBehaviour
                     {
 
                         if (isBonusActive ||
-                            isTrainingActive)
+                            isTrainingActive ||
+                            Globals.onlyTrainingActive)                            
                         {   
                             allStadiumPeople.SetActive(false);
                             continue;

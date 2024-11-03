@@ -35,7 +35,7 @@ public class CustomizePlayer : MonoBehaviour
     public GameObject shopPanel;
     private GameObject selectionPlrHelperPanel;
 
-    public Shop shopScript;
+    //public Shop shopScript;
     private TextMeshProUGUI infoPanelText;
 
     private int teamId;

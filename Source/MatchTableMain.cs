@@ -336,7 +336,7 @@ public class MatchTableMain : MonoBehaviour
             matchTableInstance.initAudioClip();
         }
 
-        if (Globals.purchasesQueue.Count > 0 &&
+        /*if (Globals.purchasesQueue.Count > 0 &&
             (shopNotificationCanvas != null &&
             !shopNotificationCanvas.activeSelf))
         {
@@ -344,7 +344,7 @@ public class MatchTableMain : MonoBehaviour
             showNotification(
                 Globals.purchasesQueue.Dequeue());
             initPauseCanvas();
-        }
+        }*/
     }
 
     private void prepareGameSettings()
@@ -2935,15 +2935,15 @@ public class MatchTableMain : MonoBehaviour
         if ((PlayerPrefs.HasKey("enlargeGoal_MEDIUM_CREDITS") &&
              enalrgeGoalMediumCreditsNum > 0))
         {
-            Globals.enlargeGoalSize("MEDIUM");
-            Globals.purchasesQueue.Enqueue(new PurchaseItem("enlargegoalsize_medium", "MEDIUM"));
+            //Globals.enlargeGoalSize("MEDIUM");
+            //Globals.purchasesQueue.Enqueue(new PurchaseItem("enlargegoalsize_medium", "MEDIUM"));
             enalrgeGoalMediumCreditsNum--;
             PlayerPrefs.SetInt("enlargeGoal_MEDIUM_CREDITS", enalrgeGoalMediumCreditsNum);
             PlayerPrefs.Save();
         }
         else
         {
-            IAPManager.instance.buyEnlargegoalsizeMedium();
+            //IAPManager.instance.buyEnlargegoalsizeMedium();
         }
 
         shopPanel.SetActive(false);
@@ -2986,7 +2986,7 @@ public class MatchTableMain : MonoBehaviour
         shopNotificationCanvas.SetActive(false);
     }
 
-    public void showNotification(PurchaseItem item)
+    /*public void showNotification(PurchaseItem item)
     {
         string type = item.name;
 
@@ -2994,7 +2994,7 @@ public class MatchTableMain : MonoBehaviour
         {
             shopNotificationCanvas.SetActive(true);
         }
-
+    */
         //{
         //notificationText.text =
         //         "Excellent! Ads disabled!";
@@ -3013,7 +3013,7 @@ public class MatchTableMain : MonoBehaviour
         //     notificationImage.texture =
         //         Resources.Load<Texture2D>("Shop/adsRemovedIcon");
         //}
-    }
+    //}
 
     /*REMOVEIT*/
     private void updateTemporarySettings()

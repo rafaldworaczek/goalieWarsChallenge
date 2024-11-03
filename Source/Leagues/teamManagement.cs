@@ -33,7 +33,7 @@ public class teamManagement : MonoBehaviour
     public GameObject shopPanel;
     private GameObject selectionPlrHelperPanel;
 
-    public Shop shopScript;
+    //public Shop shopScript;
     private TextMeshProUGUI infoPanelText;
 
     private int teamId;
@@ -1334,10 +1334,10 @@ public class teamManagement : MonoBehaviour
                 buyPlayerCardYesButtonText.text = 
                     Languages.getTranslate("SHOP");
 
-                buyPlayerCardYesButton.onClick.AddListener(
+                /*buyPlayerCardYesButton.onClick.AddListener(
                               delegate {
                                   shopScript.showDiamondsPanel();
-                              });
+                              });*/
 
                 /*show shop canvas*/
             } else

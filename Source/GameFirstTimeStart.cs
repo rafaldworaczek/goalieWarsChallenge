@@ -29,7 +29,7 @@ public class GameFirstTimeStart : MonoBehaviour
         }
         else
         {*/
-            namePanel.SetActive(false);        
+            //namePanel.SetActive(false);        
         //}
     }
 

@@ -93,7 +93,7 @@ public class reviewScript : MonoBehaviour
             }
             else
             {
-                Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootball");
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.OSystems.GoalieStrikerFootballChallenge");
             }
         }
         else

@@ -142,7 +142,7 @@ namespace GlobalsNS
 
         /*Match time*/
         public static string matchTime = "";
-        public static string graphicsQuality = "";
+        public static string graphicsQuality = "STANDARD";
 
         public static string powersStr = "";
         public static string maxTimeToShotStr = "";

@@ -169,12 +169,12 @@ public class admobAdsScript : MonoBehaviour
         {
             if (!isAdTestEnable)
             {
-                #if UNITY_ANDROID
-                adUnitId = "ca-app-pub-4281391536440718/9627918321";
-                #elif UNITY_IPHONE
+            #if UNITY_ANDROID
+                adUnitId = "ca-app-pub-4281391536440718/2081723142";
+            #elif UNITY_IPHONE
                     adUnitId = "ca-app-pub-3940256099942544/2934735716";
-                #else
-                    adUnitId = "unexpected_platform";
+            #else
+                adUnitId = "unexpected_platform";
                 #endif
             }
             else
@@ -262,11 +262,11 @@ public class admobAdsScript : MonoBehaviour
             if (!isAdTestEnable)
             {
                 #if UNITY_ANDROID
-                adUnitId = "ca-app-pub-4281391536440718/9627918321";
+                adUnitId = "ca-app-pub-4281391536440718/2081723142";
                 #elif UNITY_IPHONE
                     adUnitId = "ca-app-pub-3940256099942544/2934735716";
                 #else
-                    adUnitId = "unexpected_platform";
+                adUnitId = "unexpected_platform";
                 #endif
             }
             else
@@ -353,7 +353,7 @@ public class admobAdsScript : MonoBehaviour
             if (!isAdTestEnable)
             {
                 #if UNITY_ANDROID
-                adUnitId = "ca-app-pub-4281391536440718/4659512731";
+                adUnitId = "ca-app-pub-4281391536440718/9828351228";
                 #elif UNITY_IPHONE
                 adUnitId = "ca-app-pub-3940256099942544/4411468910";
                 #else
@@ -444,7 +444,7 @@ public class admobAdsScript : MonoBehaviour
             if (!isAdTestEnable)
             {
                 #if UNITY_ANDROID
-                adUnitId = "ca-app-pub-4281391536440718/8670059876";
+                adUnitId = "ca-app-pub-4281391536440718/5982403738";
                 #elif UNITY_IPHONE
                 adUnitId = "ca-app-pub-3940256099942544/1712485313";
                 #else

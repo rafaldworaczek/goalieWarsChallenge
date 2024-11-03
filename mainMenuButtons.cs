@@ -4,9 +4,9 @@ using UnityEngine;
 using GlobalsNS;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-#if UNITY_ANDROID
-using GooglePlayGames;
-#endif
+//#if UNITY_ANDROID
+//using GooglePlayGames;
+//#endif
 using UnityEngine.SocialPlatforms;
 using UnityEngine.Analytics;
 using TMPro;
@@ -91,13 +91,13 @@ public class mainMenuButtons : MonoBehaviour
         }
 
         menuPointsText.text = Globals.coins.ToString();
-        gameSettingsCanvas.SetActive(false);
-        friendlyCanvas.SetActive(false);
-        tournamentCanvas.SetActive(false);
+        //gameSettingsCanvas.SetActive(false);
+        //friendlyCanvas.SetActive(false);
+        //tournamentCanvas.SetActive(false);
         trainingCanvas.SetActive(false);
         mainGameSettingButton.SetActive(false);
-        leaderBoardReportQuestion.SetActive(false);
-        loadGameCanvas.SetActive(false);
+        //leaderBoardReportQuestion.SetActive(false);
+        //loadGameCanvas.SetActive(false);
 
         if (!waitingForAddEvent)
             audioClip.Play();
@@ -174,7 +174,7 @@ public class mainMenuButtons : MonoBehaviour
         Globals.gameType = "FRIENDLY";
         //showBannerAd();
         gameMainCanvas.SetActive(false);
-        leaderBoardReportQuestion.SetActive(false);
+        //leaderBoardReportQuestion.SetActive(false);
         tournamentCanvas.SetActive(false);
         trainingCanvas.SetActive(false);
         mainGameSettingButton.SetActive(false);
@@ -300,6 +300,8 @@ public class mainMenuButtons : MonoBehaviour
         Globals.graphicsQuality =
             gameSettingsScript.getGraphicStringByIndex(graphicsSettingsIdx);
 
+        Globals.graphicsQuality = "STANDARD";
+
         Globals.joystickSide = 
             gameSettingsScript.getJoystickSideStringByIndex(joystickSideIdx);
 
@@ -346,6 +348,7 @@ public class mainMenuButtons : MonoBehaviour
 
         admobAdsScript.hideBanner();
 
+        Globals.graphicsQuality = "STANDARD";
         Globals.loadSceneWithBarLoader("LevelsMenu");
     }
 
@@ -367,6 +370,7 @@ public class mainMenuButtons : MonoBehaviour
         Globals.loadSceneWithBarLoader("multiplayerMenu");
     }
 
+    /*
     public void showLeaderBoardOnClick()
     {
 
@@ -374,11 +378,6 @@ public class mainMenuButtons : MonoBehaviour
             PlayGamesPlatform.Activate();
         #endif
         
-        //if (!PlayerPrefs.HasKey("leaderBoardPermissionsDone"))
-        //{
-        //    leaderBoardReportQuestion.SetActive(true);
-        //    return;
-        //}
 
         showLeaderBoard();
     }
@@ -420,7 +419,6 @@ public class mainMenuButtons : MonoBehaviour
         }
         #endif
     }
-
     IEnumerator showLeaderBoardCoroutine()
     {
         #if UNITY_ANDROID
@@ -456,16 +454,17 @@ public class mainMenuButtons : MonoBehaviour
         leaderBoardReportQuestion.SetActive(false);
         showLeaderBoard();
     } 
+    */
 
     public void mainGameSettingsButton()
     {
         //showBannerAd();
-        gameSettingsCanvas.SetActive(false);
-        friendlyCanvas.SetActive(false);
-        tournamentCanvas.SetActive(false);
-        trainingCanvas.SetActive(false);
-        gameMainCanvas.SetActive(false);
-        leaderBoardReportQuestion.SetActive(false);
+        //gameSettingsCanvas.SetActive(false);
+        //friendlyCanvas.SetActive(false);
+        //tournamentCanvas.SetActive(false);
+        //trainingCanvas.SetActive(false);
+        //gameMainCanvas.SetActive(false);
+        //leaderBoardReportQuestion.SetActive(false);
         mainGameSettingButton.SetActive(true);
     }
 

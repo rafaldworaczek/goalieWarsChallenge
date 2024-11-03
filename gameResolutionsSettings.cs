@@ -17,16 +17,18 @@ public class gameResolutionsSettings : MonoBehaviour
     {
         int nativeWidth = Globals.originalScreenWidth;
         int nativeHeight = Globals.orignalScreenHeight;
+        Globals.graphicsQuality = "STANDARD";
+        //Debug.Log("##quality settings " + Globals.graphicsQuality);
 
         if (!Globals.loaderBarSceneName.Equals("gameScene") &&
             !SceneManager.GetActiveScene().name.Equals("multiplayerMenu"))
             return;
 
-        /*print("nativeWidth " + nativeWidth + " nativeHeight "
+        print("nativeWidth " + nativeWidth + " nativeHeight "
             + nativeHeight + " Globals.graphicsQuality " + Globals.graphicsQuality 
             + Globals.originalScreenWidth 
             + " Globals.orignalScreenHeight " 
-            + Globals.orignalScreenHeight);*/
+            + Globals.orignalScreenHeight);
 
         float pixels = (float) nativeWidth * (float) nativeHeight;
         Vector2 newRes = new Vector2((float) nativeWidth, (float) nativeHeight);
@@ -41,6 +43,11 @@ public class gameResolutionsSettings : MonoBehaviour
 
         float maxRes = STANDARD_RES_MAX;
         //QualitySettings.SetQualityLevel(5, true);
+        //if (Globals.graphicsQuality.Equals("STANDARD"))
+        //{
+        //    QualitySettings.SetQualityLevel(3, true);
+        //}
+        //else 
         if (Globals.graphicsQuality.Equals("LOW"))
         {
             maxRes = LOW_RES_MAX;
