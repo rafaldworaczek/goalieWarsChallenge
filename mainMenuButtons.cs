@@ -308,6 +308,7 @@ public class mainMenuButtons : MonoBehaviour
         Globals.isTrainingActive = true;
         Globals.onlyTrainingActive = true;
         Globals.wonFinal = false;
+        Globals.stadiumNumber = 0;
 
         admobAdsScript.hideBanner();
 
